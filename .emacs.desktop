@@ -1,0 +1,30 @@
+;; -*- mode: emacs-lisp; coding: emacs-mule; -*-
+;; --------------------------------------------------------------------------
+;; Desktop File for Emacs
+;; --------------------------------------------------------------------------
+;; Created Sat Oct 10 00:18:15 2015
+;; Desktop file format version 206
+;; Emacs version 24.5.1
+
+;; Global section:
+(setq desktop-saved-frameset [frameset 1 (22040 37255 830459 0) (desktop . "206") "ygilad@ygilad.local" nil nil ((((font-backend mac-ct ns) (fontsize . 0) (font . "-*-Menlo-normal-normal-normal-*-12-*-*-*-m-0-iso10646-1") (border-width . 0) (internal-border-width . 2) (vertical-scroll-bars . right) (foreground-color . "Black") (background-color . "White") (line-spacing) (left-fringe . 10) (right-fringe . 11) (menu-bar-lines . 1) (tool-bar-lines . 1) (title) (icon-type) (auto-raise) (auto-lower) (cursor-type . box) (scroll-bar-width . 15) (alpha) (fullscreen) (horizontal-scroll-bars . t) (display-type . color) (background-mode . light) (cursor-color . "black") (environment) (frameset--id . "8F96-DF41-B4DB-7B18") (frameset--mini t . t) (modeline . t) (minibuffer . t) (unsplittable) (right-divider-width . 0) (bottom-divider-width . 0) (icon-name) (visibility . t) (display . "ygilad.local") (explicit-name) (tool-bar-position . top) (height . 47) (width . 120) (left . 0) (top . 27)) ((min-height . 4) (min-width . 10) (min-height-ignore . 2) (min-width-ignore . 8) (min-height-safe . 1) (min-width-safe . 2) (min-pixel-height . 56) (min-pixel-width . 70) (min-pixel-height-ignore . 28) (min-pixel-width-ignore . 56) (min-pixel-height-safe . 14) (min-pixel-width-safe . 14)) leaf (pixel-width . 876) (pixel-height . 656) (total-width . 125) (total-height . 46) (normal-height . 1.0) (normal-width . 1.0) (buffer "post - on touch typing and guessing a failure.md" (selected . t) (hscroll . 0) (fringes 10 11 nil) (margins nil) (scroll-bars 15 3 t nil) (vscroll . 0) (dedicated) (point . 3167) (start . 1474))))])
+(setq desktop-missing-file-warning nil)
+(setq tags-file-name nil)
+(setq tags-table-list nil)
+(setq search-ring nil)
+(setq regexp-search-ring nil)
+(setq register-alist nil)
+(setq file-name-history '("~/.emacs.old" "~/.emacs" "/Users/ygilad/.emacs" "~/.emacs.d/.emacs" "/Users/ygilad/.emacs" "~/.emacs.d/" "/Users/ygilad/Dropbox/Notes/post - on touch typing and guessing a failure.md" "/Users/ygilad/.emacs"))
+
+;; Buffer section -- buffers listed in same order as in buffer list:
+(desktop-create-buffer 206
+  "/Users/ygilad/Dropbox/Notes/post - on touch typing and guessing a failure.md"
+  "post - on touch typing and guessing a failure.md"
+  'markdown-mode
+  '(visual-line-mode)
+  3167
+  '(nil nil)
+  nil
+  nil
+  '((tab-width . 4) (buffer-file-coding-system . utf-8-unix) (truncate-lines)))
+
