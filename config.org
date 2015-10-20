@@ -34,13 +34,6 @@ Not sure what it is doing, but had it in the original init file, and don't think
 #+END_SRC
 
 * Paths
-** Settings
-
-#+BEGIN_SRC emacs-lisp
-;; path where settings files are kept
-(add-to-list 'load-path "~/.emacs.d/settings/")
-#+END_SRC
-
 ** Plugins
 
 #+BEGIN_SRC emacs-lisp
@@ -57,11 +50,12 @@ Not sure what it is doing, but had it in the original init file, and don't think
 (setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
 (setq exec-path (append exec-path '("/usr/local/bin")))
 #+END_SRC
-
+   
 * Packages
 ** El-get
 #+BEGIN_SRC emacs-lisp
-(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
+;;; Load el-get to path, otherwise use-package won't work
+(add-to-list 'load-path "~/.emacs.d/el-get/el-get/")
 
 (unless (require 'el-get nil 'noerror)
   (with-current-buffer

@@ -24,9 +24,6 @@
 ;; fontify code in code blocks
 (setq org-src-fontify-natively t)
 
-;; path where settings files are kept
-(add-to-list 'load-path "~/.emacs.d/settings/")
-
 ;; path to where plugins are kept
 ;;(setq plugin-path "~/.emacs.d/lisp/")
 (let ((default-directory "~/.emacs.d/lisp/"))
@@ -36,7 +33,8 @@
 (setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
 (setq exec-path (append exec-path '("/usr/local/bin")))
 
-(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
+;;; Load el-get to path, otherwise use-package won't work
+(add-to-list 'load-path "~/.emacs.d/el-get/el-get/")
 
 (unless (require 'el-get nil 'noerror)
   (with-current-buffer

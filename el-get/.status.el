@@ -9,6 +9,8 @@
                '("compile-apel" "install-apel"))
               :load-path
               ("site-lisp/apel" "site-lisp/emu")))
+ (dash status "installed" recipe
+       (:name dash :description "A modern list api for Emacs. No 'cl required." :type github :pkgname "magnars/dash.el"))
  (define-word status "installed" recipe
    (:name define-word :website "https://github.com/abo-abo/define-word" :description " Display the definition of word at point in Emacs." :type github :pkgname "abo-abo/define-word"))
  (dictionary-app status "installed" recipe
@@ -70,6 +72,21 @@
                    (backup-inhibited t))
               (update-directory-autoloads default-directory)
               nil)))
+(magit status "installed" recipe
+(:name magit :website "https://github.com/magit/magit#readme" :description "It's Magit! An Emacs mode for Git." :type github :pkgname "magit/magit" :branch "master" :minimum-emacs-version "24.4" :depends
+(dash)
+:provide
+(with-editor)
+:info "Documentation" :load-path "lisp/" :compile "lisp/" :build
+`(("make" ,(format "EMACSBIN=%s" el-get-emacs)
+"docs")
+("touch" "lisp/magit-autoloads.el"))
+:build/berkeley-unix
+`(("gmake" ,(format "EMACSBIN=%s" el-get-emacs)
+"docs")
+("touch" "lisp/magit-autoloads.el"))
+:build/windows-nt
+(with-temp-file "lisp/magit-autoloads.el" nil)))
 (merriam status "installed" recipe
 (:name merriam :auto-generated t :type emacswiki :description "Look up a word in WWW Merriam-Webster dictionary" :website "https://raw.github.com/emacsmirror/emacswiki.org/master/merriam.el"))
 (semi status "installed" recipe

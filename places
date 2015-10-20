@@ -1,22 +1,26 @@
 ;;; -*- coding: utf-8 -*-
-(("/Users/ygilad/.emacs.d/el-get/"
-  (dired-filename . "/Users/ygilad/.emacs.d/el-get/el-get"))
- ("/Users/ygilad/.emacs.d/el-get/el-get/"
-  (dired-filename . "/Users/ygilad/.emacs.d/el-get/el-get/cleanup-whitespace.sh"))
- ("/Users/ygilad/.emacs.d/el-get/use-package/"
-  (dired-filename . "/Users/ygilad/.emacs.d/el-get/use-package/use-package.el"))
- ("/Users/ygilad/Dropbox/Notes/sphere - email to mobilepossie.org" . 953)
+(("/Users/ygilad/Dropbox/Notes/sphere - email to mobilepossie.org" . 953)
  ("/Users/ygilad/Dropbox/Notes/sphere - product offsite.org" . 1681)
  ("/Users/ygilad/Dropbox/Notes/sphere - design checking with Savitha.org" . 47)
  ("/Users/ygilad/Dropbox/Notes/todos/todos.org" . 10)
  ("/Users/ygilad/Dropbox/Notes/post - why responsive design important.md" . 669)
- ("/Users/ygilad/.emacs.d/config.org" . 25)
  ("/Users/ygilad/Dropbox/Notes/emacs.org" . 1537)
  ("/Users/ygilad/Dropbox/Notes/amazon.org" . 14401)
  ("/Users/ygilad/Dropbox/Notes/sphere - sync with Roy.md" . 638)
+ ("/Users/ygilad/Dropbox/Notes/post - is_wasd_available.md" . 579)
+ ("/Users/ygilad/.emacs.d/config.org" . 1833)
+ ("/Users/ygilad/.emacs.d/init.el" . 126)
+ ("/Users/ygilad/dev/python-scripts/.gitignore" . 10)
+ ("/Users/ygilad/.emacs.d/el-get/.loaddefs.el" . 40770)
+ ("/Users/ygilad/.emacs.d/init.el.rej" . 1498)
+ ("/Users/ygilad/.emacs.d/auto-save-list/.saves-9200-ygilad.local~" . 45)
+ ("/Users/ygilad/.emacs.d/.gitignore" . 20)
+ ("/Users/ygilad/.emacs.d/el-get/"
+  (dired-filename . "/Users/ygilad/.emacs.d/el-get/el-get"))
+ ("/Users/ygilad/.emacs.d/el-get/el-get/"
+  (dired-filename . "/Users/ygilad/.emacs.d/el-get/el-get/cleanup-whitespace.sh"))
  ("/Users/ygilad/Dropbox/Apps/MobileOrg/mobileorg.org" . 2)
  ("/Users/ygilad/dev/python-scripts/wasd-green-instock.py" . 358)
- ("/Users/ygilad/.emacs.d/el-get/.loaddefs.el" . 40762)
  ("/Users/ygilad/.emacs.d/"
   (dired-filename . "/Users/ygilad/.emacs.d/init.el"))
  ("/Users/ygilad/.emacs.d/el-get/dictionary-app/"
@@ -34,7 +38,6 @@
   (dired-filename . "/Users/ygilad/.emacs.d/settings/el-get-settings.el"))
  ("/Users/ygilad/.emacs.d/elpa/org-mime-20120112/org-mime-autoloads.el" . 939)
  ("/Users/ygilad/Dropbox/Notes/morning pages.txt" . 4007)
- ("/Users/ygilad/.emacs.d/init.el.rej" . 1080)
  ("/Users/ygilad/Dropbox/Notes/sphere - new placement.odt" . 601)
  ("/Users/ygilad/Dropbox/Notes/todos/todos.org_archive" . 363)
  ("/Users/ygilad/Dropbox/Notes/sphere - demo meeting.md" . 443)
