@@ -1,6 +1,7 @@
 .DS_Store
-backups/
-auto-save-list/
 .emacs.desktop
-.emacs.desktop.*
 .gitignore~
+backups/
+auto-save-list/**
+el-get/**
+lisp/**
