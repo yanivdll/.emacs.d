@@ -1,4 +1,3 @@
-
 * Custom configutation
 ** Custom set variables
 #+BEGIN_SRC emacs-lisp
@@ -145,12 +144,27 @@ Not sure what it is doing, but had it in the original init file, and don't think
 
 #+BEGIN_SRC emacs-lisp
 ;; Email
-(autoload 'wl "wl" "Wanderlust" t)
+; (autoload 'wl "wl" "Wanderlust" t)
 #+END_SRC
 * Themes
 ** Disable all other themes before enabling a new one. 
 This should help avoide unwanted inheritance between different themes, and the unexpected results of that.
 #+BEGIN_SRC emacs-lisp
+;;; Disable all themes before loading a new one
 (defadvice load-theme (before theme-dont-propagate activate)
  (mapcar #'disable-theme custom-enabled-themes))
 #+END_SRC
+* Temp
+** Evil
+*** Package loading
+#+BEGIN_SRC emacs-lisp
+;; Evil mode
+
+(use-package evil
+;:ensure t  ;I commented this out because it kept downloading it from elpa, where there is an old version
+:config 
+(evil-mode 1)
+)
+#+END_SRC
+
+*** Key bindings

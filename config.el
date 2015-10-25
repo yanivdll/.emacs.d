@@ -101,7 +101,20 @@
 (setq org-default-notes-file "~/Dropbox/Notes/inbox.org")
 
 ;; Email
-(autoload 'wl "wl" "Wanderlust" t)
+; (autoload 'wl "wl" "Wanderlust" t)
 
+;;; Disable all themes before loading a new one
 (defadvice load-theme (before theme-dont-propagate activate)
  (mapcar #'disable-theme custom-enabled-themes))
+
+;; Evil mode
+
+(use-package evil
+;:ensure t
+:config 
+(evil-mode 1)
+)
+
+;; this works, just tested. My evil is 1.0-dev from github.
+ ;(global-set-key (kbd "M-x") 'smex)
+ ;(define-key evil-insert-state-map (kbd "M-x") 'execute-extended-command)
