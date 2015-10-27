@@ -1,10 +1,14 @@
 ;;; -*- coding: utf-8 -*-
-(("/Users/ygilad/Downloads/advanced_search" . 376)
- ("/Users/ygilad/.emacs.d/config.org" . 5244)
+(("/Users/ygilad/dropbox/Notes/"
+  (dired-filename . "/Users/ygilad/dropbox/Notes/post - my automation workflow.md"))
+ ("/Users/ygilad/Dropbox/Notes/post - Building Blocks.md" . 4089)
+ ("/Users/ygilad/Dropbox/Notes/todos/todos.org" . 4467)
+ ("/Users/ygilad/Dropbox/Notes/emacs.org" . 1015)
+ ("/Users/ygilad/.emacs.d/config.org" . 5555)
+ ("/Users/ygilad/Dropbox/Notes/morning pages.txt" . 3117)
  ("/Users/ygilad/.emacs.d/init.el" . 1229)
+ ("/Users/ygilad/Downloads/advanced_search" . 376)
  ("/Users/ygilad/[t]" . 376)
- ("/Users/ygilad/Dropbox/Notes/todos/todos.org" . 3158)
- ("/Users/ygilad/Dropbox/Notes/emacs.org" . 7444)
  ("/Users/ygilad/Dropbox/Notes/amazon.org" . 18732)
  ("/Users/ygilad/Dropbox/Notes/sphere - design checking with Savitha.org" . 478)
  ("/Users/ygilad/Dropbox/Notes/post - why responsive design important.md" . 41)
@@ -17,7 +21,6 @@
  ("/Users/ygilad/Dropbox/Notes/sphere - email to mobilepossie.org" . 952)
  ("/Users/ygilad/.emacs.d/"
   (dired-filename . "/Users/ygilad/.emacs.d/config.org"))
- ("/Users/ygilad/Dropbox/Notes/morning pages.txt" . 2180)
  ("/Users/ygilad/.emacs.d/config.el" . 4106)
  ("/Users/ygilad/.emacs.d/el-get/"
   (dired-filename . "/Users/ygilad/.emacs.d/el-get/.."))

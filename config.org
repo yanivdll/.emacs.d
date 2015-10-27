@@ -157,6 +157,7 @@ This should help avoide unwanted inheritance between different themes, and the u
 * Temp
 ** Evil
 *** Package loading
+
 #+BEGIN_SRC emacs-lisp
 ;; Evil mode
 
@@ -168,3 +169,6 @@ This should help avoide unwanted inheritance between different themes, and the u
 #+END_SRC
 
 *** Key bindings
+At the moment I have no keybinding, though there is an article that I follow, which recommend several keybindings that I might try.
+
+

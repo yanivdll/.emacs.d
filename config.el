@@ -110,11 +110,7 @@
 ;; Evil mode
 
 (use-package evil
-;:ensure t
+;:ensure t  ;I commented this out because it kept downloading it from elpa, where there is an old version
 :config 
 (evil-mode 1)
 )
-
-;; this works, just tested. My evil is 1.0-dev from github.
- ;(global-set-key (kbd "M-x") 'smex)
- ;(define-key evil-insert-state-map (kbd "M-x") 'execute-extended-command)

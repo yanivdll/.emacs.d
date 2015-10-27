@@ -12,15 +12,15 @@
  ("/Users/ygilad/Dropbox/" . "Notes/")
  ("/Users/ygilad/.emacs.d/elpa/" . "better-defaults-0.1.2/")
  ("/Users/ygilad/.emacs.d/" . "el-get/")
- ("/Users/ygilad/" . ".emacs.d/")
+ ("/Users/ygilad/" . "Dropbox/")
 )
 
 ;; ----- ido-work-directory-list -----
 (
- "/Users/ygilad/.emacs.d/"
  "/Users/ygilad/Dropbox/Notes/"
- "/Users/ygilad/"
  "/Users/ygilad/Dropbox/Notes/todos/"
+ "/Users/ygilad/.emacs.d/"
+ "/Users/ygilad/"
  "/Users/ygilad/.emacs.d/settings/"
  "/Users/ygilad/dev/python-scripts/"
  "/Users/ygilad/.emacs.d/el-get/"
@@ -35,27 +35,27 @@
 
 ;; ----- ido-work-file-list -----
 (
+ "emacs.org"
+ "todos.org"
+ "morning pages.txt"
+ "post - Building Blocks.md"
  "config.org"
  "init.el"
- "morning pages.txt"
  "[t]"
  "config.el"
  "sphere - design checking with Savitha.org"
  "init.el.orig"
- ".gitignore"
- "todos.org"
- "init.el.rej"
 )
 
 ;; ----- ido-dir-file-cache -----
 (
+ ("/Users/ygilad/Dropbox/Notes/todos/" (22062 15979 0 0) "tp_todos.taskpaper" "tp_Roy.taskpaper" "tp_oAuth_project.ft" "tp_Ido.taskpaper" "tp_dads_60th_bday.taskpaper" "todos.org_archive" "todos.org" "todos.html" "inbox.txt" ".#todos.org" "#tp_todos.taskpaper#" "#todos.org#" "../" "./")
+
+ ("/Users/ygilad/Dropbox/Notes/" (22062 5287 0 0) "writing - bryan park August 27, 2015.md" "touch typing - test.md" "todos/" "this is a test of a note .md" "The Editor's Eye - Gotham Class.md" "test.html" "sphere - video product.md" "sphere - sync with Roy.md" "sphere - spect for organic recommendations.md" "sphere - spec for orb news.md" "sphere - selfserve standups.md" "sphere - reporting api.md" "sphere - product offsite.org" "sphere - product offsite.html" "sphere - organic recommendations.md" "sphere - opera account.md" "sphere - new placement.odt" "sphere - msn bing kpis.md" "sphere - meeting with Shay (security).md" "sphere - meeting with Ido .md" "sphere - meeting with Amir.md" "Sphere - Maxthon meeting.md" "sphere - marquee project.md" "sphere - feedback from Christina about MSN.md" "sphere - FAQ.md" "sphere - email to mobilepossie.org" "sphere - developer site overview.md" "sphere - design checking with Savitha.org" "sphere - demo meeting.md" "sphere - create an account manually.md" "sphere - bbm channel.md" "sphere - abc au.md" "sphere - a call with CNN.md" "sohere - email template for new partners.md" "Shuli - cornell tech.md" "Preschool of the art - schedule.md" "post - you worth less than you think.md" "post - why responsive design important.md" "post - why I decided to move away from Evernote.md" "post - why do i blog.md" "post - ux in google docs.md" "post - UX in culture.md" "post - think retrospect to take your decisions today.txt" "post - stitch pdf files.md" "post - sphere api - getting ready to launch.txt" "post - quantifing trust.md" "post - product spec.md" "post - preschool and product vision.txt" "post - on vertigo and personalization.md" "post - on touch typing and guessing a failure.md~" "post - on touch typing and guessing a failure.md" "post - on retrospective thinking - act 3.md" "post - on products and fashion.txt" "post - on actions and effects.md" "post - Noam and the Banana.txt" "post - my writing workflow.md" "post - my automation workflow.md" "post - mvp.md" "post - Listening vs. Observing.md" "post - KPIs.md" "post - is_wasd_available.md" "post - implicit leadership.txt" "post - how did I create the pelican blog.txt" "post - feature owner.md" "post - don't become part of the proble.md" "post - Building Blocks.md" "post - ad blockers.txt" "post - a thought about writing.txt" "post - a python script for editing automation.md~" "post - a python script for editing automation.md" "post - a note on prioritization-1.txt" "post -  when 2 weeks are faster than 2 hours.md" "Notes & Settings" "my performance review.md" "morning pages.txt~" "morning pages.txt" "meeting - Edmund.md" "log - outbrain vpn change.md" "Linkin_Logs.txt" "LinkedIn Speaker Series- Fred Kofman.md" "link-link_users_ygilad_dev_sphere_sphere-documentation_compliance-tests.md" "link-link_users_ygilad_dev_documentation_readme.md" "link-link_users_ygilad_dev_documentation_faq.md" "landslite-test.md" "Google app psw.md" "flagged.org" "emacs.org_archive" "emacs.org" "emacs.el" "emacs - questions.taskpaper~" "code - working with hazel.md" "code - copyWipDocs.py.md" "code - boto and s3.md" "checklists/" "blog writing class.org" "archive/" "amazon.org" ".DS_Store" ".0278596-463947347-49" ".0278596-463715668-48" ".0278596-463715602-46" ".0278596-463715590-45" ".0278596-463715574-44" ".0278596-463715559-43" ".#post - Building Blocks.md" "#ste#" "#sphere - sync with Roy.md#" "#sphere - reporting api.md#" "#post - Building Blocks.md#" "#post - a python script for editing automation.md#" "#emacs.org#" "../" "./")
+
  ("/Users/ygilad/.emacs.d/" (22060 52823 0 0) "url/" "places" "lisp/" "init.el.rej" "init.el.orig" "init.el" "ido.last~" "ido.last" "games/" "elpa/" "el-get/" "config.org" "config.el" "backups/" "auto-save-list/" ".org-id-locations" ".gitignore" ".git/" ".DS_Store" "../" "./")
 
  ("/Users/ygilad/" (22060 52586 0 0) "tmp/" "this is sa " "test]" "test/" "Public/" "post" "Pictures/" "News/" "Music/" "Movies/" "Mail/" "Library/" "Dropbox/" "Downloads/" "Documents/" "dev/" "Desktop/" "Box Sync/" "Applications/" "[this is a test.org]" "[t]" ".vue_2/" ".viminfo" ".Trash/" ".ssh/" ".python_history" ".profile" ".npm/" ".node-gyp/" ".newsrc-dribble" ".netrc" ".nchsoftware/" ".muttrc.save.1" ".muttrc.save" ".muttrc" ".mutt/" ".local/" ".idlerc/" ".heroku/" ".gitconfig" ".gem/" ".ganttproject" ".emacs.d/" ".elmo/" ".DS_Store" ".dropbox/" ".cups/" ".config/" ".CFUserTextEncoding" ".cache/" ".boto" ".bash_sessions/" ".bash_profile.pysave" ".bash_profile" ".bash_history" ".aws/" ".aspell.en.pws" ".aspell.en.prepl" "#tutorial#" "../" "./")
-
- ("/Users/ygilad/Dropbox/Notes/" (22060 26307 0 0) "writing - bryan park August 27, 2015.md" "touch typing - test.md" "todos/" "this is a test of a note .md" "The Editor's Eye - Gotham Class.md" "test.html" "sphere - video product.md" "sphere - sync with Roy.md" "sphere - spect for organic recommendations.md" "sphere - spec for orb news.md" "sphere - selfserve standups.md" "sphere - reporting api.md" "sphere - product offsite.org" "sphere - product offsite.html" "sphere - organic recommendations.md" "sphere - opera account.md" "sphere - new placement.odt" "sphere - msn bing kpis.md" "sphere - meeting with Shay (security).md" "sphere - meeting with Ido .md" "sphere - meeting with Amir.md" "Sphere - Maxthon meeting.md" "sphere - marquee project.md" "sphere - feedback from Christina about MSN.md" "sphere - FAQ.md" "sphere - email to mobilepossie.org" "sphere - developer site overview.md" "sphere - design checking with Savitha.org" "sphere - demo meeting.md" "sphere - create an account manually.md" "sphere - bbm channel.md" "sphere - abc au.md" "sphere - a call with CNN.md" "sohere - email template for new partners.md" "Shuli - cornell tech.md" "Preschool of the art - schedule.md" "post - you worth less than you think.md" "post - why responsive design important.md" "post - why I decided to move away from Evernote.md" "post - why do i blog.md" "post - ux in google docs.md" "post - UX in culture.md" "post - think retrospect to take your decisions today.txt" "post - stitch pdf files.md" "post - sphere api - getting ready to launch.txt" "post - quantifing trust.md" "post - product spec.md" "post - preschool and product vision.txt" "post - on vertigo and personalization.md" "post - on touch typing and guessing a failure.md~" "post - on touch typing and guessing a failure.md" "post - on retrospective thinking - act 3.md" "post - on products and fashion.txt" "post - on actions and effects.md" "post - Noam and the Banana.txt" "post - my writing workflow.md" "post - my automation workflow.md" "post - mvp.md" "post - Listening vs. Observing.md" "post - KPIs.md" "post - is_wasd_available.md" "post - implicit leadership.txt" "post - how did I create the pelican blog.txt" "post - feature owner.md" "post - don't become part of the proble.md" "post - Building Blocks.md" "post - ad blockers.txt" "post - a thought about writing.txt" "post - a python script for editing automation.md~" "post - a python script for editing automation.md" "post - a note on prioritization-1.txt" "post -  when 2 weeks are faster than 2 hours.md" "Notes & Settings" "my performance review.md" "morning pages.txt~" "morning pages.txt" "meeting - Edmund.md" "log - outbrain vpn change.md" "Linkin_Logs.txt" "LinkedIn Speaker Series- Fred Kofman.md" "link-link_users_ygilad_dev_sphere_sphere-documentation_compliance-tests.md" "link-link_users_ygilad_dev_documentation_readme.md" "link-link_users_ygilad_dev_documentation_faq.md" "landslite-test.md" "Google app psw.md" "flagged.org" "emacs.org_archive" "emacs.org" "emacs.el" "emacs - questions.taskpaper~" "Computer for Shlomo.md" "code - working with hazel.md" "code - copyWipDocs.py.md" "code - boto and s3.md" "checklists/" "blog writing class.org" "archive/" "amazon.org" "amazon AWS.md" ".DS_Store" ".0278596-463947347-49" ".0278596-463715668-48" ".0278596-463715602-46" ".0278596-463715590-45" ".0278596-463715574-44" ".0278596-463715559-43" "#ste#" "#sphere - sync with Roy.md#" "#sphere - reporting api.md#" "#post - a python script for editing automation.md#" "#emacs.org#" "../" "./")
-
- ("/Users/ygilad/Dropbox/Notes/todos/" (22057 29477 0 0) "tp_todos.taskpaper" "tp_Roy.taskpaper" "tp_oAuth_project.ft" "tp_Ido.taskpaper" "tp_dads_60th_bday.taskpaper" "todos.org_archive" "todos.org" "todos.html" "inbox.txt" "#tp_todos.taskpaper#" "../" "./")
 
  ("/Users/ygilad/Dropbox/" (22057 18073 0 0) "working directory/" "Scans/" "Reference/" "Public/" "Professional Dev/" "Productivity/" "Official Documentation/" "Notes/" "Me/" "Icon
 " "Finance/" "Family/" "Education/" "Camera Uploads/" "Archive/" "Apps/" ".ws.agile.1Password.settings" ".DS_Store" ".dropbox.cache/" ".dropbox" "#.DS_Store#" "../" "./")
