@@ -70,6 +70,35 @@ Not sure what it is doing, but had it in the original init file, and don't think
 (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
 (el-get 'sync)
 #+END_SRC
+** Deft
+*** Reference
+http://jblevins.org/projects/deft/
+
+*** Package loading
+ 
+#+BEGIN_SRC emacs-lisp
+;; Deft (this is an nvAlt like plugin)
+
+(use-package deft
+;:ensure t
+:init
+:config
+(setq deft-extensions '("org" "txt" "text" "md" "markdown"))
+(setq deft-directory "~/Dropbox/Notes")
+(setq deft-archive-directory "~/Dropbox/Notes/archive") 
+(setq deft-text-mode 'org-mode)
+(setq deft-use-filename-as-title t)
+(setq deft-recursive t)  ;this will search also within sub-directories
+)
+#+END_SRC
+*** Keybindings
+
+#+BEGIN_SRC emacs-lisp
+
+(global-set-key [f8] 'deft); open Deft with F8
+
+#+END_SRC
+
 ** Helm
 
 #+BEGIN_SRC emacs-lisp
@@ -195,7 +224,7 @@ Need to tell babel which languages it should recognize
 (define-key evil-visual-state-map (kbd "$") 'evil-end-of-visual-line)
 (define-key evil-visual-state-map (kbd "0") 'evil-beginning-of-visual-line)
 #+END_SRC
-
+    
 * Themes
 ** Disable all other themes before enabling a new one. 
 This should help avoide unwanted inheritance between different themes, and the unexpected results of that.
@@ -205,31 +234,3 @@ This should help avoide unwanted inheritance between different themes, and the u
  (mapcar #'disable-theme custom-enabled-themes))
 #+END_SRC
 * Temp
-** Deft
-*** Reference
-http://jblevins.org/projects/deft/
-
-*** Package loading
- 
-#+BEGIN_SRC emacs-lisp
-;; Deft (this is an nvAlt like plugin)
-
-(use-package deft
-;:ensure t
-:init
-:config
-(setq deft-extensions '("org" "txt" "text" "md" "markdown"))
-(setq deft-directory "~/Dropbox/Notes")
-(setq deft-archive-directory "~/Dropbox/Notes/archive") 
-(setq deft-text-mode 'org-mode)
-(setq deft-use-filename-as-title t)
-(setq deft-recursive t)  ;this will search also within sub-directories
-)
-#+END_SRC
-*** Keybindings
-
-#+BEGIN_SRC emacs-lisp
-
-(global-set-key [f8] 'deft); open Deft with F8
-
-#+END_SRC

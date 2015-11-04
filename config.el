@@ -49,6 +49,22 @@
 (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
 (el-get 'sync)
 
+;; Deft (this is an nvAlt like plugin)
+
+(use-package deft
+;:ensure t
+:init
+:config
+(setq deft-extensions '("org" "txt" "text" "md" "markdown"))
+(setq deft-directory "~/Dropbox/Notes")
+(setq deft-archive-directory "~/Dropbox/Notes/archive") 
+(setq deft-text-mode 'org-mode)
+(setq deft-use-filename-as-title t)
+(setq deft-recursive t)  ;this will search also within sub-directories
+)
+
+(global-set-key [f8] 'deft); open Deft with F8
+
 (require 'helm)
 (require 'helm-config)
 
@@ -141,18 +157,6 @@
 (defadvice load-theme (before theme-dont-propagate activate)
  (mapcar #'disable-theme custom-enabled-themes))
 
-;; Deft (this is an nvAlt like plugin)
-
-(use-package deft
-;:ensure t
-:init
-:config
-(setq deft-extensions '("org" "txt" "text" "md" "markdown"))
-(setq deft-directory "~/Dropbox/Notes")
-(setq deft-archive-directory "~/Dropbox/Notes/archive") 
-(setq deft-text-mode 'org-mode)
-(setq deft-use-filename-as-title t)
-(setq deft-recursive t)  ;this will search also within sub-directories
-)
-
-(global-set-key [f8] 'deft); open Deft with F8
+(use-package guide-key
+:ensure t)
+(guide-key-mode 1)
