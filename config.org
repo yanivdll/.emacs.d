@@ -1,4 +1,4 @@
-* Custom configutation
+* Global configutation
 ** Custom set variables
 #+BEGIN_SRC emacs-lisp
 (custom-set-variables
@@ -24,6 +24,11 @@
 )
 #+END_SRC
 
+** Key bindings
+#+BEGIN_SRC emacs-lisp
+;(setq mac-command-modifier 'control)
+;(setq mac-control-modifier 'command)
+#+END_SRC 
 ** Fortify code blocks
 Not sure what it is doing, but had it in the original init file, and don't think it was implemented anywhere.
 
@@ -32,7 +37,6 @@ Not sure what it is doing, but had it in the original init file, and don't think
 (setq org-src-fontify-natively t)
 #+END_SRC
 
-* Paths
 ** Plugins
 
 #+BEGIN_SRC emacs-lisp
@@ -124,6 +128,22 @@ Not sure what it is doing, but had it in the original init file, and don't think
 (setq org-src-fontify-natively t)
 #+END_SRC
 
+*** Babel
+Need to tell babel which languages it should recognize
+
+#+BEGIN_SRC emacs-lisp
+; Some initial langauges we want org-babel to support
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '(
+   (sh . t)
+   (python . t)
+   (ruby . t)
+   (sqlite . t)
+   (perl . t)
+   ))
+#+END_SRC
+
 *** MobileOrg
 
 #+BEGIN_SRC emacs-lisp
@@ -146,15 +166,7 @@ Not sure what it is doing, but had it in the original init file, and don't think
 ;; Email
 ; (autoload 'wl "wl" "Wanderlust" t)
 #+END_SRC
-* Themes
-** Disable all other themes before enabling a new one. 
-This should help avoide unwanted inheritance between different themes, and the unexpected results of that.
-#+BEGIN_SRC emacs-lisp
-;;; Disable all themes before loading a new one
-(defadvice load-theme (before theme-dont-propagate activate)
- (mapcar #'disable-theme custom-enabled-themes))
-#+END_SRC
-* Temp
+
 ** Evil
 *** Package loading
 
@@ -169,6 +181,55 @@ This should help avoide unwanted inheritance between different themes, and the u
 #+END_SRC
 
 *** Key bindings
-At the moment I have no keybinding, though there is an article that I follow, which recommend several keybindings that I might try.
 
+#+BEGIN_SRC emacs-lisp
+; Modify keybindings for N state
+(define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
+(define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
+(define-key evil-normal-state-map (kbd "$") 'evil-end-of-visual-line)
+(define-key evil-normal-state-map (kbd "0") 'evil-beginning-of-visual-line)
 
+; Modify keybindings for V state
+(define-key evil-visual-state-map (kbd "j") 'evil-next-visual-line)
+(define-key evil-visual-state-map (kbd "k") 'evil-previous-visual-line)
+(define-key evil-visual-state-map (kbd "$") 'evil-end-of-visual-line)
+(define-key evil-visual-state-map (kbd "0") 'evil-beginning-of-visual-line)
+#+END_SRC
+
+* Themes
+** Disable all other themes before enabling a new one. 
+This should help avoide unwanted inheritance between different themes, and the unexpected results of that.
+#+BEGIN_SRC emacs-lisp
+;;; Disable all themes before loading a new one
+(defadvice load-theme (before theme-dont-propagate activate)
+ (mapcar #'disable-theme custom-enabled-themes))
+#+END_SRC
+* Temp
+** Deft
+*** Reference
+http://jblevins.org/projects/deft/
+
+*** Package loading
+ 
+#+BEGIN_SRC emacs-lisp
+;; Deft (this is an nvAlt like plugin)
+
+(use-package deft
+;:ensure t
+:init
+:config
+(setq deft-extensions '("org" "txt" "text" "md" "markdown"))
+(setq deft-directory "~/Dropbox/Notes")
+(setq deft-archive-directory "~/Dropbox/Notes/archive") 
+(setq deft-text-mode 'org-mode)
+(setq deft-use-filename-as-title t)
+(setq deft-recursive t)  ;this will search also within sub-directories
+)
+#+END_SRC
+*** Keybindings
+
+#+BEGIN_SRC emacs-lisp
+
+(global-set-key [f8] 'deft); open Deft with F8
+
+#+END_SRC

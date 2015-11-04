@@ -21,6 +21,9 @@
  ;; If there is more than one, they won't work right.
 )
 
+;(setq mac-command-modifier 'control)
+;(setq mac-control-modifier 'command)
+
 ;; fontify code in code blocks
 (setq org-src-fontify-natively t)
 
@@ -88,6 +91,17 @@
 ;; fontify code in code blocks
 (setq org-src-fontify-natively t)
 
+; Some initial langauges we want org-babel to support
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '(
+   (sh . t)
+   (python . t)
+   (ruby . t)
+   (sqlite . t)
+   (perl . t)
+   ))
+
 ;; Setting up MobileOrg
 ;; Set to the location of your Org files on your local system
 (setq org-directory "~/Dropbox/Notes/")
@@ -103,10 +117,6 @@
 ;; Email
 ; (autoload 'wl "wl" "Wanderlust" t)
 
-;;; Disable all themes before loading a new one
-(defadvice load-theme (before theme-dont-propagate activate)
- (mapcar #'disable-theme custom-enabled-themes))
-
 ;; Evil mode
 
 (use-package evil
@@ -114,3 +124,35 @@
 :config 
 (evil-mode 1)
 )
+
+; Modify keybindings for N state
+(define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
+(define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
+(define-key evil-normal-state-map (kbd "$") 'evil-end-of-visual-line)
+(define-key evil-normal-state-map (kbd "0") 'evil-beginning-of-visual-line)
+
+; Modify keybindings for V state
+(define-key evil-visual-state-map (kbd "j") 'evil-next-visual-line)
+(define-key evil-visual-state-map (kbd "k") 'evil-previous-visual-line)
+(define-key evil-visual-state-map (kbd "$") 'evil-end-of-visual-line)
+(define-key evil-visual-state-map (kbd "0") 'evil-beginning-of-visual-line)
+
+;;; Disable all themes before loading a new one
+(defadvice load-theme (before theme-dont-propagate activate)
+ (mapcar #'disable-theme custom-enabled-themes))
+
+;; Deft (this is an nvAlt like plugin)
+
+(use-package deft
+;:ensure t
+:init
+:config
+(setq deft-extensions '("org" "txt" "text" "md" "markdown"))
+(setq deft-directory "~/Dropbox/Notes")
+(setq deft-archive-directory "~/Dropbox/Notes/archive") 
+(setq deft-text-mode 'org-mode)
+(setq deft-use-filename-as-title t)
+(setq deft-recursive t)  ;this will search also within sub-directories
+)
+
+(global-set-key [f8] 'deft); open Deft with F8
