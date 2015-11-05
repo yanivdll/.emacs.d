@@ -36,6 +36,25 @@
 (setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
 (setq exec-path (append exec-path '("/usr/local/bin")))
 
+(defun rename-current-buffer-file ()
+  "Renames current buffer and file it is visiting."
+  (interactive)
+  (let ((name (buffer-name))
+        (filename (buffer-file-name)))
+    (if (not (and filename (file-exists-p filename)))
+        (error "Buffer '%s' is not visiting a file!" name)
+      (let ((new-name (read-file-name "New name: " filename)))
+        (if (get-buffer new-name)
+            (error "A buffer named '%s' already exists!" new-name)
+          (rename-file filename new-name 1)
+          (rename-buffer new-name)
+          (set-visited-file-name new-name)
+          (set-buffer-modified-p nil)
+          (message "File '%s' successfully renamed to '%s'"
+                   name (file-name-nondirectory new-name)))))))
+
+(global-set-key (kbd "C-x C-r") 'rename-current-buffer-file)
+
 ;;; Load el-get to path, otherwise use-package won't work
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get/")
 
@@ -60,6 +79,7 @@
 (setq deft-archive-directory "~/Dropbox/Notes/archive") 
 (setq deft-text-mode 'org-mode)
 (setq deft-use-filename-as-title t)
+(setq deft-use-filter-string-for-filename t)
 (setq deft-recursive t)  ;this will search also within sub-directories
 )
 
@@ -133,30 +153,6 @@
 ;; Email
 ; (autoload 'wl "wl" "Wanderlust" t)
 
-;; Evil mode
-
-(use-package evil
-;:ensure t  ;I commented this out because it kept downloading it from elpa, where there is an old version
-:config 
-(evil-mode 1)
-)
-
-; Modify keybindings for N state
-(define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
-(define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
-(define-key evil-normal-state-map (kbd "$") 'evil-end-of-visual-line)
-(define-key evil-normal-state-map (kbd "0") 'evil-beginning-of-visual-line)
-
-; Modify keybindings for V state
-(define-key evil-visual-state-map (kbd "j") 'evil-next-visual-line)
-(define-key evil-visual-state-map (kbd "k") 'evil-previous-visual-line)
-(define-key evil-visual-state-map (kbd "$") 'evil-end-of-visual-line)
-(define-key evil-visual-state-map (kbd "0") 'evil-beginning-of-visual-line)
-
 ;;; Disable all themes before loading a new one
 (defadvice load-theme (before theme-dont-propagate activate)
  (mapcar #'disable-theme custom-enabled-themes))
-
-(use-package guide-key
-:ensure t)
-(guide-key-mode 1)
