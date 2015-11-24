@@ -2,5 +2,5 @@
 *
 
 #except .c source
-!*.org
-!init.el
+! *.org
+! init.el
