@@ -1,6 +1,6 @@
 #ignore everything
 *
 
-#except .c source
-! *.org
-! init.el
+#except config files
+!*.org
+!init.el
