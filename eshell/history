@@ -1,2 +1,7 @@
 ls
 ls
+mkdir posts
+ls
+ls posts
+cd posts/
+ls

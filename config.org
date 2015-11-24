@@ -1,34 +1,42 @@
 * Global configutation
 ** Custom set variables
 #+BEGIN_SRC emacs-lisp
-(custom-set-variables
-;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- ;;'(custom-enabled-themes (quote (greymatters)))
- '(default-frame-alist (quote ((height . 70) (width . 120))))
- '(desktop-save-mode t)
- '(global-visual-line-mode t)
- '(markdown-command "/usr/local/bin/multimarkdown")
- '(markdown-open-command "/Applications/Safari.app/Contents/MacOS/Safari")
- '(package-archives
-   (quote
-    (("gnu" . "http://elpa.gnu.org/packages/")
-     ("marmalade" . "http://marmalade-repo.org/packages/")))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
-)
+ (custom-set-variables
+ ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+  ;;'(custom-enabled-themes (quote (greymatters)))
+  '(custom-safe-themes t)
+  '(custom-theme-directory "~/.emacs.d/themes/")
+  '(default-frame-alist (quote ((height . 70) (width . 120))))
+  '(desktop-save-mode t)
+  '(global-visual-line-mode t)
+  '(global-hl-line-mode 1) ; turn on highlighting current line
+  '(markdown-command "/usr/local/bin/multimarkdown")
+  '(markdown-open-command "/Applications/Safari.app/Contents/MacOS/Safari")
+  '(package-archives
+    (quote
+     (("gnu" . "http://elpa.gnu.org/packages/")
+      ("marmalade" . "http://marmalade-repo.org/packages/")))))
+ (custom-set-faces
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ )
 #+END_SRC
 
 ** Key bindings
 #+BEGIN_SRC emacs-lisp
 ;(setq mac-command-modifier 'control)
 ;(setq mac-control-modifier 'command)
+;(setq mac-caps-modifiers 'esc)
 #+END_SRC 
+
+#+RESULTS:
+: esc
+
 ** Fortify code blocks
 Not sure what it is doing, but had it in the original init file, and don't think it was implemented anywhere.
 
@@ -55,6 +63,41 @@ Not sure what it is doing, but had it in the original init file, and don't think
 #+END_SRC
    
 * Funcions
+** VI - open line
+*** Reference
+*** Code
+#+BEGIN_SRC emacs-lisp
+(defun vi-open-line-above ()
+  "Insert a newline above the current line and put point at beginning."
+  (interactive)
+  (unless (bolp)
+    (beginning-of-line))
+  (newline)
+  (forward-line -1)
+  (indent-according-to-mode))
+
+(defun vi-open-line-below ()
+  "Insert a newline below the current line and put point at beginning."
+  (interactive)
+  (unless (eolp)
+    (end-of-line))
+  (newline-and-indent))
+
+(defun vi-open-line (&optional abovep)
+  "Insert a newline below the current line and put point at beginning.
+With a prefix argument, insert a newline above the current line."
+  (interactive "P")
+  (if abovep
+      (vi-open-line-above)
+    (vi-open-line-below)))
+#+END_SRC
+
+
+
+*** Keybinding
+#+BEGIN_SRC emacs-lisp
+(define-key global-map [f7] 'vi-open-line)
+#+END_SRC
 ** Rename file on spot
 *** Reference
 This is a funcion to change the name of the current buffer. I got it from this stackoverflow thread:
@@ -78,11 +121,49 @@ http://stackoverflow.com/questions/384284/how-do-i-rename-an-open-file-in-emacs
           (set-buffer-modified-p nil)
           (message "File '%s' successfully renamed to '%s'"
                    name (file-name-nondirectory new-name)))))))
-
-(global-set-key (kbd "C-x C-r") 'rename-current-buffer-file)
-
 #+END_SRC
 
+*** Key bindings
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "C-x C-r") 'rename-current-buffer-file)
+#+END_SRC 
+
+** Comment or uncomment a line
+*** Reference
+- [[http://stackoverflow.com/questions/9688748/emacs-comment-uncomment-current-line][Emacs comment/uncomment current line]] - there is also an option to add ~(next-line)~, so after commenting or uncommenting, the point move to the next line.
+- [[http://stackoverflow.com/questions/14905133/how-to-set-cmd-key-binding-in-emacs][How to set the command key]]
+
+*** Code
+:CUSTOM_ID: comment-or-uncomment
+#+BEGIN_SRC emacs-lisp
+(defun comment-or-uncomment-region-or-line ()
+    "Comments or uncomments the region or the current line if there's no active region."
+    (interactive)
+    (let (beg end)
+        (if (region-active-p)
+            (setq beg (region-beginning) end (region-end))
+            (setq beg (line-beginning-position) end (line-end-position)))
+        (comment-or-uncomment-region beg end)))
+#+END_SRC
+*** Keybinding
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "s-/") 'comment-or-uncomment-region-or-line)
+#+END_SRC
+
+** Transpose buffer
+#+BEGIN_SRC emacs-lisp
+(defun transpose-buffers (arg)
+  "Transpose the buffers shown in two windows."
+  (interactive "p")
+  (let ((selector (if (>= arg 0) 'next-window 'previous-window)))
+    (while (/= arg 0)
+      (let ((this-win (window-buffer))
+            (next-win (window-buffer (funcall selector))))
+        (set-window-buffer (selected-window) next-win)
+        (set-window-buffer (funcall selector) this-win)
+        (select-window (funcall selector)))
+      (setq arg (if (plusp arg) (1- arg) (1+ arg))))))
+#+END_SRC
 
 * Packages
 ** El-get
@@ -119,44 +200,81 @@ http://jblevins.org/projects/deft/
 (setq deft-text-mode 'org-mode)
 (setq deft-use-filename-as-title t)
 (setq deft-use-filter-string-for-filename t)
-(setq deft-recursive t)  ;this will search also within sub-directories
+;(setq deft-recursive t)  ;this will search also within sub-directories
 )
 #+END_SRC
 *** Keybindings
-
+    
 #+BEGIN_SRC emacs-lisp
 
 (global-set-key [f8] 'deft); open Deft with F8
 
 #+END_SRC
 
+** Dired-x
+*** Package loading
+#+BEGIN_SRC emacs-lisp
+(autoload 'dired-jump "dired-x"
+  "Jump to Dired buffer corresponding to current buffer." t)
+
+(autoload 'dired-jump-other-window "dired-x"
+  "Like \\[dired-jump] (dired-jump) but in other window." t)
+
+(define-key global-map "\C-x\C-j" 'dired-jump)
+(define-key global-map "\C-x4\C-j" 'dired-jump-other-window)
+
+#+END_SRC
 ** Helm
 
+# #+BEGIN_SRC emacs-lisp
+# (require 'helm)
+# (require 'helm-config)
+
+# ;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
+# ;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
+# ;; cannot change `helm-command-prefix-key' once `helm-config' is loaded.
+# (global-set-key (kbd "C-c h") 'helm-command-prefix)
+# (global-unset-key (kbd "C-x c"))
+
+# (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to run persistent action
+# (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
+# ;(define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
+
+# (when (executable-find "curl")
+#   (setq helm-google-suggest-use-curl-p t))
+
+# (setq helm-split-window-in-side-p           t ; open helm buffer inside current window, not occupy whole other window
+#       helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
+#       helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
+#       helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
+#       helm-ff-file-name-history-use-recentf t)
+
+# (helm-mode 1)
+# #+END_SRC
+
+** htmlize
+*** Package loading
 #+BEGIN_SRC emacs-lisp
-(require 'helm)
-(require 'helm-config)
+(use-package htmlize
+:ensure t)
 
-;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
-;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
-;; cannot change `helm-command-prefix-key' once `helm-config' is loaded.
-(global-set-key (kbd "C-c h") 'helm-command-prefix)
-(global-unset-key (kbd "C-x c"))
-
-(define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to run persistent action
-(define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
-;(define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
-
-(when (executable-find "curl")
-  (setq helm-google-suggest-use-curl-p t))
-
-(setq helm-split-window-in-side-p           t ; open helm buffer inside current window, not occupy whole other window
-      helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
-      helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
-      helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
-      helm-ff-file-name-history-use-recentf t)
-
-(helm-mode 1)
 #+END_SRC
+** Undo tree mode - visualize your undos and branches
+*** Source
+Took this config from Sacha's config - http://pages.sachachua.com/.emacs.d/Sacha.html#orgheadline158
+*** Package loading
+#+BEGIN_SRC emacs-lisp
+;(use-package undo-tree
+;  :defer t
+;  :ensure t
+;  :diminish undo-tree-mode
+;  :idle
+;  (progn
+;    (global-undo-tree-mode)
+;    (setq undo-tree-visualizer-timestamps t)
+;    (setq undo-tree-visualizer-diff t)))
+
+#+END_SRC 
 * Modes
 ** Ido
 
@@ -181,7 +299,7 @@ http://jblevins.org/projects/deft/
 #+END_SRC
 
 ** Org
-
+*** Package loading
 #+BEGIN_SRC emacs-lisp
 ;; Org mode
 ;; fontify code in code blocks
@@ -197,11 +315,102 @@ Need to tell babel which languages it should recognize
  'org-babel-load-languages
  '(
    (sh . t)
+   (js . t)
    (python . t)
    (ruby . t)
    (sqlite . t)
    (perl . t)
    ))
+#+END_SRC
+
+*** Publish to pelican
+I'm not sure this is relevant anymore, because I configured the org_reader plugin in pelican, so this publishing configuration isn't active, as far as I can tell.
+**** HTML
+#+BEGIN_SRC emacs-lisp
+
+;; This package seemed to be required in order to get syntax highlighting when 
+;; publishing to pelican. No one knows why...
+;(use-package color-theme-github
+;:ensure t)
+
+;(require 'ox-publish)
+(use-package ox-publish)
+
+(setq org-publish-project-alist
+      '(
+
+  ("org-prodissues"
+          ;; Path to your org files.
+          :base-directory "~/Dropbox/Notes/posts/"
+          :base-extension "org"
+
+          ;; Path to your Jekyll project.
+          :publishing-directory "~/dev/prodissues/content/"
+          :recursive t
+          :publishing-function  org-html-publish-to-html
+          :headline-levels 4 
+          :html-extension "html"
+          ;:body-only t ;; Only export section between <body> </body>
+    )
+
+
+    ("org-static-prodissues"
+          :base-directory "~/Dropbox/Notes/posts/"
+          :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|php"
+          :publishing-directory "~/Dropbox/Notes/"
+          :recursive t
+          :publishing-function org-publish-attachment)
+
+    ("yan" :components ("org-prodissues"))
+
+))
+
+#+END_SRC
+
+*** Refiling subtree to other file
+My usecase - I keep all my drafts in one big org file (available [[http://www.prodissues.com/posts_drafts/][here]]). What I want to be able to do is once finishing to write a post, move it with all its footnotes to a new file, that will turn out to be the post file that is then exported to and processed by Pelican. 
+
+**** Here's a function I [[http://emacs.stackexchange.com/questions/14788/org-mode-refile-to-other-files-does-not-work][found]], that claims to do just that:
+
+#+BEGIN_SRC emacs-lisp
+(setq org-refile-targets '(
+   (nil :maxlevel . 2)             ; refile to headings in the current buffer
+   (org-agenda-files :maxlevel . 2) ; refile to any of these files
+    ))
+#+END_SRC
+
+**** Here's anpther function 
+Source - http://superuser.com/a/568300/525565
+This one works. The only problem is that it doesn't move the footnotes with the subtrees.
+
+#+BEGIN_SRC emacs-lisp
+
+(require 'org-element)
+
+(defun me/org-file-from-subtree (&optional name)
+"Cut the subtree currently being edited and create a new file
+from it.
+
+If called with the universal argument, prompt for new filename,
+otherwise use the subtree title."
+  (interactive "P")
+  (org-back-to-heading)
+  (let ((filename (cond
+                   (current-prefix-arg
+                    (expand-file-name
+                     (read-file-name "New file name: ")))
+                   (t
+                    (concat
+                     (expand-file-name
+                      (org-element-property :title
+                                            (org-element-at-point))
+                      default-directory)
+                     ".org")))))
+    (org-cut-subtree)
+    (find-file-noselect filename)
+    (with-temp-file filename
+      (org-mode)
+      (yank))))
 #+END_SRC
 
 *** MobileOrg
@@ -219,7 +428,7 @@ Need to tell babel which languages it should recognize
 ;; Set the inbox file where on the fly todos and notes will be captured
 (setq org-default-notes-file "~/Dropbox/Notes/inbox.org")
 #+END_SRC
-
+    
 ** Email
 
 #+BEGIN_SRC emacs-lisp
@@ -227,41 +436,59 @@ Need to tell babel which languages it should recognize
 ; (autoload 'wl "wl" "Wanderlust" t)
 #+END_SRC
 
-# ** Evil
-# *** Package loading
+** Evil
+*** Package loading
 
-# #+BEGIN_SRC emacs-lisp
-# ;; Evil mode
+#+BEGIN_SRC emacs-lisp
+;; Evil mode
 
-# (use-package evil
-# ;:ensure t  ;I commented this out because it kept downloading it from elpa, where there is an old version
-# :config 
-# (evil-mode 1)
-# )
-# #+END_SRC
+(use-package evil
+;:ensure t  ;I commented this out because it kept downloading it from elpa, where there is an old version
+:config 
+(evil-mode 1)
+)
+#+END_SRC
 
-# *** Key bindings
+*** Key bindings
 
-# #+BEGIN_SRC emacs-lisp
-# ; Modify keybindings for N state
-# (define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
-# (define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
-# (define-key evil-normal-state-map (kbd "$") 'evil-end-of-visual-line)
-# (define-key evil-normal-state-map (kbd "0") 'evil-beginning-of-visual-line)
+#+BEGIN_SRC emacs-lisp
+; Modify keybindings for N state
+(define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
+(define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
+(define-key evil-normal-state-map (kbd "$") 'evil-end-of-visual-line)
+(define-key evil-normal-state-map (kbd "0") 'evil-beginning-of-visual-line)
 
-# ; Modify keybindings for V state
-# (define-key evil-visual-state-map (kbd "j") 'evil-next-visual-line)
-# (define-key evil-visual-state-map (kbd "k") 'evil-previous-visual-line)
-# (define-key evil-visual-state-map (kbd "$") 'evil-end-of-visual-line)
-# (define-key evil-visual-state-map (kbd "0") 'evil-beginning-of-visual-line)
-# #+END_SRC
-    
+; Modify keybindings for V state
+(define-key evil-visual-state-map (kbd "j") 'evil-next-visual-line)
+(define-key evil-visual-state-map (kbd "k") 'evil-previous-visual-line)
+(define-key evil-visual-state-map (kbd "$") 'evil-end-of-visual-line)
+(define-key evil-visual-state-map (kbd "0") 'evil-beginning-of-visual-line)
+
+;When in deft this keybinding will open the note in another window
+(define-key evil-normal-state-map (kbd "C-o")'deft-open-file-other-window) 
+#+END_SRC
+
+**** TODO Load chord-keys to allow 'dd' to delete visual line
+
 * Themes
 ** Disable all other themes before enabling a new one. 
 This should help avoide unwanted inheritance between different themes, and the unexpected results of that.
 #+BEGIN_SRC emacs-lisp
-;;; Disable all themes before loading a new one
-(defadvice load-theme (before theme-dont-propagate activate)
- (mapcar #'disable-theme custom-enabled-themes))
+ ;;; Disable all themes before loading a new one
+ (defadvice load-theme (before theme-dont-propagate activate)
+  (mapcar #'disable-theme custom-enabled-themes))
 #+END_SRC
+** Load the solarized theme
+*** solarized-emacs
+**** Repo
+https://github.com/bbatsov/solarized-emacs
+**** Load theme
+#+BEGIN_SRC emacs-lisp
+(use-package solarized-theme
+:ensure t
+:config 
+(setq solarized-scale-org-headlines nil))
+
+#+END_SRC
+
 * Temp
