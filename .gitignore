@@ -1,9 +1,6 @@
-.DS_Store
-.emacs.desktop
-.emacs.desktop.lock
-.gitignore~
-backups/
-auto-save-list/**
-el-get/**
-lisp/**
-auto-save-list/
+#ignore everything
+*
+
+#except .c source
+!*.org
+!init.el
