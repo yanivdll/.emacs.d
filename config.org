@@ -259,6 +259,16 @@ http://jblevins.org/projects/deft/
 :ensure t)
 
 #+END_SRC
+** Ace Jump Mode
+
+*** Package loading
+#+BEGIN_SRC emacs-lisp
+(use-package ace-jump-mode
+:ensure t
+:init
+(bind-key "C-c C-," 'ace-jump-mode))
+#+END_SRC
+
 ** Undo tree mode - visualize your undos and branches
 *** Source
 Took this config from Sacha's config - http://pages.sachachua.com/.emacs.d/Sacha.html#orgheadline158
@@ -275,6 +285,21 @@ Took this config from Sacha's config - http://pages.sachachua.com/.emacs.d/Sacha
 ;    (setq undo-tree-visualizer-diff t)))
 
 #+END_SRC 
+** Auto complete
+*** Documentation
+**** Manual
+http://auto-complete.org/doc/manual.html
+**** Keybindings to remember
+- ~M-n~ and ~M-p~ to select
+- ~RET~ to complete
+- ~F1~ to open help in other buffer
+- ~C-s~ to filter the auto-complete options 
+*** Package loading
+#+BEGIN_SRC emacs-lisp
+(use-package auto-complete
+  :ensure t
+  :config (global-auto-complete-mode t))
+#+END_SRC
 * Modes
 ** Ido
 
@@ -413,7 +438,35 @@ otherwise use the subtree title."
       (yank))))
 #+END_SRC
 
-*** MobileOrg
+**** Trying to take care of the footnotes
+The previous solution works. The only problem is that when I refiling a subtree that has footnote, the footnotes are left behind. Here's a question that I posted on [[http://stackoverflow.com/questions/33885244/emacs-org-mode-how-can-i-refile-a-subtree-to-a-new-file?noredirect%3D1#comment55607485_33885244][stack-overflow]], and this is an attempt to implement one suggestion that was made:
+
+# #+BEGIN_SRC emacs-lisp
+# (let (footnote) (save-excursion (org-back-to-heading t) (org-narrow-to-subtree) (while (re-search-forward "\\[fn:[0-9]+\\]" nil t) (push (cons (buffer-substring-no-properties (match-beginning 0) (match-end 0)) nil) footnote)) (widen) (org-end-of-subtree t t) (setq footnote (mapcar (lambda (x) (and (search-forward (car x) nil t nil) (cons (car x) (buffer-substring-no-properties (match-beginning 0) (point-at-eol))))) footnote))) footnote
+# )
+# #+END_SRC
+*** Org-Reveal
+**** Repo
+https://github.com/yjwen/org-reveal
+**** Package loading
+# #+BEGIN_SRC emacs-lisp
+# (use-package ox-reveal
+# ;:ensure t
+# :config
+# (setq org-reveal-root "~/dev/reveal/reveal.js"))
+
+# #+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(require 'ox-reveal)
+(setq org-reveal-root "file:///dev/reveal.js")
+#+END_SRC
+
+#+RESULTS:
+: file:///Users/ygilad/dev/reveal/js/reveal.js
+
+
+# *** MobileOrg
 
 #+BEGIN_SRC emacs-lisp
 ;; Setting up MobileOrg
@@ -429,6 +482,7 @@ otherwise use the subtree title."
 (setq org-default-notes-file "~/Dropbox/Notes/inbox.org")
 #+END_SRC
     
+
 ** Email
 
 #+BEGIN_SRC emacs-lisp
@@ -436,10 +490,10 @@ otherwise use the subtree title."
 ; (autoload 'wl "wl" "Wanderlust" t)
 #+END_SRC
 
-** Evil
+** Evil (inactive)
 *** Package loading
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
 ;; Evil mode
 
 (use-package evil
@@ -451,7 +505,7 @@ otherwise use the subtree title."
 
 *** Key bindings
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
 ; Modify keybindings for N state
 (define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
 (define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
@@ -470,19 +524,20 @@ otherwise use the subtree title."
 
 **** TODO Load chord-keys to allow 'dd' to delete visual line
 
-* Themes
-** Disable all other themes before enabling a new one. 
+* Look and feel
+** Themes
+*** Disable all other themes before enabling a new one. 
 This should help avoide unwanted inheritance between different themes, and the unexpected results of that.
 #+BEGIN_SRC emacs-lisp
  ;;; Disable all themes before loading a new one
  (defadvice load-theme (before theme-dont-propagate activate)
   (mapcar #'disable-theme custom-enabled-themes))
 #+END_SRC
-** Load the solarized theme
-*** solarized-emacs
-**** Repo
+*** Load the solarized theme
+**** solarized-emacs
+***** Repo
 https://github.com/bbatsov/solarized-emacs
-**** Load theme
+***** Load theme
 #+BEGIN_SRC emacs-lisp
 (use-package solarized-theme
 :ensure t
@@ -491,4 +546,37 @@ https://github.com/bbatsov/solarized-emacs
 
 #+END_SRC
 
+** Fonts
+*** Input fonts
+**** Reference
+- Learned about it first in [[https://blog.fugue.co/2015-11-11-guide-to-emacs.html][A CEO's Guide to Emacs]]
+- [[http://input.fontbureau.com/][Link to the input site]]
+**** Settings
+# #+BEGIN_SRC emacs-lisp
+# ;; set up fonts for different OSes. OSX toggles to full screen.
+# (setq myfont "Input")
+# (cond
+# ((string-equal system-name "ygilad.local")
+#  (set-face-attribute 'default nil :font myfont :height 144)
+#  (toggle-frame-fullscreen))
+# )
+# #+END_SRC
+* Internet Relay Chat
+
+  IRC is a great way to hang out with other Emacs geeks.
+  #+begin_src emacs-lisp
+    (use-package erc
+      :ensure t :defer t
+      :config
+      (setq erc-hide-list '("PART" "QUIT" "JOIN"))
+      (setq erc-autojoin-channels-alist '(("freenode.net"
+                                           "#org-mode"
+                                           "#emacs"
+             "#emacs-beginners"))
+            erc-server "irc.freenode.net"
+            erc-nick "yanivg"))
+  #+end_src
+
 * Temp
+
+
