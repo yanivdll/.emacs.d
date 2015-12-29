@@ -18,7 +18,8 @@
   '(package-archives
     (quote
      (("gnu" . "http://elpa.gnu.org/packages/")
-      ("marmalade" . "http://marmalade-repo.org/packages/")))))
+      ("marmalade" . "http://marmalade-repo.org/packages/")
+       ("melpa" . "http://melpa.org/packages/")))))
  (custom-set-faces
   ;; custom-set-faces was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
@@ -32,12 +33,14 @@
 ;(setq mac-command-modifier 'control)
 ;(setq mac-control-modifier 'command)
 ;(setq mac-caps-modifiers 'esc)
+(set-register ?r '(file . "~/Dropbox/Notes/posts/pages/posts_drafts.org"))
+(setq org-support-shift-select (quote always)) ;Non-nil means make shift-cursor commands select text when possible
 #+END_SRC 
 
 #+RESULTS:
 : esc
 
-** Fortify code blocks
+** Fontify code blocks
 Not sure what it is doing, but had it in the original init file, and don't think it was implemented anywhere.
 
 #+BEGIN_SRC emacs-lisp
@@ -63,6 +66,11 @@ Not sure what it is doing, but had it in the original init file, and don't think
 #+END_SRC
    
 * Funcions
+** Load init.el
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "<f5>") (lambda() (interactive)(load-file "~/.emacs.d/init.el")))
+
+#+END_SRC
 ** VI - open line
 *** Reference
 *** Code
@@ -132,7 +140,7 @@ http://stackoverflow.com/questions/384284/how-do-i-rename-an-open-file-in-emacs
 *** Reference
 - [[http://stackoverflow.com/questions/9688748/emacs-comment-uncomment-current-line][Emacs comment/uncomment current line]] - there is also an option to add ~(next-line)~, so after commenting or uncommenting, the point move to the next line.
 - [[http://stackoverflow.com/questions/14905133/how-to-set-cmd-key-binding-in-emacs][How to set the command key]]
-
+  
 *** Code
 :CUSTOM_ID: comment-or-uncomment
 #+BEGIN_SRC emacs-lisp
@@ -147,7 +155,7 @@ http://stackoverflow.com/questions/384284/how-do-i-rename-an-open-file-in-emacs
 #+END_SRC
 *** Keybinding
 #+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "s-/") 'comment-or-uncomment-region-or-line)
+
 #+END_SRC
 
 ** Transpose buffer
@@ -328,7 +336,6 @@ http://auto-complete.org/doc/manual.html
 #+BEGIN_SRC emacs-lisp
 ;; Org mode
 ;; fontify code in code blocks
-(setq org-src-fontify-natively t)
 #+END_SRC
 
 *** Babel
@@ -484,7 +491,125 @@ https://github.com/yjwen/org-reveal
     
 
 ** Email
+*** Mu4e
+#+BEGIN_SRC emacs-lisp 
+;; the exact path may differ -- check it
+(add-to-list 'load-path "/usr/local/Cellar/mu/mu4e")
+(setq mu4e-mu-binary (executable-find "/usr/local/Cellar/mu/mu/mu"))
+(require 'mu4e)
 
+;; default
+(setq mu4e-maildir "~/Maildir")
+(setq mu4e-drafts-folder "/[Gmail].Drafts")
+(setq mu4e-sent-folder   "/[Gmail].Sent Mail")
+(setq mu4e-trash-folder  "/[Gmail].Trash")
+(setq mu4e-refile-folder  "/[Gmail].All Mail")
+
+;; don't save message to Sent Messages, Gmail/IMAP takes care of this
+(setq mu4e-sent-messages-behavior 'delete)
+
+;; (See the documentation for `mu4e-sent-messages-behavior' if you have
+;; additional non-Gmail addresses and want assign them different
+;; behavior.)
+
+;; setup some handy shortcuts
+;; you can quickly switch to your Inbox -- press ``ji''
+;; then, when you want archive some messages, move them to
+;; the 'All Mail' folder by pressing ``ma''.
+
+(setq mu4e-maildir-shortcuts
+    '( ("/INBOX"               . ?i)
+       ("/[Gmail].Sent Mail"   . ?s)
+       ("/[Gmail].Trash"       . ?t)
+       ("/[Gmail].All Mail"    . ?a)))
+
+;; allow for updating mail using 'U' in the main view:
+(setq mu4e-get-mail-command "offlineimap"
+      mu4e-update-interval 300)             ;; update every 5 minutes)
+
+;; something about ourselves
+(setq
+   user-mail-address "yanivdll@gmail.com"
+   user-full-name  "Yaniv Gilad"
+   mu4e-compose-signature
+    (concat
+      "--\n"
+      "http://prodissues.com\n"))
+
+;; sending mail -- gmail smtp settings
+(setq message-send-mail-function 'smtpmail-send-it
+     smtpmail-stream-type 'ssl
+     smtpmail-default-smtp-server "smtp.gmail.com"
+     smtpmail-smtp-server "smtp.gmail.com"
+     smtpmail-smtp-service 465)
+
+;;viewing messages
+;(setq mu4e-view-prefer-html t)
+
+;; don't save messages to Sent Messages, Gmail/IMAP takes care of this
+(setq mu4e-sent-messages-behavior 'delete)
+
+;; don't keep message buffers around
+(setq message-kill-buffer-on-exit t)
+
+;; skipping duplicate messages (due to the way the labels / virtual folders in Gmail are represented)
+(setq mu4e-headers-skip-duplicates t)
+#+END_SRC
+
+**** Adding support for html emails
+
+#+BEGIN_SRC emacs-lisp
+;; use Emac's 24.4 shr html renderer
+(require 'mu4e-contrib)
+(setq mu4e-html2text-command 'mu4e-shr2text)
+
+;; define keybindings for intuitive link navigation within an email, using tab and backtab (shift-tab)
+(add-hook 'mu4e-view-mode-hook
+  (lambda()
+     ;; try to emulate some of the eww key-bindings
+    (local-set-key (kbd "<tab>") 'shr-next-link)
+    (local-set-key (kbd "<backtab>") 'shr-previous-link)))
+
+#+END_SRC
+
+**** Additional customizations
+#+BEGIN_SRC emacs-lisp
+;; Set the number of messages to show on the header view, when in split view
+(setq mu4e-headers-visible-lines 12)
+
+;; smart From/To field in the headers view
+(setq mu4e-user-mail-address-list '("yaniv@outbrain.com" "ygilad@outbrain.com" "yanivdll@gmail.com" "yanivalerts@gmail.com"))
+
+;; Saving attachments to a specific folder
+(setq mu4e-attachment-dir  "~/Downloads")
+
+;; enable inline images
+(setq mu4e-view-show-images t)
+;; use imagemagick, if available
+(when (fboundp 'imagemagick-register-types)
+   (imagemagick-register-types))
+#+END_SRC
+
+;; enable attachments from dired
+#+BEGIN_SRC emacs-lisp :tangle no
+(require 'gnus-dired)
+;; make the `gnus-dired-mail-buffers' function also work on
+;; message-mode derived modes, such as mu4e-compose-mode
+(defun gnus-dired-mail-buffers ()
+  "Return a list of active message buffers."
+  (let (buffers)
+    (save-current-buffer
+      (dolist (buffer (buffer-list t))
+        (set-buffer buffer)
+        (when (and (derived-mode-p 'message-mode)
+                (null message-sent-message-via))
+          (push (buffer-name buffer) buffers))))
+    (nreverse buffers)))
+
+(setq gnus-dired-mail-mode 'mu4e-user-agent)
+(add-hook 'dired-mode
+#+END_SRC
+*** Wanderlust
 #+BEGIN_SRC emacs-lisp
 ;; Email
 ; (autoload 'wl "wl" "Wanderlust" t)
@@ -578,5 +703,23 @@ https://github.com/bbatsov/solarized-emacs
   #+end_src
 
 * Temp
+** External dictionary
 
+#+BEGIN_SRC emacs-lisp
+(autoload 'ispell-get-word "ispell")
+(defun lookup-word (word)
+  (interactive (list (save-excursion (car (ispell-get-word nil)))))
+  (browse-url (format "http://en.wiktionary.org/wiki/%s" word)))
 
+(global-set-key (kbd "M-#") 'lookup-word)
+#+END_SRC
+** define-word package
+- Blog post about it - http://oremacs.com/2015/05/22/define-word/
+
+*** Load package
+#+BEGIN_SRC emacs-lisp :tangle no
+(use-package define-word
+  :ensure t
+  :pin melpa)
+
+#+END_SRC
