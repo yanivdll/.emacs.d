@@ -20,6 +20,7 @@
      (("gnu" . "http://elpa.gnu.org/packages/")
       ("marmalade" . "http://marmalade-repo.org/packages/")
        ("melpa" . "http://melpa.org/packages/")))))
+
  (custom-set-faces
   ;; custom-set-faces was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
@@ -649,7 +650,7 @@ https://github.com/yjwen/org-reveal
 
 **** TODO Load chord-keys to allow 'dd' to delete visual line
 
-* Look and feel
+* Lolok and feel
 ** Themes
 *** Disable all other themes before enabling a new one. 
 This should help avoide unwanted inheritance between different themes, and the unexpected results of that.
@@ -703,7 +704,14 @@ https://github.com/bbatsov/solarized-emacs
   #+end_src
 
 * Temp
-** External dictionary
+** Typewriter mode
+*** Load package
+#+BEGIN_SRC emacs-lisp
+(use-package draft-mode
+:ensure t)
+#+END_SRC
+** Dictionaries
+*** External dictionary
 
 #+BEGIN_SRC emacs-lisp
 (autoload 'ispell-get-word "ispell")
@@ -713,13 +721,54 @@ https://github.com/bbatsov/solarized-emacs
 
 (global-set-key (kbd "M-#") 'lookup-word)
 #+END_SRC
-** define-word package
-- Blog post about it - http://oremacs.com/2015/05/22/define-word/
+*** Synosaurus
+**** Load package
+#+BEGIN_SRC emacs-lisp :tangle no
+(use-package synosaurus
+:ensure t)
 
-*** Load package
+#+END_SRC
+*** synonymous
+**** Load package
+
+#+BEGIN_SRC emacs-lisp
+(use-package synonymous
+:ensure t)
+#+END_SRC
+
+**** Keybinding
+
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "C-c s") 'synonymous-synonyms)
+(global-set-key (kbd "C-c S") 'synonymous-antonyms)
+#+END_SRC
+
+*** define-word package
+- Blog post about it - http://oremacs.com/2015/05/22/define-word/
+**** Load package
 #+BEGIN_SRC emacs-lisp :tangle no
 (use-package define-word
   :ensure t
   :pin melpa)
+
+#+END_SRC
+
+**** Keybinding
+#+BEGIN_SRC emacs-lisp :tangle no
+(global-set-key (kbd "C-c d") 'define-word-at-point)
+(global-set-key (kbd "C-c D") 'define-word)
+
+#+END_SRC
+** Ivy-mode
+*** Reference
+- [[https://github.com/abo-abo/swiper/blob/master/doc/ivy.org][Manual]]
+- [[http://oremacs.com][Homepage]]
+- [[https://github.com/abo-abo/swiper][Git]]
+- [[https://www.youtube.com/watch?v%3DVvnJQpTFVDc][Video demo]]
+*** Load package
+#+BEGIN_SRC emacs-lisp
+
+(use-package swiper
+:ensure t)
 
 #+END_SRC
