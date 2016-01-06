@@ -1,6 +1,4 @@
 * Global configutation
-
-
 ** Key bindings
 #+BEGIN_SRC emacs-lisp
 ;(setq mac-command-modifier 'control)
@@ -278,6 +276,13 @@ http://auto-complete.org/doc/manual.html
 (use-package auto-complete
   :ensure t
   :config (global-auto-complete-mode t))
+#+END_SRC
+** Magit
+*** Load package
+#+BEGIN_SRC emacs-lisp
+(use-package magit
+:ensure t)
+
 #+END_SRC
 * Modes
 ** Ido
