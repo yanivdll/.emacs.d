@@ -1,33 +1,5 @@
 * Global configutation
-** Custom set variables
-#+BEGIN_SRC emacs-lisp
- (custom-set-variables
- ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
-  ;;'(custom-enabled-themes (quote (greymatters)))
-  '(custom-safe-themes t)
-  '(custom-theme-directory "~/.emacs.d/themes/")
-  '(default-frame-alist (quote ((height . 70) (width . 120))))
-  '(desktop-save-mode t)
-  '(global-visual-line-mode t)
-  '(global-hl-line-mode 1) ; turn on highlighting current line
-  '(markdown-command "/usr/local/bin/multimarkdown")
-  '(markdown-open-command "/Applications/Safari.app/Contents/MacOS/Safari")
-  '(package-archives
-    (quote
-     (("gnu" . "http://elpa.gnu.org/packages/")
-      ("marmalade" . "http://marmalade-repo.org/packages/")
-       ("melpa" . "http://melpa.org/packages/")))))
 
- (custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- )
-#+END_SRC
 
 ** Key bindings
 #+BEGIN_SRC emacs-lisp
@@ -70,7 +42,6 @@ Not sure what it is doing, but had it in the original init file, and don't think
 ** Load init.el
 #+BEGIN_SRC emacs-lisp
 (global-set-key (kbd "<f5>") (lambda() (interactive)(load-file "~/.emacs.d/init.el")))
-
 #+END_SRC
 ** VI - open line
 *** Reference
@@ -186,7 +157,6 @@ http://stackoverflow.com/questions/384284/how-do-i-rename-an-open-file-in-emacs
        "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el")
     (goto-char (point-max))
     (eval-print-last-sexp)))
-
 (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
 (el-get 'sync)
 #+END_SRC
@@ -358,7 +328,7 @@ Need to tell babel which languages it should recognize
 
 *** Publish to pelican
 I'm not sure this is relevant anymore, because I configured the org_reader plugin in pelican, so this publishing configuration isn't active, as far as I can tell.
-**** HTML
+# **** HTML
 #+BEGIN_SRC emacs-lisp
 
 ;; This package seemed to be required in order to get syntax highlighting when 
@@ -366,8 +336,8 @@ I'm not sure this is relevant anymore, because I configured the org_reader plugi
 ;(use-package color-theme-github
 ;:ensure t)
 
-;(require 'ox-publish)
-(use-package ox-publish)
+(require 'ox-publish)
+;(use-package ox-publish)
 
 (setq org-publish-project-alist
       '(
@@ -457,17 +427,17 @@ The previous solution works. The only problem is that when I refiling a subtree 
 **** Repo
 https://github.com/yjwen/org-reveal
 **** Package loading
-# #+BEGIN_SRC emacs-lisp
-# (use-package ox-reveal
-# ;:ensure t
-# :config
-# (setq org-reveal-root "~/dev/reveal/reveal.js"))
+#+BEGIN_SRC emacs-lisp
+; (use-package ox-reveal
+; :ensure t
+; :config
+; (setq org-reveal-root "~/dev/reveal/reveal.js"))
 
-# #+END_SRC
+#+END_SRC
 
 #+BEGIN_SRC emacs-lisp
-(require 'ox-reveal)
-(setq org-reveal-root "file:///dev/reveal.js")
+; (require 'ox-reveal)
+; (setq org-reveal-root "file:///dev/reveal.js")
 #+END_SRC
 
 #+RESULTS:
@@ -650,7 +620,7 @@ https://github.com/yjwen/org-reveal
 
 **** TODO Load chord-keys to allow 'dd' to delete visual line
 
-* Lolok and feel
+* Look and feel
 ** Themes
 *** Disable all other themes before enabling a new one. 
 This should help avoide unwanted inheritance between different themes, and the unexpected results of that.
