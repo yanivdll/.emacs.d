@@ -6,6 +6,7 @@
 ;(setq mac-caps-modifiers 'esc)
 (set-register ?r '(file . "~/Dropbox/Notes/posts/pages/posts_drafts.org"))
 (setq org-support-shift-select (quote always)) ;Non-nil means make shift-cursor commands select text when possible
+(define-key global-map [remap list-buffers] 'buffer-menu-other-window) ;this will move focus to the buffer list when doing ~C-x C-b~
 #+END_SRC 
 
 #+RESULTS:
@@ -41,6 +42,7 @@ Not sure what it is doing, but had it in the original init file, and don't think
 #+BEGIN_SRC emacs-lisp
 (global-set-key (kbd "<f5>") (lambda() (interactive)(load-file "~/.emacs.d/init.el")))
 #+END_SRC
+
 ** VI - open line
 *** Reference
 *** Code
@@ -168,9 +170,10 @@ http://jblevins.org/projects/deft/
 ;; Deft (this is an nvAlt like plugin)
 
 (use-package deft
-;:ensure t
+:ensure t
 :init
 :config
+(setq deft-default-extension "org")
 (setq deft-extensions '("org" "txt" "text" "md" "markdown"))
 (setq deft-directory "~/Dropbox/Notes")
 (setq deft-archive-directory "~/Dropbox/Notes/archive") 
@@ -278,12 +281,34 @@ http://auto-complete.org/doc/manual.html
   :config (global-auto-complete-mode t))
 #+END_SRC
 ** Magit
+*** Documentation
+- [[http://magit.vc/manual/magit.html][Magit User Manual]]
 *** Load package
 #+BEGIN_SRC emacs-lisp
 (use-package magit
 :ensure t)
+#+END_SRC
+** org2blog
+*** Loading package
+#+BEGIN_SRC emacs-lisp
+;(use-package org2blog
+;:ensure t)
+
+(setq org2blog/wp-blog-alist
+      '(("prodissues.com"
+         :url "http://prodissues.com/xmlrpc.php"
+         :username "yaniv"
+         :default-title "Hello World"
+         :default-categories ("org2blog" "emacs")
+         :tags-as-categories nil)
+        ("localhost"
+         :url "http://localhost:8888/xmlrpc.php"
+	 url: "prodissues.com/xmlrpc.php"
+         :username "yaniv")))
 
 #+END_SRC
+
+
 * Modes
 ** Ido
 
@@ -312,6 +337,16 @@ http://auto-complete.org/doc/manual.html
 #+BEGIN_SRC emacs-lisp
 ;; Org mode
 ;; fontify code in code blocks
+
+
+
+;; Agenda files
+(setq org-agenda-files (list "~/Dropbox/Notes/"))
+
+;;keybindings
+(define-key global-map "\C-cl" 'org-store-link)
+(define-key global-map "\C-ca" 'org-agenda)
+(setq org-log-done t)
 #+END_SRC
 
 *** Babel
@@ -433,10 +468,11 @@ The previous solution works. The only problem is that when I refiling a subtree 
 https://github.com/yjwen/org-reveal
 **** Package loading
 #+BEGIN_SRC emacs-lisp
-; (use-package ox-reveal
-; :ensure t
-; :config
-; (setq org-reveal-root "~/dev/reveal/reveal.js"))
+
+ (use-package ox-reveal
+ :ensure t
+ :config
+ (setq org-reveal-root "~/dev/reveal/reveal.js"))
 
 #+END_SRC
 
@@ -721,7 +757,7 @@ https://github.com/bbatsov/solarized-emacs
 *** define-word package
 - Blog post about it - http://oremacs.com/2015/05/22/define-word/
 **** Load package
-#+BEGIN_SRC emacs-lisp :tangle no
+#+BEGIN_SRC emacs-lisp
 (use-package define-word
   :ensure t
   :pin melpa)

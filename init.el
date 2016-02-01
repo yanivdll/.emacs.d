@@ -1,7 +1,7 @@
 ;; set this so I can overide the preistalled packages
 ;; and override them with different versions
 ;; for now, org is different than the preinstalled version
-; (package-initialize nil)
+(package-initialize nil)
 
 ;;; Path to the lisp directory, where user custom packages reside.
 ;;; Must have it here in order for the use-package to load
@@ -10,11 +10,14 @@
 
 ;; Override the packages with the git version of Org
 (add-to-list 'load-path "~/.emacs.d/lisp/org-mode/lisp")
-
+(add-to-list 'load-path "~/.emacs.d/lisp/org-reveal/")
+(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
+(setq load-path (cons "~/.emacs.d/org2blog/" load-path))
+(require 'org2blog-autoloads)
 ;; Load the rest of the packages
-; (package-initialize nil)
+ (package-initialize nil)
 
-; (require 'package)
+(require 'package)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
@@ -35,7 +38,7 @@
       ("marmalade" . "http://marmalade-repo.org/packages/")
       ("melpa" . "http://melpa.org/packages/")))))
 
-; (package-initialize)
+(package-initialize)
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -52,25 +55,11 @@
 ;       (package-install 'use-package))
 
 
-;;; Load el-get to path, otherwise use-package won't work
-(add-to-list 'load-path "~/.emacs.d/el-get/el-get/")
-
-(unless (require 'el-get nil 'noerror)
-  (with-current-buffer
-      (url-retrieve-synchronously
-       "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el")
-    (goto-char (point-max))
-    (eval-print-last-sexp)))
-(add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
-(el-get 'sync)
-
 ;;; Load use-package
 (eval-when-compile
   (require 'use-package))
 ;(require 'diminish)                ;; if you use :diminish
 (require 'bind-key)                 ;; if you use any :bind variant
-
-
 
 ;;; Load the org file and convert it into el that will add to this init file
 (org-babel-load-file (concat user-emacs-directory "config.org"))
