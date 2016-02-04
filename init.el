@@ -26,17 +26,18 @@
   ;;'(custom-enabled-themes (quote (greymatters)))
   '(custom-safe-themes t)
   '(custom-theme-directory "~/.emacs.d/themes/")
-  '(default-frame-alist (quote ((height . 70) (width . 120))))
+  '(default-frame-alist '((height . 70) (width . 120) (tool-bar-lines . 0) (background-color . "honeydew")))
   '(desktop-save-mode t)
   '(global-visual-line-mode t)
   '(global-hl-line-mode 1) ; turn on highlighting current line
+  '(show-paren-mode 1)
   '(markdown-command "/usr/local/bin/multimarkdown")
   '(markdown-open-command "/Applications/Safari.app/Contents/MacOS/Safari")
   '(package-archives
     (quote
      (("gnu" . "http://elpa.gnu.org/packages/")
       ("marmalade" . "http://marmalade-repo.org/packages/")
-      ("melpa" . "http://melpa.org/packages/")))))
+      ("melpa" . "https://melpa.org/packages/")))))
 
 (package-initialize)
 

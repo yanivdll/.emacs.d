@@ -689,15 +689,17 @@ https://github.com/bbatsov/solarized-emacs
 - Learned about it first in [[https://blog.fugue.co/2015-11-11-guide-to-emacs.html][A CEO's Guide to Emacs]]
 - [[http://input.fontbureau.com/][Link to the input site]]
 **** Settings
-# #+BEGIN_SRC emacs-lisp
-# ;; set up fonts for different OSes. OSX toggles to full screen.
-# (setq myfont "Input")
-# (cond
-# ((string-equal system-name "ygilad.local")
-#  (set-face-attribute 'default nil :font myfont :height 144)
-#  (toggle-frame-fullscreen))
-# )
-# #+END_SRC
+#+BEGIN_SRC emacs-lisp
+;; set up fonts for different OSes. OSX toggles to full screen.
+(setq myfont "Input")
+(set-face-attribute 'default nil :font myfont :height 144)
+
+;(cond
+;((string-equal system-name "ygilad.local")
+; (set-face-attribute 'default nil :font myfont :height 144)
+; (toggle-frame-fullscreen))
+;)
+#+END_SRC
 * Internet Relay Chat
 
   IRC is a great way to hang out with other Emacs geeks.
@@ -783,3 +785,4 @@ https://github.com/bbatsov/solarized-emacs
 :ensure t)
 
 #+END_SRC
+
