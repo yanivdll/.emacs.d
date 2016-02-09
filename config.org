@@ -510,6 +510,7 @@ https://github.com/yjwen/org-reveal
 (setq mu4e-mu-binary (executable-find "/usr/local/Cellar/mu/mu/mu"))
 
 (require  'mu4e)
+(setq mu4e-maildir "~/Maildir")
 
 ;; default
 (setq mu4e-maildir "~/Maildir")
@@ -549,11 +550,21 @@ https://github.com/yjwen/org-reveal
       "--\n"
       "http://prodissues.com\n"))
 
-;; sending mail -- gmail smtp settings
+;;(require 'smtpmail)
+;;(setq message-send-mail-function 'smtpmail-send-it
+;;   starttls-use-gnutls nil
+;;   smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
+;;   smtpmail-auth-credentials
+;;     '(("smtp.gmail.com" 465 "yanivdll@gmail.com" nil))
+;;   smtpmail-default-smtp-server "smtp.gmail.com"
+;;   smtpmail-smtp-server "smtp.gmail.com"
+;;   smtpmail-smtp-service 465)
+
+;; alternatively, for emacs-24 you can use:
 (setq message-send-mail-function 'smtpmail-send-it
      smtpmail-stream-type 'ssl
      smtpmail-default-smtp-server "smtp.gmail.com"
-     smtpmail-smtp-server "smtp.gmail.​​​com"
+     smtpmail-smtp-server "smtp.gmail.com"
      smtpmail-smtp-service 465)
 
 ;;viewing messages
@@ -781,9 +792,27 @@ https://github.com/bbatsov/solarized-emacs
 - [[https://www.youtube.com/watch?v%3DVvnJQpTFVDc][Video demo]]
 *** Load package
 #+BEGIN_SRC emacs-lisp
-
 (use-package swiper
-:ensure t)
+:ensure t
+:config
+(ivy-mode 1)
+(setq ivy-use-virtual-buffers t)
+(global-set-key "\C-s" 'swiper)
+(global-set-key (kbd "C-c C-r") 'ivy-resume)
+(global-set-key (kbd "<f6>") 'ivy-resume)
+(global-set-key (kbd "M-x") 'counsel-M-x)
+(global-set-key (kbd "C-x C-f") 'counsel-find-file)
+(global-set-key (kbd "<f1> f") 'counsel-describe-function)
+(global-set-key (kbd "<f1> v") 'counsel-describe-variable)
+(global-set-key (kbd "<f1> l") 'counsel-load-library)
+(global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
+(global-set-key (kbd "<f2> u") 'counsel-unicode-char)
+(global-set-key (kbd "C-c g") 'counsel-git)
+(global-set-key (kbd "C-c j") 'counsel-git-grep)
+(global-set-key (kbd "C-c k") 'counsel-ag)
+(global-set-key (kbd "C-x l") 'counsel-locate)
+(global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
+)
 
 #+END_SRC
 
