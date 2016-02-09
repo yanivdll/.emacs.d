@@ -508,7 +508,8 @@ https://github.com/yjwen/org-reveal
 ;; the exact path may differ -- check it
 (add-to-list 'load-path "/usr/local/Cellar/mu/mu4e")
 (setq mu4e-mu-binary (executable-find "/usr/local/Cellar/mu/mu/mu"))
-(require 'mu4e)
+
+(require  'mu4e)
 
 ;; default
 (setq mu4e-maildir "~/Maildir")
@@ -552,7 +553,7 @@ https://github.com/yjwen/org-reveal
 (setq message-send-mail-function 'smtpmail-send-it
      smtpmail-stream-type 'ssl
      smtpmail-default-smtp-server "smtp.gmail.com"
-     smtpmail-smtp-server "smtp.gmail.com"
+     smtpmail-smtp-server "smtp.gmail.​​​com"
      smtpmail-smtp-service 465)
 
 ;;viewing messages
@@ -623,7 +624,7 @@ https://github.com/yjwen/org-reveal
 #+END_SRC
 *** Wanderlust
 #+BEGIN_SRC emacs-lisp
-;; Email
+; Email
 ; (autoload 'wl "wl" "Wanderlust" t)
 #+END_SRC
 
@@ -785,4 +786,24 @@ https://github.com/bbatsov/solarized-emacs
 :ensure t)
 
 #+END_SRC
+
+** Fronend developement
+*** HTML and CSS
+**** emmet
+*****Package loading
+#+BEGIN_SRC emacs-lisp
+(use-package emmet-mode
+:ensure t
+:config
+(add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
+(add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
+)
+
+#+END_SRC
+
+*** php
+ #+BEGIN_SRC emacs-lisp
+ (use-package php-mode
+ :ensure t)
+ #+END_SRC
 
