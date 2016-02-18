@@ -4,7 +4,7 @@
 ;(setq mac-command-modifier 'control)
 ;(setq mac-control-modifier 'command)
 ;(setq mac-caps-modifiers 'esc)
-(set-register ?r '(file . "~/Dropbox/Notes/posts/pages/posts_drafts.org"))
+(set-register ?r '(file . "~/Dropbox/Notes/posts/posts_drafts.org"))
 (setq org-support-shift-select (quote always)) ;Non-nil means make shift-cursor commands select text when possible
 (define-key global-map [remap list-buffers] 'buffer-menu-other-window) ;this will move focus to the buffer list when doing ~C-x C-b~
 #+END_SRC 
@@ -29,7 +29,7 @@ Not sure what it is doing, but had it in the original init file, and don't think
   (normal-top-level-add-subdirs-to-load-path))
 #+END_SRC
 
-** Ispell
+* Ispell
 
 #+BEGIN_SRC emacs-lisp
 ;; Add path to homebrew packages (that's where ispell installed)
@@ -71,7 +71,6 @@ With a prefix argument, insert a newline above the current line."
       (vi-open-line-above)
     (vi-open-line-below)))
 #+END_SRC
-
 
 
 *** Keybinding
@@ -303,7 +302,7 @@ http://auto-complete.org/doc/manual.html
          :tags-as-categories nil)
         ("localhost"
          :url "http://localhost:8888/xmlrpc.php"
-	 url: "prodissues.com/xmlrpc.php"
+	 url: "localhost:8888/xmlrpc.php"
          :username "yaniv")))
 
 #+END_SRC
@@ -501,6 +500,37 @@ https://github.com/yjwen/org-reveal
 (setq org-default-notes-file "~/Dropbox/Notes/inbox.org")
 #+END_SRC
     
+** Ivy-mode
+*** Reference
+- [[https://github.com/abo-abo/swiper/blob/master/doc/ivy.org][Manual]]
+- [[http://oremacs.com][Homepage]]
+- [[https://github.com/abo-abo/swiper][Git]]
+- [[https://www.youtube.com/watch?v%3DVvnJQpTFVDc][Video demo]]
+*** Load package
+#+BEGIN_SRC emacs-lisp :tangle no
+(use-package swiper
+:ensure t
+:config
+(ivy-mode 1)
+(setq ivy-use-virtual-buffers t)
+(global-set-key "\C-s" 'swiper)
+(global-set-key (kbd "C-c C-r") 'ivy-resume)
+(global-set-key (kbd "<f6>") 'ivy-resume)
+(global-set-key (kbd "M-x") 'counsel-M-x)
+;(global-set-key (kbd "C-x C-f") 'counsel-find-file)
+(global-set-key (kbd "<f1> f") 'counsel-describe-function)
+(global-set-key (kbd "<f1> v") 'counsel-describe-variable)
+(global-set-key (kbd "<f1> l") 'counsel-load-library)
+(global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
+(global-set-key (kbd "<f2> u") 'counsel-unicode-char)
+(global-set-key (kbd "C-c g") 'counsel-git)
+(global-set-key (kbd "C-c j") 'counsel-git-grep)
+(global-set-key (kbd "C-c k") 'counsel-ag)
+(global-set-key (kbd "C-x l") 'counsel-locate)
+(global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
+)
+
+#+END_SRC
 
 ** Email
 *** Mu4e
@@ -563,6 +593,7 @@ https://github.com/yjwen/org-reveal
 ;; alternatively, for emacs-24 you can use:
 (setq message-send-mail-function 'smtpmail-send-it
      smtpmail-stream-type 'ssl
+     smtpmail-auth-credentials (expand-file-name "~/.authinfo.gpg")
      smtpmail-default-smtp-server "smtp.gmail.com"
      smtpmail-smtp-server "smtp.gmail.com"
      smtpmail-smtp-service 465)
@@ -602,7 +633,7 @@ https://github.com/yjwen/org-reveal
 (setq mu4e-headers-visible-lines 12)
 
 ;; smart From/To field in the headers view
-(setq mu4e-user-mail-address-list '("yaniv@outbrain.com" "ygilad@outbrain.com" "yanivdll@gmail.com" "yanivalerts@gmail.com"))
+(setq mu4e-user-mail-address-list '("yanivdll@gmail.com" "yanivalerts@gmail.com"))
 
 ;; Saving attachments to a specific folder
 (setq mu4e-attachment-dir  "~/Downloads")
@@ -615,7 +646,7 @@ https://github.com/yjwen/org-reveal
 #+END_SRC
 
 ;; enable attachments from dired
-#+BEGIN_SRC emacs-lisp :tangle no
+#+BEGIN_SRC emacs-lisp 
 (require 'gnus-dired)
 ;; make the `gnus-dired-mail-buffers' function also work on
 ;; message-mode derived modes, such as mu4e-compose-mode
@@ -631,7 +662,7 @@ https://github.com/yjwen/org-reveal
     (nreverse buffers)))
 
 (setq gnus-dired-mail-mode 'mu4e-user-agent)
-(add-hook 'dired-mode
+(add-hook 'dired-mode-hook 'turn-on-gnus-dired-mode)
 #+END_SRC
 *** Wanderlust
 #+BEGIN_SRC emacs-lisp
@@ -682,25 +713,34 @@ This should help avoide unwanted inheritance between different themes, and the u
  (defadvice load-theme (before theme-dont-propagate activate)
   (mapcar #'disable-theme custom-enabled-themes))
 #+END_SRC
-*** Load the solarized theme
-**** solarized-emacs
-***** Repo
+*** solarized-emacs (INACTIVE)
+**** Repo
 https://github.com/bbatsov/solarized-emacs
-***** Load theme
-#+BEGIN_SRC emacs-lisp
+**** Load theme
+#+BEGIN_SRC emacs-lisp :tangle no
 (use-package solarized-theme
 :ensure t
 :config 
 (setq solarized-scale-org-headlines nil))
 
 #+END_SRC
+*** Dichromacy (CURRENT)
+#+BEGIN_SRC emacs-lisp
+(load-theme 'dichromacy t)
+#+END_SRC
+** Colors
+*** Change the background color
+I like the background color Xah uses in his screenshots, and he provided me with the settings.
 
+#+BEGIN_SRC emacs-lisp
+(set-background-color "honeydew")
+#+END_SRC
 ** Fonts
 *** Input fonts
 **** Reference
 - Learned about it first in [[https://blog.fugue.co/2015-11-11-guide-to-emacs.html][A CEO's Guide to Emacs]]
 - [[http://input.fontbureau.com/][Link to the input site]]
-**** Settings
+*** Settings
 #+BEGIN_SRC emacs-lisp
 ;; set up fonts for different OSes. OSX toggles to full screen.
 (setq myfont "Input")
@@ -784,38 +824,6 @@ https://github.com/bbatsov/solarized-emacs
 (global-set-key (kbd "C-c D") 'define-word)
 
 #+END_SRC
-** Ivy-mode
-*** Reference
-- [[https://github.com/abo-abo/swiper/blob/master/doc/ivy.org][Manual]]
-- [[http://oremacs.com][Homepage]]
-- [[https://github.com/abo-abo/swiper][Git]]
-- [[https://www.youtube.com/watch?v%3DVvnJQpTFVDc][Video demo]]
-*** Load package
-#+BEGIN_SRC emacs-lisp
-(use-package swiper
-:ensure t
-:config
-(ivy-mode 1)
-(setq ivy-use-virtual-buffers t)
-(global-set-key "\C-s" 'swiper)
-(global-set-key (kbd "C-c C-r") 'ivy-resume)
-(global-set-key (kbd "<f6>") 'ivy-resume)
-(global-set-key (kbd "M-x") 'counsel-M-x)
-(global-set-key (kbd "C-x C-f") 'counsel-find-file)
-(global-set-key (kbd "<f1> f") 'counsel-describe-function)
-(global-set-key (kbd "<f1> v") 'counsel-describe-variable)
-(global-set-key (kbd "<f1> l") 'counsel-load-library)
-(global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
-(global-set-key (kbd "<f2> u") 'counsel-unicode-char)
-(global-set-key (kbd "C-c g") 'counsel-git)
-(global-set-key (kbd "C-c j") 'counsel-git-grep)
-(global-set-key (kbd "C-c k") 'counsel-ag)
-(global-set-key (kbd "C-x l") 'counsel-locate)
-(global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
-)
-
-#+END_SRC
-
 ** Fronend developement
 *** HTML and CSS
 **** emmet
@@ -836,3 +844,39 @@ https://github.com/bbatsov/solarized-emacs
  :ensure t)
  #+END_SRC
 
+** Workgroups2
+*** Package loading
+#+BEGIN_SRC emacs-lisp
+(use-package workgroups2
+:ensure t
+:init
+;; Change prefix key (before activating WG)
+(setq wg-prefix-key (kbd "C-c z"))
+
+;; Change workgroups session file
+(setq wg-session-file "~/.emacs.d/.emacs_workgroups")
+
+;; Set your own keyboard shortcuts to reload/save/switch WGs:
+;; "s" == "Super" or "Win"-key, "S" == Shift, "C" == Control
+(global-set-key (kbd "<pause>")     'wg-reload-session)
+(global-set-key (kbd "C-S-<pause>") 'wg-save-session)
+(global-set-key (kbd "s-.")         'wg-switch-to-workgroup)
+(global-set-key (kbd "s-/")         'wg-switch-to-previous-workgroup)
+
+(workgroups-mode 1) 
+)
+
+#+END_SRC
+** Multiple cursors
+*** Reference
+*** Package loading
+#+BEGIN_SRC emacs-lisp
+(use-package multiple-cursors
+:ensure t
+:pin melpa)
+
+(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+#+END_SRC
