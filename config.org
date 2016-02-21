@@ -307,6 +307,131 @@ http://auto-complete.org/doc/manual.html
 
 #+END_SRC
 
+* Writing aids
+** Typewriter mode
+*** Load package
+ #+BEGIN_SRC emacs-lisp
+ (use-package draft-mode
+ :ensure t)
+ #+END_SRC
+** Dictionaries
+*** External dictionary
+
+#+BEGIN_SRC emacs-lisp
+(autoload 'ispell-get-word "ispell")
+(defun lookup-word (word)
+  (interactive (list (save-excursion (car (ispell-get-word nil)))))
+  (browse-url (format "http://en.wiktionary.org/wiki/%s" word)))
+
+(global-set-key (kbd "M-#") 'lookup-word)
+#+END_SRC
+*** Synosaurus
+**** Load package
+#+BEGIN_SRC emacs-lisp :tangle no
+(use-package synosaurus
+:ensure t)
+
+#+END_SRC
+*** synonymous
+**** Load package
+
+#+BEGIN_SRC emacs-lisp
+(use-package synonymous
+:ensure t)
+#+END_SRC
+
+**** Keybinding
+
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "C-c s") 'synonymous-synonyms)
+(global-set-key (kbd "C-c S") 'synonymous-antonyms)
+#+END_SRC
+
+*** define-word package
+- Blog post about it - http://oremacs.com/2015/05/22/define-word/
+**** Load package
+#+BEGIN_SRC emacs-lisp
+(use-package define-word
+  :ensure t
+  :pin melpa)
+
+#+END_SRC
+
+**** Keybinding
+#+BEGIN_SRC emacs-lisp :tangle no
+(global-set-key (kbd "C-c d") 'define-word-at-point)
+(global-set-key (kbd "C-c D") 'define-word)
+
+#+END_SRC
+** Latex
+
+ This is a change based on [[https://tug.org/mactex/UpdatingForElCapitan.pdf][this article]] by Herbert Schulz - a change that was made in the new osx version (El Capitan).
+ #+BEGIN_SRC sh
+ (setenv "PATH" "/usr/local/bin:/Library/TeX/texbin/:$PATH" t)
+ #+END_SRC
+
+** wordsmith-mode
+This is an iA Writer alternative for Emacs. It's a gramaric syntax highlighter. I use it when writing anything that isn't code, to get an overview of the verbs, nouns and adjectives that I've used. 
+
+*** Reference
+- [[https://github.com/istib/wordsmith-mode][GitHub repository]]
+*** Package loading
+#+BEGIN_SRC emacs-lisp
+(use-package wordsmith-mode
+:ensure t)
+#+END_SRC
+*** Fronend developement
+**** HTML and CSS
+***** emmet
+  *****Package loading
+  #+BEGIN_SRC emacs-lisp
+  (use-package emmet-mode
+  :ensure t
+  :config
+  (add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
+  (add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
+  )
+
+  #+END_SRC
+
+**** php
+  #+BEGIN_SRC emacs-lisp
+  (use-package php-mode
+  :ensure t)
+  #+END_SRC
+*** Workgroups2
+**** Package loading
+  #+BEGIN_SRC emacs-lisp
+  (use-package workgroups2
+  :ensure t
+  :init
+  ;; Change prefix key (before activating WG)
+  (setq wg-prefix-key (kbd "C-c z"))
+
+  ;; Change workgroups session file
+  (setq wg-session-file "~/.emacs.d/.emacs_workgroups")
+
+  ;; Set your own keyboard shortcuts to reload/save/switch WGs:
+  ;; "s" == "Super" or "Win"-key, "S" == Shift, "C" == Control
+  (global-set-key (kbd "<pause>")     'wg-reload-session)
+  (global-set-key (kbd "C-S-<pause>") 'wg-save-session)
+  (global-set-key (kbd "s-.")         'wg-switch-to-workgroup)
+  (global-set-key (kbd "s-/")         'wg-switch-to-previous-workgroup)
+
+  (workgroups-mode 1) 
+  )
+
+  #+END_SRC
+** centered-cursor 
+*** Reference
+- [[http://melpa.org/#/centered-cursor-mode][Melpa]]
+*** Package loading
+#+BEGIN_SRC emacs-lisp
+(use-package centered-cursor
+:ensure t
+:config
+(global-centered-cursor-mode +1))
+#+END_SRC
 
 * Modes
 ** Ido
@@ -703,7 +828,6 @@ https://github.com/yjwen/org-reveal
 #+END_SRC
 
 **** TODO Load chord-keys to allow 'dd' to delete visual line
-
 * Look and feel
 ** Themes
 *** Disable all other themes before enabling a new one. 
@@ -769,114 +893,17 @@ I like the background color Xah uses in his screenshots, and he provided me with
   #+end_src
 
 * Temp
-** Typewriter mode
-*** Load package
-#+BEGIN_SRC emacs-lisp
-(use-package draft-mode
-:ensure t)
-#+END_SRC
-** Dictionaries
-*** External dictionary
-
-#+BEGIN_SRC emacs-lisp
-(autoload 'ispell-get-word "ispell")
-(defun lookup-word (word)
-  (interactive (list (save-excursion (car (ispell-get-word nil)))))
-  (browse-url (format "http://en.wiktionary.org/wiki/%s" word)))
-
-(global-set-key (kbd "M-#") 'lookup-word)
-#+END_SRC
-*** Synosaurus
-**** Load package
-#+BEGIN_SRC emacs-lisp :tangle no
-(use-package synosaurus
-:ensure t)
-
-#+END_SRC
-*** synonymous
-**** Load package
-
-#+BEGIN_SRC emacs-lisp
-(use-package synonymous
-:ensure t)
-#+END_SRC
-
-**** Keybinding
-
-#+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "C-c s") 'synonymous-synonyms)
-(global-set-key (kbd "C-c S") 'synonymous-antonyms)
-#+END_SRC
-
-*** define-word package
-- Blog post about it - http://oremacs.com/2015/05/22/define-word/
-**** Load package
-#+BEGIN_SRC emacs-lisp
-(use-package define-word
-  :ensure t
-  :pin melpa)
-
-#+END_SRC
-
-**** Keybinding
-#+BEGIN_SRC emacs-lisp :tangle no
-(global-set-key (kbd "C-c d") 'define-word-at-point)
-(global-set-key (kbd "C-c D") 'define-word)
-
-#+END_SRC
-** Fronend developement
-*** HTML and CSS
-**** emmet
-*****Package loading
-#+BEGIN_SRC emacs-lisp
-(use-package emmet-mode
-:ensure t
-:config
-(add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
-(add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
-)
-
-#+END_SRC
-
-*** php
- #+BEGIN_SRC emacs-lisp
- (use-package php-mode
- :ensure t)
- #+END_SRC
-
-** Workgroups2
-*** Package loading
-#+BEGIN_SRC emacs-lisp
-(use-package workgroups2
-:ensure t
-:init
-;; Change prefix key (before activating WG)
-(setq wg-prefix-key (kbd "C-c z"))
-
-;; Change workgroups session file
-(setq wg-session-file "~/.emacs.d/.emacs_workgroups")
-
-;; Set your own keyboard shortcuts to reload/save/switch WGs:
-;; "s" == "Super" or "Win"-key, "S" == Shift, "C" == Control
-(global-set-key (kbd "<pause>")     'wg-reload-session)
-(global-set-key (kbd "C-S-<pause>") 'wg-save-session)
-(global-set-key (kbd "s-.")         'wg-switch-to-workgroup)
-(global-set-key (kbd "s-/")         'wg-switch-to-previous-workgroup)
-
-(workgroups-mode 1) 
-)
-
-#+END_SRC
 ** Multiple cursors
 *** Reference
 *** Package loading
-#+BEGIN_SRC emacs-lisp
-(use-package multiple-cursors
-:ensure t
-:pin melpa)
+ #+BEGIN_SRC emacs-lisp
+ (use-package multiple-cursors
+ :ensure t
+ :pin melpa)
 
-(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
-(global-set-key (kbd "C->") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
-#+END_SRC
+ (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+ (global-set-key (kbd "C->") 'mc/mark-next-like-this)
+ (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+ (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+ #+END_SRC
+
