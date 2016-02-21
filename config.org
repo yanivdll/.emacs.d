@@ -20,23 +20,6 @@ Not sure what it is doing, but had it in the original init file, and don't think
 (setq org-src-fontify-natively t)
 #+END_SRC
 
-** Plugins
-
-#+BEGIN_SRC emacs-lisp
-;; path to where plugins are kept
-;;(setq plugin-path "~/.emacs.d/lisp/")
-(let ((default-directory "~/.emacs.d/lisp/"))
-  (normal-top-level-add-subdirs-to-load-path))
-#+END_SRC
-
-* Ispell
-
-#+BEGIN_SRC emacs-lisp
-;; Add path to homebrew packages (that's where ispell installed)
-(setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
-(setq exec-path (append exec-path '("/usr/local/bin")))
-#+END_SRC
-   
 * Funcions
 ** Load init.el
 #+BEGIN_SRC emacs-lisp
@@ -71,7 +54,6 @@ With a prefix argument, insert a newline above the current line."
       (vi-open-line-above)
     (vi-open-line-below)))
 #+END_SRC
-
 
 *** Keybinding
 #+BEGIN_SRC emacs-lisp
@@ -203,34 +185,6 @@ http://jblevins.org/projects/deft/
 (define-key global-map "\C-x4\C-j" 'dired-jump-other-window)
 
 #+END_SRC
-** Helm
-
-# #+BEGIN_SRC emacs-lisp
-# (require 'helm)
-# (require 'helm-config)
-
-# ;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
-# ;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
-# ;; cannot change `helm-command-prefix-key' once `helm-config' is loaded.
-# (global-set-key (kbd "C-c h") 'helm-command-prefix)
-# (global-unset-key (kbd "C-x c"))
-
-# (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to run persistent action
-# (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
-# ;(define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
-
-# (when (executable-find "curl")
-#   (setq helm-google-suggest-use-curl-p t))
-
-# (setq helm-split-window-in-side-p           t ; open helm buffer inside current window, not occupy whole other window
-#       helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
-#       helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
-#       helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
-#       helm-ff-file-name-history-use-recentf t)
-
-# (helm-mode 1)
-# #+END_SRC
-
 ** htmlize
 *** Package loading
 #+BEGIN_SRC emacs-lisp
@@ -247,23 +201,6 @@ http://jblevins.org/projects/deft/
 :init
 (bind-key "C-c C-," 'ace-jump-mode))
 #+END_SRC
-
-** Undo tree mode - visualize your undos and branches
-*** Source
-Took this config from Sacha's config - http://pages.sachachua.com/.emacs.d/Sacha.html#orgheadline158
-*** Package loading
-#+BEGIN_SRC emacs-lisp
-;(use-package undo-tree
-;  :defer t
-;  :ensure t
-;  :diminish undo-tree-mode
-;  :idle
-;  (progn
-;    (global-undo-tree-mode)
-;    (setq undo-tree-visualizer-timestamps t)
-;    (setq undo-tree-visualizer-diff t)))
-
-#+END_SRC 
 ** Auto complete
 *** Documentation
 **** Manual
@@ -306,7 +243,6 @@ http://auto-complete.org/doc/manual.html
          :username "yaniv")))
 
 #+END_SRC
-
 * Writing aids
 ** Typewriter mode
 *** Load package
@@ -399,40 +335,17 @@ This is an iA Writer alternative for Emacs. It's a gramaric syntax highlighter. 
   (use-package php-mode
   :ensure t)
   #+END_SRC
-*** Workgroups2
-**** Package loading
-  #+BEGIN_SRC emacs-lisp
-  (use-package workgroups2
-  :ensure t
-  :init
-  ;; Change prefix key (before activating WG)
-  (setq wg-prefix-key (kbd "C-c z"))
-
-  ;; Change workgroups session file
-  (setq wg-session-file "~/.emacs.d/.emacs_workgroups")
-
-  ;; Set your own keyboard shortcuts to reload/save/switch WGs:
-  ;; "s" == "Super" or "Win"-key, "S" == Shift, "C" == Control
-  (global-set-key (kbd "<pause>")     'wg-reload-session)
-  (global-set-key (kbd "C-S-<pause>") 'wg-save-session)
-  (global-set-key (kbd "s-.")         'wg-switch-to-workgroup)
-  (global-set-key (kbd "s-/")         'wg-switch-to-previous-workgroup)
-
-  (workgroups-mode 1) 
-  )
-
-  #+END_SRC
 ** centered-cursor 
 *** Reference
 - [[http://melpa.org/#/centered-cursor-mode][Melpa]]
 *** Package loading
 #+BEGIN_SRC emacs-lisp
-(use-package centered-cursor
+(use-package centered-cursor-mode
 :ensure t
+:pin melpa
 :config
 (global-centered-cursor-mode +1))
 #+END_SRC
-
 * Modes
 ** Ido
 
@@ -546,7 +459,7 @@ My usecase - I keep all my drafts in one big org file (available [[http://www.pr
     ))
 #+END_SRC
 
-**** Here's anpther function 
+**** Here's another function 
 Source - http://superuser.com/a/568300/525565
 This one works. The only problem is that it doesn't move the footnotes with the subtrees.
 
@@ -580,13 +493,6 @@ otherwise use the subtree title."
       (yank))))
 #+END_SRC
 
-**** Trying to take care of the footnotes
-The previous solution works. The only problem is that when I refiling a subtree that has footnote, the footnotes are left behind. Here's a question that I posted on [[http://stackoverflow.com/questions/33885244/emacs-org-mode-how-can-i-refile-a-subtree-to-a-new-file?noredirect%3D1#comment55607485_33885244][stack-overflow]], and this is an attempt to implement one suggestion that was made:
-
-# #+BEGIN_SRC emacs-lisp
-# (let (footnote) (save-excursion (org-back-to-heading t) (org-narrow-to-subtree) (while (re-search-forward "\\[fn:[0-9]+\\]" nil t) (push (cons (buffer-substring-no-properties (match-beginning 0) (match-end 0)) nil) footnote)) (widen) (org-end-of-subtree t t) (setq footnote (mapcar (lambda (x) (and (search-forward (car x) nil t nil) (cons (car x) (buffer-substring-no-properties (match-beginning 0) (point-at-eol))))) footnote))) footnote
-# )
-# #+END_SRC
 *** Org-Reveal
 **** Repo
 https://github.com/yjwen/org-reveal
@@ -625,38 +531,6 @@ https://github.com/yjwen/org-reveal
 (setq org-default-notes-file "~/Dropbox/Notes/inbox.org")
 #+END_SRC
     
-** Ivy-mode
-*** Reference
-- [[https://github.com/abo-abo/swiper/blob/master/doc/ivy.org][Manual]]
-- [[http://oremacs.com][Homepage]]
-- [[https://github.com/abo-abo/swiper][Git]]
-- [[https://www.youtube.com/watch?v%3DVvnJQpTFVDc][Video demo]]
-*** Load package
-#+BEGIN_SRC emacs-lisp :tangle no
-(use-package swiper
-:ensure t
-:config
-(ivy-mode 1)
-(setq ivy-use-virtual-buffers t)
-(global-set-key "\C-s" 'swiper)
-(global-set-key (kbd "C-c C-r") 'ivy-resume)
-(global-set-key (kbd "<f6>") 'ivy-resume)
-(global-set-key (kbd "M-x") 'counsel-M-x)
-;(global-set-key (kbd "C-x C-f") 'counsel-find-file)
-(global-set-key (kbd "<f1> f") 'counsel-describe-function)
-(global-set-key (kbd "<f1> v") 'counsel-describe-variable)
-(global-set-key (kbd "<f1> l") 'counsel-load-library)
-(global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
-(global-set-key (kbd "<f2> u") 'counsel-unicode-char)
-(global-set-key (kbd "C-c g") 'counsel-git)
-(global-set-key (kbd "C-c j") 'counsel-git-grep)
-(global-set-key (kbd "C-c k") 'counsel-ag)
-(global-set-key (kbd "C-x l") 'counsel-locate)
-(global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
-)
-
-#+END_SRC
-
 ** Email
 *** Mu4e
 #+BEGIN_SRC emacs-lisp 
@@ -835,28 +709,29 @@ This should help avoide unwanted inheritance between different themes, and the u
 #+BEGIN_SRC emacs-lisp
  ;;; Disable all themes before loading a new one
  (defadvice load-theme (before theme-dont-propagate activate)
-  (mapcar #'disable-theme custom-enabled-themes))
+  (mapc 'disable-theme custom-enabled-themes))
 #+END_SRC
-*** solarized-emacs (INACTIVE)
+*** solarized-emacs (CURRENT)
 **** Repo
 https://github.com/bbatsov/solarized-emacs
 **** Load theme
-#+BEGIN_SRC emacs-lisp :tangle no
+#+BEGIN_SRC emacs-lisp
 (use-package solarized-theme
 :ensure t
 :config 
+(load-theme 'solarized-light t)
 (setq solarized-scale-org-headlines nil))
 
 #+END_SRC
-*** Dichromacy (CURRENT)
-#+BEGIN_SRC emacs-lisp
+*** Dichromacy (INACTIVE)
+#+BEGIN_SRC emacs-lisp :tangle no
 (load-theme 'dichromacy t)
 #+END_SRC
 ** Colors
 *** Change the background color
 I like the background color Xah uses in his screenshots, and he provided me with the settings.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
 (set-background-color "honeydew")
 #+END_SRC
 ** Fonts
@@ -864,18 +739,12 @@ I like the background color Xah uses in his screenshots, and he provided me with
 **** Reference
 - Learned about it first in [[https://blog.fugue.co/2015-11-11-guide-to-emacs.html][A CEO's Guide to Emacs]]
 - [[http://input.fontbureau.com/][Link to the input site]]
-*** Settings
-#+BEGIN_SRC emacs-lisp
-;; set up fonts for different OSes. OSX toggles to full screen.
-(setq myfont "Input")
-(set-face-attribute 'default nil :font myfont :height 144)
-
-;(cond
-;((string-equal system-name "ygilad.local")
-; (set-face-attribute 'default nil :font myfont :height 144)
-; (toggle-frame-fullscreen))
-;)
-#+END_SRC
+**** Settings
+ #+BEGIN_SRC emacs-lisp
+ ;; set up fonts for different OS's
+ (setq myfont "Input")
+ (set-face-attribute 'default nil :font myfont :height 144)
+ #+END_SRC
 * Internet Relay Chat
 
   IRC is a great way to hang out with other Emacs geeks.
@@ -907,3 +776,119 @@ I like the background color Xah uses in his screenshots, and he provided me with
  (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
  #+END_SRC
 
+* Inactive packages
+** Helm
+
+ # #+BEGIN_SRC emacs-lisp
+ # (require 'helm)
+ # (require 'helm-config)
+
+ # ;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
+ # ;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
+ # ;; cannot change `helm-command-prefix-key' once `helm-config' is loaded.
+ # (global-set-key (kbd "C-c h") 'helm-command-prefix)
+ # (global-unset-key (kbd "C-x c"))
+
+ # (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to run persistent action
+ # (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
+ # ;(define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
+
+ # (when (executable-find "curl")
+ #   (setq helm-google-suggest-use-curl-p t))
+
+ # (setq helm-split-window-in-side-p           t ; open helm buffer inside current window, not occupy whole other window
+ #       helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
+ #       helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
+ #       helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
+ #       helm-ff-file-name-history-use-recentf t)
+
+ # (helm-mode 1)
+ # #+END_SRC
+** Undo tree mode - visualize your undos and branches
+*** Source
+ Took this config from Sacha's config - http://pages.sachachua.com/.emacs.d/Sacha.html#orgheadline158
+*** Package loading
+ #+BEGIN_SRC emacs-lisp
+ ;(use-package undo-tree
+ ;  :defer t
+ ;  :ensure t
+ ;  :diminish undo-tree-mode
+ ;  :idle
+ ;  (progn
+ ;    (global-undo-tree-mode)
+ ;    (setq undo-tree-visualizer-timestamps t)
+ ;    (setq undo-tree-visualizer-diff t)))
+
+ #+END_SRC 
+** Ispell
+
+ #+BEGIN_SRC emacs-lisp
+ ;; Add path to homebrew packages (that's where ispell installed)
+ (setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
+ (setq exec-path (append exec-path '("/usr/local/bin")))
+ #+END_SRC
+   
+** Plugins
+
+#+BEGIN_SRC emacs-lisp :tangle no
+;; path to where plugins are kept
+;;(setq plugin-path "~/.emacs.d/lisp/")
+(let ((default-directory "~/.emacs.d/lisp/"))
+  (normal-top-level-add-subdirs-to-load-path))
+#+END_SRC
+
+** Ivy-mode
+*** Reference
+- [[https://github.com/abo-abo/swiper/blob/master/doc/ivy.org][Manual]]
+- [[http://oremacs.com][Homepage]]
+- [[https://github.com/abo-abo/swiper][Git]]
+- [[https://www.youtube.com/watch?v%3DVvnJQpTFVDc][Video demo]]
+*** Load package
+#+BEGIN_SRC emacs-lisp :tangle no
+(use-package swiper
+:ensure t
+:init
+(ivy-mode 1)
+(setq ivy-use-virtual-buffers t)
+(global-set-key "\C-s" 'swiper)
+(global-set-key (kbd "C-c C-r") 'ivy-resume)
+(global-set-key (kbd "<f6>") 'ivy-resume)
+(global-set-key (kbd "M-x") 'counsel-M-x)
+(global-set-key (kbd "C-x C-f") 'counsel-find-file)
+(global-set-key (kbd "<f1> f") 'counsel-describe-function)
+(global-set-key (kbd "<f1> v") 'counsel-describe-variable)
+(global-set-key (kbd "<f1> l") 'counsel-load-library)
+(global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
+(global-set-key (kbd "<f2> u") 'counsel-unicode-char)
+(global-set-key (kbd "C-c g") 'counsel-git)
+(global-set-key (kbd "C-c j") 'counsel-git-grep)
+(global-set-key (kbd "C-c k") 'counsel-ag)
+(global-set-key (kbd "C-x l") 'counsel-locate)
+(global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
+)
+
+#+END_SRC
+
+** Workgroups2
+*** Package loading
+ #+BEGIN_SRC emacs-lisp :tangle no
+ (use-package workgroups2
+ :ensure t
+ :init
+ ;; Change prefix key (before activating WG)
+ (setq wg-prefix-key (kbd "C-c z"))
+
+ ;; Change workgroups session file
+ (setq wg-session-file "~/.emacs.d/.emacs_workgroups")
+
+ ;; Set your own keyboard shortcuts to reload/save/switch WGs:
+ ;; "s" == "Super" or "Win"-key, "S" == Shift, "C" == Control
+ (global-set-key (kbd "<pause>")     'wg-reload-session)
+ (global-set-key (kbd "C-S-<pause>") 'wg-save-session)
+ (global-set-key (kbd "s-.")         'wg-switch-to-workgroup)
+ (global-set-key (kbd "s-/")         'wg-switch-to-previous-workgroup)
+
+ (workgroups-mode 1) 
+ )
+
+ #+END_SRC

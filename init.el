@@ -27,12 +27,8 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes t)
  '(custom-theme-directory "~/.emacs.d/themes/")
- '(default-frame-alist
-    (quote
-     ((height . 70)
-      (width . 120)
-      (tool-bar-lines . 0))))
- '(desktop-save-mode t)
+ '(default-frame-alist (quote ((height . 80) (width . 70) (tool-bar-lines . 0))))
+; '(desktop-save-mode t)
  '(global-hl-line-mode 1)
  '(global-visual-line-mode t)
  '(markdown-command "/usr/local/bin/multimarkdown")
