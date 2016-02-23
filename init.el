@@ -28,16 +28,17 @@
  '(custom-safe-themes t)
  '(custom-theme-directory "~/.emacs.d/themes/")
  '(default-frame-alist (quote ((height . 80) (width . 70) (tool-bar-lines . 0))))
-; '(desktop-save-mode t)
  '(global-hl-line-mode 1)
  '(global-visual-line-mode t)
  '(markdown-command "/usr/local/bin/multimarkdown")
  '(markdown-open-command "/Applications/Safari.app/Contents/MacOS/Safari")
+ '(mode-require-final-newline nil)
  '(package-archives
    (quote
     (("gnu" . "http://elpa.gnu.org/packages/")
      ("marmalade" . "http://marmalade-repo.org/packages/")
      ("melpa" . "https://melpa.org/packages/"))))
+ '(require-final-newline nil)
  '(send-mail-function (quote smtpmail-send-it))
  '(show-paren-mode 1))
 

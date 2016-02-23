@@ -4,7 +4,7 @@
 ;(setq mac-command-modifier 'control)
 ;(setq mac-control-modifier 'command)
 ;(setq mac-caps-modifiers 'esc)
-(set-register ?r '(file . "~/Dropbox/Notes/posts/posts_drafts.org"))
+(set-register ?r '(file . "~/Dropbox/Notes/posts/posts_drafts.org")) ;open with ~C-x r j r~
 (setq org-support-shift-select (quote always)) ;Non-nil means make shift-cursor commands select text when possible
 (define-key global-map [remap list-buffers] 'buffer-menu-other-window) ;this will move focus to the buffer list when doing ~C-x C-b~
 #+END_SRC 
@@ -245,11 +245,15 @@ http://auto-complete.org/doc/manual.html
 #+END_SRC
 * Writing aids
 ** Typewriter mode
+- If there are any problems with that mode, for example cursor move to a new line every so often, make sure that the following variables aren't set to true:
+mode-require-final-newline
+require-final-newline
 *** Load package
  #+BEGIN_SRC emacs-lisp
  (use-package draft-mode
- :ensure t)
- #+END_SRC
+ :ensure t
+) 
+#+END_SRC
 ** Dictionaries
 *** External dictionary
 
@@ -302,7 +306,7 @@ http://auto-complete.org/doc/manual.html
 ** Latex
 
  This is a change based on [[https://tug.org/mactex/UpdatingForElCapitan.pdf][this article]] by Herbert Schulz - a change that was made in the new osx version (El Capitan).
- #+BEGIN_SRC sh
+ #+BEGIN_SRC emacs-lisp
  (setenv "PATH" "/usr/local/bin:/Library/TeX/texbin/:$PATH" t)
  #+END_SRC
 
@@ -335,17 +339,6 @@ This is an iA Writer alternative for Emacs. It's a gramaric syntax highlighter. 
   (use-package php-mode
   :ensure t)
   #+END_SRC
-** centered-cursor 
-*** Reference
-- [[http://melpa.org/#/centered-cursor-mode][Melpa]]
-*** Package loading
-#+BEGIN_SRC emacs-lisp
-(use-package centered-cursor-mode
-:ensure t
-:pin melpa
-:config
-(global-centered-cursor-mode +1))
-#+END_SRC
 * Modes
 ** Ido
 
@@ -372,11 +365,6 @@ This is an iA Writer alternative for Emacs. It's a gramaric syntax highlighter. 
 ** Org
 *** Package loading
 #+BEGIN_SRC emacs-lisp
-;; Org mode
-;; fontify code in code blocks
-
-
-
 ;; Agenda files
 (setq org-agenda-files (list "~/Dropbox/Notes/"))
 
@@ -401,50 +389,6 @@ Need to tell babel which languages it should recognize
    (sqlite . t)
    (perl . t)
    ))
-#+END_SRC
-
-*** Publish to pelican
-I'm not sure this is relevant anymore, because I configured the org_reader plugin in pelican, so this publishing configuration isn't active, as far as I can tell.
-# **** HTML
-#+BEGIN_SRC emacs-lisp
-
-;; This package seemed to be required in order to get syntax highlighting when 
-;; publishing to pelican. No one knows why...
-;(use-package color-theme-github
-;:ensure t)
-
-(require 'ox-publish)
-;(use-package ox-publish)
-
-(setq org-publish-project-alist
-      '(
-
-  ("org-prodissues"
-          ;; Path to your org files.
-          :base-directory "~/Dropbox/Notes/posts/"
-          :base-extension "org"
-
-          ;; Path to your Jekyll project.
-          :publishing-directory "~/dev/prodissues/content/"
-          :recursive t
-          :publishing-function  org-html-publish-to-html
-          :headline-levels 4 
-          :html-extension "html"
-          ;:body-only t ;; Only export section between <body> </body>
-    )
-
-
-    ("org-static-prodissues"
-          :base-directory "~/Dropbox/Notes/posts/"
-          :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|php"
-          :publishing-directory "~/Dropbox/Notes/"
-          :recursive t
-          :publishing-function org-publish-attachment)
-
-    ("yan" :components ("org-prodissues"))
-
-))
-
 #+END_SRC
 
 *** Refiling subtree to other file
@@ -579,16 +523,6 @@ https://github.com/yjwen/org-reveal
       "--\n"
       "http://prodissues.com\n"))
 
-;;(require 'smtpmail)
-;;(setq message-send-mail-function 'smtpmail-send-it
-;;   starttls-use-gnutls nil
-;;   smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
-;;   smtpmail-auth-credentials
-;;     '(("smtp.gmail.com" 465 "yanivdll@gmail.com" nil))
-;;   smtpmail-default-smtp-server "smtp.gmail.com"
-;;   smtpmail-smtp-server "smtp.gmail.com"
-;;   smtpmail-smtp-service 465)
-
 ;; alternatively, for emacs-24 you can use:
 (setq message-send-mail-function 'smtpmail-send-it
      smtpmail-stream-type 'ssl
@@ -596,9 +530,6 @@ https://github.com/yjwen/org-reveal
      smtpmail-default-smtp-server "smtp.gmail.com"
      smtpmail-smtp-server "smtp.gmail.com"
      smtpmail-smtp-service 465)
-
-;;viewing messages
-;(setq mu4e-view-prefer-html t)
 
 ;; don't save messages to Sent Messages, Gmail/IMAP takes care of this
 (setq mu4e-sent-messages-behavior 'delete)
@@ -663,45 +594,6 @@ https://github.com/yjwen/org-reveal
 (setq gnus-dired-mail-mode 'mu4e-user-agent)
 (add-hook 'dired-mode-hook 'turn-on-gnus-dired-mode)
 #+END_SRC
-*** Wanderlust
-#+BEGIN_SRC emacs-lisp
-; Email
-; (autoload 'wl "wl" "Wanderlust" t)
-#+END_SRC
-
-** Evil (inactive)
-*** Package loading
-
-#+BEGIN_SRC emacs-lisp :tangle no
-;; Evil mode
-
-(use-package evil
-;:ensure t  ;I commented this out because it kept downloading it from elpa, where there is an old version
-:config 
-(evil-mode 1)
-)
-#+END_SRC
-
-*** Key bindings
-
-#+BEGIN_SRC emacs-lisp :tangle no
-; Modify keybindings for N state
-(define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
-(define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
-(define-key evil-normal-state-map (kbd "$") 'evil-end-of-visual-line)
-(define-key evil-normal-state-map (kbd "0") 'evil-beginning-of-visual-line)
-
-; Modify keybindings for V state
-(define-key evil-visual-state-map (kbd "j") 'evil-next-visual-line)
-(define-key evil-visual-state-map (kbd "k") 'evil-previous-visual-line)
-(define-key evil-visual-state-map (kbd "$") 'evil-end-of-visual-line)
-(define-key evil-visual-state-map (kbd "0") 'evil-beginning-of-visual-line)
-
-;When in deft this keybinding will open the note in another window
-(define-key evil-normal-state-map (kbd "C-o")'deft-open-file-other-window) 
-#+END_SRC
-
-**** TODO Load chord-keys to allow 'dd' to delete visual line
 * Look and feel
 ** Themes
 *** Disable all other themes before enabling a new one. 
@@ -776,6 +668,32 @@ I like the background color Xah uses in his screenshots, and he provided me with
  (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
  #+END_SRC
 
+** Languagetool
+*** Reference
+- [[https://github.com/mhayashi1120/Emacs-langtool][Languagetool for emacs]]
+- [[https://www.languagetool.org][Official site]]
+
+*** Package Loading
+#+BEGIN_SRC emacs-lisp
+(use-package langtool
+:ensure t
+:init
+(setq langtool-language-tool-jar "~/Downloads/LanguageTool-3.2/languagetool-commandline.jar")
+(setq langtool-default-language "en-US"))
+
+#+END_SRC
+** Expand-region
+*** Reference
+- [[https://github.com/magnars/expand-region.el][Github repository]]
+- [[http://emacsrocks.com/e09.html][Emacs rocks!]]
+*** Package loading
+#+BEGIN_SRC emacs-lisp
+(use-package expand-region
+:ensure t
+:init
+(global-set-key (kbd "C-=") 'er/expand-region))
+
+#+END_SRC
 * Inactive packages
 ** Helm
 
@@ -892,3 +810,48 @@ I like the background color Xah uses in his screenshots, and he provided me with
  )
 
  #+END_SRC
+** Evil (inactive)
+*** Package loading
+
+#+BEGIN_SRC emacs-lisp :tangle no
+;; Evil mode
+
+(use-package evil
+;:ensure t  ;I commented this out because it kept downloading it from elpa, where there is an old version
+:config 
+(evil-mode 1)
+)
+#+END_SRC
+
+*** Key bindings
+
+#+BEGIN_SRC emacs-lisp :tangle no
+; Modify keybindings for N state
+(define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
+(define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
+(define-key evil-normal-state-map (kbd "$") 'evil-end-of-visual-line)
+(define-key evil-normal-state-map (kbd "0") 'evil-beginning-of-visual-line)
+
+; Modify keybindings for V state
+(define-key evil-visual-state-map (kbd "j") 'evil-next-visual-line)
+(define-key evil-visual-state-map (kbd "k") 'evil-previous-visual-line)
+(define-key evil-visual-state-map (kbd "$") 'evil-end-of-visual-line)
+(define-key evil-visual-state-map (kbd "0") 'evil-beginning-of-visual-line)
+
+;When in deft this keybinding will open the note in another window
+(define-key evil-normal-state-map (kbd "C-o")'deft-open-file-other-window) 
+#+END_SRC
+
+**** TODO Load chord-keys to allow 'dd' to delete visual line
+** centered-cursor 
+*** Reference
+- [[http://melpa.org/#/centered-cursor-mode][Melpa]]
+*** Package loading
+I've inactivated it because it caused to a wacky experience when scrolling down the screen and reaching the bottom.
+#+BEGIN_SRC emacs-lisp :tangle no
+(use-package centered-cursor-mode
+:ensure t
+:pin melpa
+:config
+(global-centered-cursor-mode +1))
+#+END_SRC
