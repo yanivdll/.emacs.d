@@ -594,6 +594,18 @@ https://github.com/yjwen/org-reveal
 (setq gnus-dired-mail-mode 'mu4e-user-agent)
 (add-hook 'dired-mode-hook 'turn-on-gnus-dired-mode)
 #+END_SRC
+** Python
+*** Set parser to work with python3
+The following re-defines the ~python-shell-parse-command~. 
+Currently, when I'm in a python file, and type ~C-c C-c~, I get the prompt "/usr/bin/python -i", which evaluate the file using python2.7. 
+
+#+BEGIN_SRC emacs-lisp
+(require 'python)
+(defun python-shell-parse-command ()
+  "Return the string used to execute the inferior Python process."
+  "python3 -i"
+  )
+#+END_SRC
 * Look and feel
 ** Themes
 *** Disable all other themes before enabling a new one. 
