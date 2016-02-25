@@ -1,4 +1,4 @@
-* Global configutation
+ Global configutation
 ** Key bindings
 #+BEGIN_SRC emacs-lisp
 ;(setq mac-command-modifier 'control)
@@ -156,8 +156,8 @@ http://jblevins.org/projects/deft/
 :config
 (setq deft-default-extension "org")
 (setq deft-extensions '("org" "txt" "text" "md" "markdown"))
-(setq deft-directory "~/Dropbox/Notes")
-(setq deft-archive-directory "~/Dropbox/Notes/archive") 
+(setq deft-directory "~/Dropbox/Notes/")
+(setq deft-archive-directory "~/Dropbox/Notes/archive/") 
 (setq deft-text-mode 'org-mode)
 (setq deft-use-filename-as-title t)
 (setq deft-use-filter-string-for-filename t)

@@ -12,6 +12,7 @@
 (add-to-list 'load-path "~/.emacs.d/lisp/org-mode/lisp")
 (add-to-list 'load-path "~/.emacs.d/lisp/org-reveal/")
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
+(add-to-list 'load-path "~/.emacs.d/lisp/markdown-mode")
 (setq load-path (cons "~/.emacs.d/lisp/org2blog/" load-path))
 
 
