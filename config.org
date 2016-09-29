@@ -1,4 +1,4 @@
- Global configutation
+* Global configutation
 ** Key bindings
 #+BEGIN_SRC emacs-lisp
 ;(setq mac-command-modifier 'control)
@@ -82,12 +82,10 @@ http://stackoverflow.com/questions/384284/how-do-i-rename-an-open-file-in-emacs
           (set-buffer-modified-p nil)
           (message "File '%s' successfully renamed to '%s'"
                    name (file-name-nondirectory new-name)))))))
-#+END_SRC
 
-*** Key bindings
-#+BEGIN_SRC emacs-lisp
+; Define the key-binding
 (global-set-key (kbd "C-x C-r") 'rename-current-buffer-file)
-#+END_SRC 
+#+END_SRC
 
 ** Comment or uncomment a line
 *** Reference
@@ -126,6 +124,16 @@ http://stackoverflow.com/questions/384284/how-do-i-rename-an-open-file-in-emacs
       (setq arg (if (plusp arg) (1- arg) (1+ arg))))))
 #+END_SRC
 
+** Show file name and path
+#+BEGIN_SRC emacs-lisp
+(defun show-file-name ()
+  "Show the full path file name in the minibuffer."
+  (interactive)
+  (message (buffer-file-name))
+  (kill-new (file-truename buffer-file-name))
+)
+(global-set-key "\C-cz" 'show-file-name)
+#+END_SRC
 * Packages
 ** El-get
 #+BEGIN_SRC emacs-lisp
@@ -320,29 +328,29 @@ This is an iA Writer alternative for Emacs. It's a gramaric syntax highlighter. 
 (use-package wordsmith-mode
 :ensure t)
 #+END_SRC
-*** Fronend developement
-**** HTML and CSS
-***** emmet
-  *****Package loading
-  #+BEGIN_SRC emacs-lisp
-  (use-package emmet-mode
-  :ensure t
-  :config
-  (add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
-  (add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
-  )
+** Fronend developement
+*** HTML and CSS
+**** emmet
+ *****Package loading
+ #+BEGIN_SRC emacs-lisp
+ (use-package emmet-mode
+ :ensure t
+ :config
+ (add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
+ (add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
+ )
 
-  #+END_SRC
+ #+END_SRC
 
-**** php
-  #+BEGIN_SRC emacs-lisp
-  (use-package php-mode
-  :ensure t)
-  #+END_SRC
+*** php
+ #+BEGIN_SRC emacs-lisp :tangle no
+ (use-package php-mode
+ :ensure t)
+ #+END_SRC
 * Modes
-** Ido
+** Ido`
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
 ;; Ido mode
 (require 'ido)
 (ido-mode 1)
@@ -708,32 +716,34 @@ I like the background color Xah uses in his screenshots, and he provided me with
 #+END_SRC
 * Inactive packages
 ** Helm
+#+BEGIN_SRC emacs-lisp
+(use-package helm
+  :diminish helm-mode
+  :init
+  (progn
+    (require 'helm-config)
+    (setq helm-candidate-number-limit 100)
+    ;; From https://gist.github.com/antifuchs/9238468
+    (setq helm-idle-delay 0.0 ; update fast sources immediately (doesn't).
+          helm-input-idle-delay 0.01  ; this actually updates things
+                                        ; reeeelatively quickly.
+          helm-yas-display-key-on-candidate t
+          helm-quick-update t
+          helm-M-x-requires-pattern nil
+          helm-ff-skip-boring-files t)
+    (helm-mode))
+  :bind (("C-c h" . helm-mini)
+         ("C-h a" . helm-apropos)
+         ("C-x C-b" . helm-buffers-list)
+         ("C-x b" . helm-buffers-list)
+         ("M-y" . helm-show-kill-ring)
+         ("M-x" . helm-M-x)
+         ("C-x c o" . helm-occur)
+         ("C-x c s" . helm-swoop)
+         ("C-x c SPC" . helm-all-mark-rings)))
+(ido-mode -1) ;; Turn off ido mode in case I enabled it accidentally
+#+END_SRC
 
- # #+BEGIN_SRC emacs-lisp
- # (require 'helm)
- # (require 'helm-config)
-
- # ;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
- # ;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
- # ;; cannot change `helm-command-prefix-key' once `helm-config' is loaded.
- # (global-set-key (kbd "C-c h") 'helm-command-prefix)
- # (global-unset-key (kbd "C-x c"))
-
- # (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to run persistent action
- # (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
- # ;(define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
-
- # (when (executable-find "curl")
- #   (setq helm-google-suggest-use-curl-p t))
-
- # (setq helm-split-window-in-side-p           t ; open helm buffer inside current window, not occupy whole other window
- #       helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
- #       helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
- #       helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
- #       helm-ff-file-name-history-use-recentf t)
-
- # (helm-mode 1)
- # #+END_SRC
 ** Undo tree mode - visualize your undos and branches
 *** Source
  Took this config from Sacha's config - http://pages.sachachua.com/.emacs.d/Sacha.html#orgheadline158

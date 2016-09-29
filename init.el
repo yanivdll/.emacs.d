@@ -39,6 +39,9 @@
     (("gnu" . "http://elpa.gnu.org/packages/")
      ("marmalade" . "http://marmalade-repo.org/packages/")
      ("melpa" . "https://melpa.org/packages/"))))
+ '(package-selected-packages
+   (quote
+    (helm workgroups2 wordsmith-mode web-mode w3 use-package synosaurus synonymous sublimity solarized-theme smooth-scrolling python-environment projectile php-mode ox-reveal org2blog multiple-cursors magit langtool iedit htmlize expand-region epc emmet-mode elpy draft-mode deft define-word cl-lib-highlight centered-window-mode centered-cursor-mode calfw-gcal calfw auto-complete ace-jump-mode)))
  '(require-final-newline nil)
  '(send-mail-function (quote smtpmail-send-it))
  '(show-paren-mode 1))
