@@ -253,7 +253,9 @@ http://auto-complete.org/doc/manual.html
 *** Load package
 #+BEGIN_SRC emacs-lisp
 (use-package magit
-:ensure t)
+:ensure t
+:init
+(global-set-key (kbd "C-x g") 'magit-status))
 #+END_SRC
 ** org2blog
 *** Loading package
