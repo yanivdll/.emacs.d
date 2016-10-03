@@ -1,4 +1,6 @@
 * Global configutation
+** Variables
+
 ** Key bindings
 #+BEGIN_SRC emacs-lisp
 ;(setq mac-command-modifier 'control)
@@ -19,6 +21,27 @@ Not sure what it is doing, but had it in the original init file, and don't think
 ;; fontify code in code blocks
 (setq org-src-fontify-natively t)
 #+END_SRC
+
+** Smooth scrolling
+#+BEGIN_SRC emacs-lisp
+(setq scroll-step 1)
+(setq scroll-conservatively 1000)
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))
+(setq mouse-wheel-progressive-speed nil)
+(setq mouse-wheel-follow-mouse t)
+#+END_SRC
+** Electric Pair Mode
+#+begin_src emacs-lisp :tangle yes
+(electric-pair-mode 1)
+;; make electric-pair-mode work on more brackets
+(setq electric-pair-pairs '(
+                            (?\" . ?\")
+			    (?\` . ?\`)
+			    (?\~ . ?\~)
+			    (?\( . ?\))
+                            (?\{ . ?\})
+                            ) )
+#+end_src
 
 * Funcions
 ** Load init.el
@@ -251,6 +274,7 @@ http://auto-complete.org/doc/manual.html
          :username "yaniv")))
 
 #+END_SRC
+
 * Writing aids
 ** Typewriter mode
 - If there are any problems with that mode, for example cursor move to a new line every so often, make sure that the following variables aren't set to true:
@@ -876,4 +900,23 @@ I've inactivated it because it caused to a wacky experience when scrolling down 
 :pin melpa
 :config
 (global-centered-cursor-mode +1))
+#+END_SRC
+
+
+** yasnippets
+#+BEGIN_SRC emacs-lisp
+(use-package yasnippet
+:ensure t
+:init
+(yas-global-mode 1))
+
+#+END_SRC
+** Abbrev
+#+BEGIN_SRC emacs-lisp
+;; Note that emacs chooses, by default, the filename
+;; "~/.abbrev_defs", so don't try to be too clever
+;; by changing its name
+(setq-default abbrev-mode t)
+(read-abbrev-file "~/.emacs.d/.abbrev_defs")
+(setq save-abbrevs t)
 #+END_SRC
