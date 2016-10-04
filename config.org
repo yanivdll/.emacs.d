@@ -1,6 +1,5 @@
 * Global configutation
 ** Variables
-
 ** Key bindings
 #+BEGIN_SRC emacs-lisp
 ;(setq mac-command-modifier 'control)
@@ -43,6 +42,12 @@ Not sure what it is doing, but had it in the original init file, and don't think
                             ) )
 #+end_src
 
+** Delete selection mode
+Act like a modern editor - when making a selection and then starting to type, the selected text will be deleted, and replaced by the new one being typed.
+
+#+begin_src emacs-lisp :tangle yes
+(delete-selection-mode 1)
+#+end_src
 * Funcions
 ** Load init.el
 #+BEGIN_SRC emacs-lisp
@@ -742,7 +747,7 @@ I like the background color Xah uses in his screenshots, and he provided me with
 #+END_SRC
 * Inactive packages
 ** Helm
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
 (use-package helm
   :diminish helm-mode
   :init
@@ -810,7 +815,7 @@ I like the background color Xah uses in his screenshots, and he provided me with
 - [[https://github.com/abo-abo/swiper][Git]]
 - [[https://www.youtube.com/watch?v%3DVvnJQpTFVDc][Video demo]]
 *** Load package
-#+BEGIN_SRC emacs-lisp :tangle no
+#+BEGIN_SRC emacs-lisp :tangle yes
 (use-package swiper
 :ensure t
 :init
