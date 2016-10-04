@@ -282,6 +282,39 @@ http://auto-complete.org/doc/manual.html
 
 #+END_SRC
 
+** Ivy-mode
+*** Reference
+- [[https://github.com/abo-abo/swiper/blob/master/doc/ivy.org][Manual]]
+- [[http://oremacs.com][Homepage]]
+- [[https://github.com/abo-abo/swiper][Git]]
+- [[https://www.youtube.com/watch?v%3DVvnJQpTFVDc][Video demo]]
+*** Load package
+#+BEGIN_SRC emacs-lisp :tangle yes
+(use-package swiper
+:ensure t
+:init
+(ivy-mode 1)
+(setq ivy-use-virtual-buffers t)
+(setq ivy-count-format "(%d/%d) "))
+#+END_SRC
+
+** yasnippets
+#+BEGIN_SRC emacs-lisp
+(use-package yasnippet
+:ensure t
+:init
+(yas-global-mode 1))
+
+#+END_SRC
+** Abbrev
+#+BEGIN_SRC emacs-lisp
+;; Note that emacs chooses, by default, the filename
+;; "~/.abbrev_defs", so don't try to be too clever
+;; by changing its name
+(setq-default abbrev-mode t)
+(read-abbrev-file "~/.emacs.d/.abbrev_defs")
+(setq save-abbrevs t)
+#+END_SRC
 * Writing aids
 ** Typewriter mode
 - If there are any problems with that mode, for example cursor move to a new line every so often, make sure that the following variables aren't set to true:
@@ -746,7 +779,7 @@ I like the background color Xah uses in his screenshots, and he provided me with
 
 #+END_SRC
 * Inactive packages
-** Helm
+** Helm (INACTIVE)
 #+BEGIN_SRC emacs-lisp :tangle no
 (use-package helm
   :diminish helm-mode
@@ -808,23 +841,6 @@ I like the background color Xah uses in his screenshots, and he provided me with
   (normal-top-level-add-subdirs-to-load-path))
 #+END_SRC
 
-** Ivy-mode
-*** Reference
-- [[https://github.com/abo-abo/swiper/blob/master/doc/ivy.org][Manual]]
-- [[http://oremacs.com][Homepage]]
-- [[https://github.com/abo-abo/swiper][Git]]
-- [[https://www.youtube.com/watch?v%3DVvnJQpTFVDc][Video demo]]
-*** Load package
-#+BEGIN_SRC emacs-lisp :tangle yes
-(use-package swiper
-:ensure t
-:init
-(ivy-mode 1)
-(setq ivy-use-virtual-buffers t)
-(setq ivy-count-format "(%d/%d) "))
-
-#+END_SRC
-
 ** Workgroups2
 *** Package loading
  #+BEGIN_SRC emacs-lisp :tangle no
@@ -848,7 +864,7 @@ I like the background color Xah uses in his screenshots, and he provided me with
  )
 
  #+END_SRC
-** Evil (inactive)
+** Evil (INACTIVE)
 *** Package loading
 
 #+BEGIN_SRC emacs-lisp :tangle no
@@ -892,23 +908,4 @@ I've inactivated it because it caused to a wacky experience when scrolling down 
 :pin melpa
 :config
 (global-centered-cursor-mode +1))
-#+END_SRC
-
-
-** yasnippets
-#+BEGIN_SRC emacs-lisp
-(use-package yasnippet
-:ensure t
-:init
-(yas-global-mode 1))
-
-#+END_SRC
-** Abbrev
-#+BEGIN_SRC emacs-lisp
-;; Note that emacs chooses, by default, the filename
-;; "~/.abbrev_defs", so don't try to be too clever
-;; by changing its name
-(setq-default abbrev-mode t)
-(read-abbrev-file "~/.emacs.d/.abbrev_defs")
-(setq save-abbrevs t)
 #+END_SRC
