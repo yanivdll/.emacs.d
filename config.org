@@ -2,6 +2,10 @@
 ** Variables
 #+begin_src emacs-lisp :tangle yes
 (setq default-fill-column 100)
+
+;; Don't litter my init file
+(setq custom-file "~/.emacs.d/local/custom-set.el")
+(load custom-file 'noerror)
 #+end_src
 ** Keep backup files in ~\~/.emacs.d/backup~
 (setq backup-directory-alist '(("." . "~/.emacs.d/backup"))
@@ -446,7 +450,6 @@ This is an iA Writer alternative for Emacs. It's a gramaric syntax highlighter. 
  (use-package php-mode
  :ensure t)
  #+END_SRC
-<<<<<<< HEAD
 ** MoveText
 Enables moving text around using ~M-up~ and ~M-down~, as possible in org-mode.
 *** Reference
@@ -478,8 +481,6 @@ Enables moving text around using ~M-up~ and ~M-down~, as possible in org-mode.
 :ensure t
 )
 #+end_src
-=======
->>>>>>> parent of da1a85d... Revert "added a package-list-installed-packages function"
 * Modes
 ** Ido`
 
