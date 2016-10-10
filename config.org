@@ -1,5 +1,16 @@
 * Global configutation
 ** Variables
+#+begin_src emacs-lisp :tangle yes
+(setq default-fill-column 100)
+#+end_src
+** Keep backup files in ~\~/.emacs.d/backup~
+(setq backup-directory-alist '(("." . "~/.emacs.d/backup"))
+  backup-by-copying t    ; Don't delink hardlinks
+  version-control t      ; Use version numbers on backups
+  delete-old-versions t  ; Automatically delete excess backups
+  kept-new-versions 20   ; how many of the newest versions to keep
+  kept-old-versions 5    ; and how many of the old
+  )
 ** Key bindings
 #+BEGIN_SRC emacs-lisp
 ;(setq mac-command-modifier 'control)
@@ -49,6 +60,24 @@ Act like a modern editor - when making a selection and then starting to type, th
 (delete-selection-mode 1)
 #+end_src
 * Funcions
+** package-list-installed-packages
+#+begin_src emacs-lisp :tangle yes
+
+(setq jpk-packages
+      (package-refresh-contents))
+
+
+(defun package-list-installed-packages ()
+  "Like `package-list-packages', but shows only the packages that
+  are installed and are not in `jpk-packages'.  Useful for
+  cleaning out unwanted packages."
+  (interactive)
+  (package-show-package-list
+   (remove-if-not (lambda (x) (and (not (memq x jpk-packages))
+                            (not (package-built-in-p x))
+                            (package-installed-p x)))
+                  (mapcar 'car package-archive-contents))))
+#+end_src
 ** Load init.el
 #+BEGIN_SRC emacs-lisp
 (global-set-key (kbd "<f5>") (lambda() (interactive)(load-file "~/.emacs.d/init.el")))
@@ -316,6 +345,12 @@ http://auto-complete.org/doc/manual.html
 (setq save-abbrevs t)
 #+END_SRC
 * Writing aids
+** Ispell
+ #+BEGIN_SRC emacs-lisp
+ ;; Add path to homebrew packages (that's where ispell installed)
+ (setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
+ (setq exec-path (append exec-path '("/usr/local/bin")))
+ #+END_SRC
 ** Typewriter mode
 - If there are any problems with that mode, for example cursor move to a new line every so often, make sure that the following variables aren't set to true:
 mode-require-final-newline
@@ -411,6 +446,7 @@ This is an iA Writer alternative for Emacs. It's a gramaric syntax highlighter. 
  (use-package php-mode
  :ensure t)
  #+END_SRC
+<<<<<<< HEAD
 ** MoveText
 Enables moving text around using ~M-up~ and ~M-down~, as possible in org-mode.
 *** Reference
@@ -422,6 +458,28 @@ Enables moving text around using ~M-up~ and ~M-down~, as possible in org-mode.
 :config
 (move-text-default-bindings))
 #+end_src
+** Visual Fill Column
+#+begin_src emacs-lisp :tangle yes
+(use-package visual-fill-column
+  :ensure t
+  :defer t
+  :bind (("C-c t v" . visual-fill-column-mode))
+  :init
+  (dolist (hook '(visual-line-mode-hook
+                  prog-mode-hook
+                  text-mode-hook))
+    (add-hook hook #'visual-fill-column-mode))
+  :config (setq-default visual-fill-column-center-text t
+                        visual-fill-column-fringes-outside-margins nil))
+#+end_src
+** Writeroom-mode
+#+begin_src emacs-lisp :tangle yes
+(use-package writeroom-mode
+:ensure t
+)
+#+end_src
+=======
+>>>>>>> parent of da1a85d... Revert "added a package-list-installed-packages function"
 * Modes
 ** Ido`
 
@@ -778,6 +836,9 @@ I like the background color Xah uses in his screenshots, and he provided me with
 
 #+END_SRC
 ** Expand-region
+*** Reference
+- [[https://github.com/magnars/expand-region.el][Github repository]]
+- [[http://emacsrocks.com/e09.html][Emacs rocks!]]
 *** Package loading
 #+BEGIN_SRC emacs-lisp
 (use-package expand-region
@@ -832,14 +893,6 @@ I like the background color Xah uses in his screenshots, and he provided me with
  ;    (setq undo-tree-visualizer-diff t)))
 
  #+END_SRC 
-** Ispell
-
- #+BEGIN_SRC emacs-lisp
- ;; Add path to homebrew packages (that's where ispell installed)
- (setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
- (setq exec-path (append exec-path '("/usr/local/bin")))
- #+END_SRC
-   
 ** Plugins
 
 #+BEGIN_SRC emacs-lisp :tangle no
@@ -849,29 +902,6 @@ I like the background color Xah uses in his screenshots, and he provided me with
   (normal-top-level-add-subdirs-to-load-path))
 #+END_SRC
 
-** Workgroups2
-*** Package loading
- #+BEGIN_SRC emacs-lisp :tangle no
- (use-package workgroups2
- :ensure t
- :init
- ;; Change prefix key (before activating WG)
- (setq wg-prefix-key (kbd "C-c z"))
-
- ;; Change workgroups session file
- (setq wg-session-file "~/.emacs.d/.emacs_workgroups")
-
- ;; Set your own keyboard shortcuts to reload/save/switch WGs:
- ;; "s" == "Super" or "Win"-key, "S" == Shift, "C" == Control
- (global-set-key (kbd "<pause>")     'wg-reload-session)
- (global-set-key (kbd "C-S-<pause>") 'wg-save-session)
- (global-set-key (kbd "s-.")         'wg-switch-to-workgroup)
- (global-set-key (kbd "s-/")         'wg-switch-to-previous-workgroup)
-
- (workgroups-mode 1) 
- )
-
- #+END_SRC
 ** Evil (INACTIVE)
 *** Package loading
 
@@ -905,7 +935,7 @@ I like the background color Xah uses in his screenshots, and he provided me with
 #+END_SRC
 
 **** TODO Load chord-keys to allow 'dd' to delete visual line
-** centered-cursor 
+** centered-cursor (INACTIVE)
 *** Reference
 - [[http://melpa.org/#/centered-cursor-mode][Melpa]]
 *** Package loading
