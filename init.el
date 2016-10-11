@@ -15,6 +15,9 @@
 (add-to-list 'load-path "~/.emacs.d/lisp/markdown-mode")
 (setq load-path (cons "~/.emacs.d/lisp/org2blog/" load-path))
 
+;; Don't litter my init file
+(setq custom-file "~/.emacs.d/local/custom-set.el")
+(load custom-file 'noerror)
 
 (require 'org2blog-autoloads)
 ;; Load the rest of the packages
