@@ -849,6 +849,25 @@ I like the background color Xah uses in his screenshots, and he provided me with
 (global-set-key (kbd "C-=") 'er/expand-region))
 
 #+END_SRC
+** Key chord
+#+begin_src emacs-lisp :tangle no
+  (use-package key-chord
+  :ensure t
+  :config
+  (key-chord-mode t)
+  (setq key-chord-two-keys-delay 0.3) ;;default 0.1
+  (key-chord-define-global "jj" 'forward-char)
+  (key-chord-define-global "hh" 'backward-char)
+  (key-chord-define-global "ff" 'forward-word)
+  (key-chord-define-global "bb" 'backward-word)
+  (key-chord-define-global "dw" 'kill-word)
+  (key-chord-define-global "dc" 'kill-char)
+  (key-chord-define-global "xx" 'execute-extended-command)
+  (key-chord-define-global "gg" 'keyboard-quit)
+  )
+
+
+#+end_src
 * Inactive packages
 ** Plugins
 
