@@ -371,6 +371,9 @@ http://auto-complete.org/doc/manual.html
 #+begin_src emacs-lisp :tangle yes
 (use-package boon
 :ensure t
+:init
+(require 'boon-qwerty)
+(boon-mode)
 )
 #+end_src
 * Writing aids
