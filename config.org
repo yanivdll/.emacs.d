@@ -367,6 +367,12 @@ http://auto-complete.org/doc/manual.html
 (global-undo-tree-mode)
 )
 #+end_src
+** Boon (command mode)
+#+begin_src emacs-lisp :tangle yes
+(use-package boon
+:ensure t
+)
+#+end_src
 * Writing aids
 ** Ispell
  #+BEGIN_SRC emacs-lisp
@@ -878,6 +884,14 @@ I like the background color Xah uses in his screenshots, and he provided me with
   )
 
 
+#+end_src
+** Powerline theme
+#+begin_src emacs-lisp :tangle yes
+(use-package powerline
+:ensure t
+:init
+(powerline-default-theme)
+)
 #+end_src
 * Inactive packages
 ** Plugins
