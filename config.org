@@ -373,6 +373,7 @@ http://auto-complete.org/doc/manual.html
 :ensure t
 :init
 (require 'boon-qwerty)
+:config
 (boon-mode)
 )
 #+end_src
