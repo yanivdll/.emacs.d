@@ -369,13 +369,15 @@ http://auto-complete.org/doc/manual.html
 #+end_src
 ** Boon (command mode)
 #+begin_src emacs-lisp :tangle yes
-(use-package boon
-:ensure t
-:init
-(require 'boon-qwerty)
-:config
-(boon-mode)
-)
+  (use-package boon
+  :ensure t
+  :init
+  (require 'boon-qwerty)
+  (require 'boon-powerline)
+  :config
+  (boon-mode)
+  )
+  (boon-powerline-theme)
 #+end_src
 * Writing aids
 ** Ispell
