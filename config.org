@@ -367,18 +367,6 @@ http://auto-complete.org/doc/manual.html
 (global-undo-tree-mode)
 )
 #+end_src
-** Boon (command mode)
-#+begin_src emacs-lisp :tangle yes
-  (use-package boon
-  :ensure t
-  :init
-  (require 'boon-qwerty)
-  (require 'boon-powerline)
-  :config
-  (boon-mode)
-  )
-  (boon-powerline-theme)
-#+end_src
 * Writing aids
 ** Ispell
  #+BEGIN_SRC emacs-lisp
@@ -954,3 +942,16 @@ I've inactivated it because it caused to a wacky experience when scrolling down 
 :config
 (global-centered-cursor-mode +1))
 #+END_SRC
+** Boon (command mode)
+#+begin_src emacs-lisp :tangle no
+  (use-package boon
+  :ensure t
+  :init
+  (require 'boon-qwerty)
+  (require 'boon-powerline)
+  :config
+  (boon-mode)
+  )
+  (boon-powerline-theme)
+#+end_src
+
