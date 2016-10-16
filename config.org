@@ -1,7 +1,7 @@
 * Global configutation
 ** Variables
 #+begin_src emacs-lisp :tangle yes
-  (setq default-fill-column 100)
+  (setq fill-column 100)
   (toggle-scrol-bar)
 #+end_src
 ** Keep backup files in ~\~/.emacs.d/backup~
@@ -778,6 +778,14 @@ I like the background color Xah uses in his screenshots, and he provided me with
  (setq myfont "Input")
  (set-face-attribute 'default nil :font myfont :height 144)
  #+END_SRC
+** Smart-line-mode
+#+begin_src emacs-lisp :tangle yes
+(use-package smart-mode-line
+:ensure t
+:init
+(sml/setup)
+)
+#+end_src
 * Internet Relay Chat
 
   IRC is a great way to hang out with other Emacs geeks.
@@ -854,14 +862,6 @@ I like the background color Xah uses in his screenshots, and he provided me with
 
 
 #+end_src
-** Powerline theme
-#+begin_src emacs-lisp :tangle yes
-(use-package powerline
-:ensure t
-:init
-(powerline-default-theme)
-)
-#+end_src
 * Inactive packages
 ** Plugins
 
@@ -923,10 +923,8 @@ I've inactivated it because it caused to a wacky experience when scrolling down 
   :ensure t
   :init
   (require 'boon-qwerty)
-  (require 'boon-powerline)
   :config
   (boon-mode)
   )
   (boon-powerline-theme)
 #+end_src
-
