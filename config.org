@@ -1,8 +1,8 @@
 * Global configutation
 ** Variables
 #+begin_src emacs-lisp :tangle yes
-(setq default-fill-column 100)
-
+  (setq default-fill-column 100)
+  (toggle-scrol-bar)
 #+end_src
 ** Keep backup files in ~\~/.emacs.d/backup~
 (setq backup-directory-alist '(("." . "~/.emacs.d/backup"))
