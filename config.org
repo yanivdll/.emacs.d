@@ -235,6 +235,8 @@ http://jblevins.org/projects/deft/
 #+BEGIN_SRC emacs-lisp
 
 (global-set-key [f8] 'deft); open Deft with F8
+(global-set-key (kbd "C-x C-g") 'deft-new-file)
+
 
 #+END_SRC
 
