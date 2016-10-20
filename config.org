@@ -2,7 +2,7 @@
 ** Variables
 #+begin_src emacs-lisp :tangle yes
   (setq fill-column 100)
-  (toggle-scrol-bar)
+  (scroll-bar-mode -1)
 #+end_src
 ** Keep backup files in ~\~/.emacs.d/backup~
 (setq backup-directory-alist '(("." . "~/.emacs.d/backup"))
@@ -266,21 +266,6 @@ http://jblevins.org/projects/deft/
 :ensure t
 :init
 (bind-key "C-c C-," 'ace-jump-mode))
-#+END_SRC
-** Auto complete
-*** Documentation
-**** Manual
-http://auto-complete.org/doc/manual.html
-**** Keybindings to remember
-- ~M-n~ and ~M-p~ to select
-- ~RET~ to complete
-- ~F1~ to open help in other buffer
-- ~C-s~ to filter the auto-complete options 
-*** Package loading
-#+BEGIN_SRC emacs-lisp
-(use-package auto-complete
-  :ensure t
-  :config (global-auto-complete-mode t))
 #+END_SRC
 ** Magit
 *** Documentation
@@ -817,20 +802,6 @@ I like the background color Xah uses in his screenshots, and he provided me with
  (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
  #+END_SRC
 
-** Languagetool
-*** Reference
-- [[https://github.com/mhayashi1120/Emacs-langtool][Languagetool for emacs]]
-- [[https://www.languagetool.org][Official site]]
-
-*** Package Loading
-#+BEGIN_SRC emacs-lisp
-(use-package langtool
-:ensure t
-:init
-(setq langtool-language-tool-jar "~/Downloads/LanguageTool-3.2/languagetool-commandline.jar")
-(setq langtool-default-language "en-US"))
-
-#+END_SRC
 ** Expand-region
 *** Reference
 - [[https://github.com/magnars/expand-region.el][Github repository]]
@@ -843,25 +814,7 @@ I like the background color Xah uses in his screenshots, and he provided me with
 (global-set-key (kbd "C-=") 'er/expand-region))
 
 #+END_SRC
-** Key chord
-#+begin_src emacs-lisp :tangle no
-  (use-package key-chord
-  :ensure t
-  :config
-  (key-chord-mode t)
-  (setq key-chord-two-keys-delay 0.3) ;;default 0.1
-  (key-chord-define-global "jj" 'forward-char)
-  (key-chord-define-global "hh" 'backward-char)
-  (key-chord-define-global "ff" 'forward-word)
-  (key-chord-define-global "bb" 'backward-word)
-  (key-chord-define-global "dw" 'kill-word)
-  (key-chord-define-global "dc" 'kill-char)
-  (key-chord-define-global "xx" 'execute-extended-command)
-  (key-chord-define-global "gg" 'keyboard-quit)
-  )
 
-
-#+end_src
 * Inactive packages
 ** Plugins
 
@@ -926,5 +879,18 @@ I've inactivated it because it caused to a wacky experience when scrolling down 
   :config
   (boon-mode)
   )
-  (boon-powerline-theme)
 #+end_src
+
+** Auto complete (INACTIVE)
+*** Keybindings
+- ~M-n~ and ~M-p~ to select
+- ~RET~ to complete
+- ~F1~ to open help in other buffer
+- ~C-s~ to filter the auto-complete options 
+*** Package loading
+#+BEGIN_SRC emacs-lisp :tangle no
+(use-package auto-complete
+  :ensure t
+  :config (global-auto-complete-mode t))
+#+END_SRC
+
