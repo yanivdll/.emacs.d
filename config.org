@@ -20,7 +20,7 @@
 (set-register ?r '(file . "~/Dropbox/Notes/posts/posts_drafts.org")) ;open with ~C-x r j r~
 (setq org-support-shift-select (quote always)) ;Non-nil means make shift-cursor commands select text when possible
 (define-key global-map [remap list-buffers] 'buffer-menu-other-window) ;this will move focus to the buffer list when doing ~C-x C-b~
-#+END_SRC 
+#+END_SRC
 
 #+RESULTS:
 : esc
@@ -46,12 +46,12 @@ Not sure what it is doing, but had it in the original init file, and don't think
 (electric-pair-mode 1)
 ;; make electric-pair-mode work on more brackets
 (setq electric-pair-pairs '(
-                            (?\" . ?\")
+			    (?\" . ?\")
 			    (?\` . ?\`)
 			    (?\~ . ?\~)
 			    (?\( . ?\))
-                            (?\{ . ?\})
-                            ) )
+			    (?\{ . ?\})
+			    ) )
 #+end_src
 
 ** Delete selection mode
@@ -75,9 +75,9 @@ Act like a modern editor - when making a selection and then starting to type, th
   (interactive)
   (package-show-package-list
    (remove-if-not (lambda (x) (and (not (memq x jpk-packages))
-                            (not (package-built-in-p x))
-                            (package-installed-p x)))
-                  (mapcar 'car package-archive-contents))))
+			    (not (package-built-in-p x))
+			    (package-installed-p x)))
+		  (mapcar 'car package-archive-contents))))
 #+end_src
 ** Load init.el
 #+BEGIN_SRC emacs-lisp
@@ -128,18 +128,18 @@ http://stackoverflow.com/questions/384284/how-do-i-rename-an-open-file-in-emacs
   "Renames current buffer and file it is visiting."
   (interactive)
   (let ((name (buffer-name))
-        (filename (buffer-file-name)))
+	(filename (buffer-file-name)))
     (if (not (and filename (file-exists-p filename)))
-        (error "Buffer '%s' is not visiting a file!" name)
+	(error "Buffer '%s' is not visiting a file!" name)
       (let ((new-name (read-file-name "New name: " filename)))
-        (if (get-buffer new-name)
-            (error "A buffer named '%s' already exists!" new-name)
-          (rename-file filename new-name 1)
-          (rename-buffer new-name)
-          (set-visited-file-name new-name)
-          (set-buffer-modified-p nil)
-          (message "File '%s' successfully renamed to '%s'"
-                   name (file-name-nondirectory new-name)))))))
+	(if (get-buffer new-name)
+	    (error "A buffer named '%s' already exists!" new-name)
+	  (rename-file filename new-name 1)
+	  (rename-buffer new-name)
+	  (set-visited-file-name new-name)
+	  (set-buffer-modified-p nil)
+	  (message "File '%s' successfully renamed to '%s'"
+		   name (file-name-nondirectory new-name)))))))
 
 ; Define the key-binding
 (global-set-key (kbd "C-x C-r") 'rename-current-buffer-file)
@@ -149,7 +149,7 @@ http://stackoverflow.com/questions/384284/how-do-i-rename-an-open-file-in-emacs
 *** Reference
 - [[http://stackoverflow.com/questions/9688748/emacs-comment-uncomment-current-line][Emacs comment/uncomment current line]] - there is also an option to add ~(next-line)~, so after commenting or uncommenting, the point move to the next line.
 - [[http://stackoverflow.com/questions/14905133/how-to-set-cmd-key-binding-in-emacs][How to set the command key]]
-  
+
 *** Code
 :CUSTOM_ID: comment-or-uncomment
 #+BEGIN_SRC emacs-lisp
@@ -157,10 +157,10 @@ http://stackoverflow.com/questions/384284/how-do-i-rename-an-open-file-in-emacs
     "Comments or uncomments the region or the current line if there's no active region."
     (interactive)
     (let (beg end)
-        (if (region-active-p)
-            (setq beg (region-beginning) end (region-end))
-            (setq beg (line-beginning-position) end (line-end-position)))
-        (comment-or-uncomment-region beg end)))
+	(if (region-active-p)
+	    (setq beg (region-beginning) end (region-end))
+	    (setq beg (line-beginning-position) end (line-end-position)))
+	(comment-or-uncomment-region beg end)))
 #+END_SRC
 *** Keybinding
 #+BEGIN_SRC emacs-lisp
@@ -175,10 +175,10 @@ http://stackoverflow.com/questions/384284/how-do-i-rename-an-open-file-in-emacs
   (let ((selector (if (>= arg 0) 'next-window 'previous-window)))
     (while (/= arg 0)
       (let ((this-win (window-buffer))
-            (next-win (window-buffer (funcall selector))))
-        (set-window-buffer (selected-window) next-win)
-        (set-window-buffer (funcall selector) this-win)
-        (select-window (funcall selector)))
+	    (next-win (window-buffer (funcall selector))))
+	(set-window-buffer (selected-window) next-win)
+	(set-window-buffer (funcall selector) this-win)
+	(select-window (funcall selector)))
       (setq arg (if (plusp arg) (1- arg) (1+ arg))))))
 #+END_SRC
 
@@ -212,7 +212,7 @@ http://stackoverflow.com/questions/384284/how-do-i-rename-an-open-file-in-emacs
 http://jblevins.org/projects/deft/
 
 *** Package loading
- 
+
 #+BEGIN_SRC emacs-lisp
 ;; Deft (this is an nvAlt like plugin)
 
@@ -223,7 +223,7 @@ http://jblevins.org/projects/deft/
 (setq deft-default-extension "org")
 (setq deft-extensions '("org" "txt" "text" "md" "markdown"))
 (setq deft-directory "~/Dropbox/Notes/")
-(setq deft-archive-directory "~/Dropbox/Notes/archive/") 
+(setq deft-archive-directory "~/Dropbox/Notes/archive/")
 (setq deft-text-mode 'org-mode)
 (setq deft-use-filename-as-title t)
 (setq deft-use-filter-string-for-filename t)
@@ -231,7 +231,7 @@ http://jblevins.org/projects/deft/
 )
 #+END_SRC
 *** Keybindings
-    
+
 #+BEGIN_SRC emacs-lisp
 
 (global-set-key [f8] 'deft); open Deft with F8
@@ -287,15 +287,15 @@ http://jblevins.org/projects/deft/
 
 (setq org2blog/wp-blog-alist
       '(("prodissues.com"
-         :url "http://prodissues.com/xmlrpc.php"
-         :username "yaniv"
-         :default-title "Hello World"
-         :default-categories ("org2blog" "emacs")
-         :tags-as-categories nil)
-        ("localhost"
-         :url "http://localhost:8888/xmlrpc.php"
+	 :url "http://prodissues.com/xmlrpc.php"
+	 :username "yaniv"
+	 :default-title "Hello World"
+	 :default-categories ("org2blog" "emacs")
+	 :tags-as-categories nil)
+	("localhost"
+	 :url "http://localhost:8888/xmlrpc.php"
 	 url: "localhost:8888/xmlrpc.php"
-         :username "yaniv")))
+	 :username "yaniv")))
 
 #+END_SRC
 
@@ -369,7 +369,7 @@ require-final-newline
  #+BEGIN_SRC emacs-lisp
  (use-package draft-mode
  :ensure t
-) 
+)
 #+END_SRC
 ** Dictionaries
 *** External dictionary
@@ -428,7 +428,7 @@ require-final-newline
  #+END_SRC
 
 ** wordsmith-mode
-This is an iA Writer alternative for Emacs. It's a gramaric syntax highlighter. I use it when writing anything that isn't code, to get an overview of the verbs, nouns and adjectives that I've used. 
+This is an iA Writer alternative for Emacs. It's a gramaric syntax highlighter. I use it when writing anything that isn't code, to get an overview of the verbs, nouns and adjectives that I've used.
 
 *** Reference
 - [[https://github.com/istib/wordsmith-mode][GitHub repository]]
@@ -475,11 +475,11 @@ Enables moving text around using ~M-up~ and ~M-down~, as possible in org-mode.
   :bind (("C-c t v" . visual-fill-column-mode))
   :init
   (dolist (hook '(visual-line-mode-hook
-                  prog-mode-hook
-                  text-mode-hook))
+		  prog-mode-hook
+		  text-mode-hook))
     (add-hook hook #'visual-fill-column-mode))
   :config (setq-default visual-fill-column-center-text t
-                        visual-fill-column-fringes-outside-margins nil))
+			visual-fill-column-fringes-outside-margins nil))
 #+end_src
 ** Writeroom-mode
 #+begin_src emacs-lisp :tangle yes
@@ -533,7 +533,7 @@ Need to tell babel which languages it should recognize
 #+END_SRC
 
 *** Refiling subtree to other file
-My usecase - I keep all my drafts in one big org file (available [[http://www.prodissues.com/posts_drafts/][here]]). What I want to be able to do is once finishing to write a post, move it with all its footnotes to a new file, that will turn out to be the post file that is then exported to and processed by Pelican. 
+My usecase - I keep all my drafts in one big org file (available [[http://www.prodissues.com/posts_drafts/][here]]). What I want to be able to do is once finishing to write a post, move it with all its footnotes to a new file, that will turn out to be the post file that is then exported to and processed by Pelican.
 
 **** Here's a function I [[http://emacs.stackexchange.com/questions/14788/org-mode-refile-to-other-files-does-not-work][found]], that claims to do just that:
 
@@ -544,7 +544,7 @@ My usecase - I keep all my drafts in one big org file (available [[http://www.pr
     ))
 #+END_SRC
 
-**** Here's another function 
+**** Here's another function
 Source - http://superuser.com/a/568300/525565
 This one works. The only problem is that it doesn't move the footnotes with the subtrees.
 
@@ -561,16 +561,16 @@ otherwise use the subtree title."
   (interactive "P")
   (org-back-to-heading)
   (let ((filename (cond
-                   (current-prefix-arg
-                    (expand-file-name
-                     (read-file-name "New file name: ")))
-                   (t
-                    (concat
-                     (expand-file-name
-                      (org-element-property :title
-                                            (org-element-at-point))
-                      default-directory)
-                     ".org")))))
+		   (current-prefix-arg
+		    (expand-file-name
+		     (read-file-name "New file name: ")))
+		   (t
+		    (concat
+		     (expand-file-name
+		      (org-element-property :title
+					    (org-element-at-point))
+		      default-directory)
+		     ".org")))))
     (org-cut-subtree)
     (find-file-noselect filename)
     (with-temp-file filename
@@ -593,7 +593,7 @@ https://github.com/yjwen/org-reveal
 
 ** Email
 *** Mu4e
-#+BEGIN_SRC emacs-lisp 
+#+BEGIN_SRC emacs-lisp
 ;; the exact path may differ -- check it
 (add-to-list 'load-path "/usr/local/Cellar/mu/mu4e")
 (setq mu4e-mu-binary (executable-find "/usr/local/Cellar/mu/mu/mu"))
@@ -692,7 +692,7 @@ https://github.com/yjwen/org-reveal
 #+END_SRC
 
 ;; enable attachments from dired
-#+BEGIN_SRC emacs-lisp 
+#+BEGIN_SRC emacs-lisp
 (require 'gnus-dired)
 ;; make the `gnus-dired-mail-buffers' function also work on
 ;; message-mode derived modes, such as mu4e-compose-mode
@@ -701,21 +701,37 @@ https://github.com/yjwen/org-reveal
   (let (buffers)
     (save-current-buffer
       (dolist (buffer (buffer-list t))
-        (set-buffer buffer)
-        (when (and (derived-mode-p 'message-mode)
-                (null message-sent-message-via))
-          (push (buffer-name buffer) buffers))))
+	(set-buffer buffer)
+	(when (and (derived-mode-p 'message-mode)
+		(null message-sent-message-via))
+	  (push (buffer-name buffer) buffers))))
     (nreverse buffers)))
 
 (setq gnus-dired-mail-mode 'mu4e-user-agent)
 (add-hook 'dired-mode-hook 'turn-on-gnus-dired-mode)
 #+END_SRC
 ** Python
-*** Set parser to work with python3
-The following re-defines the ~python-shell-parse-command~. 
-Currently, when I'm in a python file, and type ~C-c C-c~, I get the prompt "/usr/bin/python -i", which evaluate the file using python2.7. 
+*** Elpy
+#+begin_src emacs-lisp :tangle yes
+(add-to-list 'package-archives
+	     '("elpy" . "http://jorgenschaefer.github.io/packages/"))
+(package-initialize)
+(elpy-enable)
+(setq pyvenv-activate "/Users/ygilad/.pyenv/versions/")
+#+end_src
+*** Pyenv-mode
+I try to use it so I can have the pyenv working with elpy
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp :tangle yes
+  (use-package pyenv-mode
+  :ensure t
+  )
+#+end_src
+*** Set parser to work with python3 (INACTIVE)
+The following re-defines the ~python-shell-parse-command~.
+Currently, when I'm in a python file, and type ~C-c C-c~, I get the prompt "/usr/bin/python -i", which evaluate the file using python2.7.
+
+#+BEGIN_SRC emacs-lisp :tangle no
 (require 'python)
 (defun python-shell-parse-command ()
   "Return the string used to execute the inferior Python process."
@@ -724,7 +740,7 @@ Currently, when I'm in a python file, and type ~C-c C-c~, I get the prompt "/usr
 #+END_SRC
 * Look and feel
 ** Themes
-*** Disable all other themes before enabling a new one. 
+*** Disable all other themes before enabling a new one.
 This should help avoide unwanted inheritance between different themes, and the unexpected results of that.
 #+BEGIN_SRC emacs-lisp
  ;;; Disable all themes before loading a new one
@@ -738,7 +754,7 @@ https://github.com/bbatsov/solarized-emacs
 #+BEGIN_SRC emacs-lisp
 (use-package solarized-theme
 :ensure t
-:config 
+:config
 (load-theme 'solarized-light t)
 (setq solarized-scale-org-headlines nil))
 
@@ -782,11 +798,11 @@ I like the background color Xah uses in his screenshots, and he provided me with
       :config
       (setq erc-hide-list '("PART" "QUIT" "JOIN"))
       (setq erc-autojoin-channels-alist '(("freenode.net"
-                                           "#org-mode"
-                                           "#emacs"
-             "#emacs-beginners"))
-            erc-server "irc.freenode.net"
-            erc-nick "yanivg"))
+					   "#org-mode"
+					   "#emacs"
+	     "#emacs-beginners"))
+	    erc-server "irc.freenode.net"
+	    erc-nick "yanivg"))
   #+end_src
 
 * Temp
@@ -835,7 +851,7 @@ I like the background color Xah uses in his screenshots, and he provided me with
 
 (use-package evil
 ;:ensure t  ;I commented this out because it kept downloading it from elpa, where there is an old version
-:config 
+:config
 (evil-mode 1)
 )
 #+END_SRC
@@ -856,7 +872,7 @@ I like the background color Xah uses in his screenshots, and he provided me with
 (define-key evil-visual-state-map (kbd "0") 'evil-beginning-of-visual-line)
 
 ;When in deft this keybinding will open the note in another window
-(define-key evil-normal-state-map (kbd "C-o")'deft-open-file-other-window) 
+(define-key evil-normal-state-map (kbd "C-o")'deft-open-file-other-window)
 #+END_SRC
 
 **** TODO Load chord-keys to allow 'dd' to delete visual line
@@ -888,11 +904,10 @@ I've inactivated it because it caused to a wacky experience when scrolling down 
 - ~M-n~ and ~M-p~ to select
 - ~RET~ to complete
 - ~F1~ to open help in other buffer
-- ~C-s~ to filter the auto-complete options 
+- ~C-s~ to filter the auto-complete options
 *** Package loading
 #+BEGIN_SRC emacs-lisp :tangle no
 (use-package auto-complete
   :ensure t
   :config (global-auto-complete-mode t))
 #+END_SRC
-
