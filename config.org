@@ -797,17 +797,19 @@ I like the background color Xah uses in his screenshots, and he provided me with
  (set-face-attribute 'default nil :font myfont :height 144)
  #+END_SRC
 ** Smart-line-mode
-#+begin_src emacs-lisp :tangle yes
+
+#+BEGIN_SRC emacs-lisp :tangle yes
 (use-package smart-mode-line
 :ensure t
 :init
 (sml/setup)
 )
-#+end_s
+#+END_SRC
+
 * Internet Relay Chat
 
-  IRC is a great way to hang out with other Emacs geeks.
-  #+begin_src emacs-lisp
+IRC is a great way to hang out with other Emacs geeks.
+#+BEGIN_SRC emacs-lisp
     (use-package erc
       :ensure t :defer t
       :config
@@ -818,7 +820,7 @@ I like the background color Xah uses in his screenshots, and he provided me with
 	     "#emacs-beginners"))
 	    erc-server "irc.freenode.net"
 	    erc-nick "yanivg"))
-  #+end_src
+#+END_SRC
 
 * Temp
 ** Multiple cursors
