@@ -591,6 +591,12 @@ https://github.com/yjwen/org-reveal
 
 #+END_SRC
 
+*** Org-preview-html
+#+begin_src emacs-lisp :tangle yes
+(use-package org-preview-html
+:ensure t
+)
+#+end_src
 ** Email
 *** Mu4e
 #+BEGIN_SRC emacs-lisp
