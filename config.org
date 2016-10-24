@@ -718,21 +718,21 @@ https://github.com/yjwen/org-reveal
 #+END_SRC
 ** Python
 *** Elpy
-#+begin_src emacs-lisp :tangle yes
+#+BEGIN_SRC emacs-lisp :tangle yes
 (add-to-list 'package-archives
 	     '("elpy" . "http://jorgenschaefer.github.io/packages/"))
 (package-initialize)
 (elpy-enable)
 (setq pyvenv-activate "/Users/ygilad/.pyenv/versions/")
-#+end_src
+#+END_SRC
 *** Pyenv-mode
 I try to use it so I can have the pyenv working with elpy
 
-#+begin_src emacs-lisp :tangle yes
+#+BEGIN_SRC emacs-lisp :tangle yes
   (use-package pyenv-mode
   :ensure t
   )
-#+end_src
+#+END_SRC
 *** Set parser to work with python3 (INACTIVE)
 The following re-defines the ~python-shell-parse-command~.
 Currently, when I'm in a python file, and type ~C-c C-c~, I get the prompt "/usr/bin/python -i", which evaluate the file using python2.7.
@@ -753,21 +753,30 @@ This should help avoide unwanted inheritance between different themes, and the u
  (defadvice load-theme (before theme-dont-propagate activate)
   (mapc 'disable-theme custom-enabled-themes))
 #+END_SRC
-*** solarized-emacs (CURRENT)
+*** solarized-emacs (INACTIVE)
 **** Repo
 https://github.com/bbatsov/solarized-emacs
 **** Load theme
-#+BEGIN_SRC emacs-lisp
-(use-package solarized-theme
+#+BEGIN_SRC emacs-lisp :tangle no
+(use-package solarized-theme 
 :ensure t
-:config
+:init
 (load-theme 'solarized-light t)
 (setq solarized-scale-org-headlines nil))
-
 #+END_SRC
 *** Dichromacy (INACTIVE)
 #+BEGIN_SRC emacs-lisp :tangle no
 (load-theme 'dichromacy t)
+#+END_SRC
+*** Spacemacs (CURRENT)
+[[https://github.com/bbatsov/solarized-emacs][GitHub]]
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+(use-package spacemacs-theme
+:ensure t
+:init
+(load-theme 'spacemacs-light t)
+)
 #+END_SRC
 ** Colors
 *** Change the background color
@@ -794,7 +803,7 @@ I like the background color Xah uses in his screenshots, and he provided me with
 :init
 (sml/setup)
 )
-#+end_src
+#+end_s
 * Internet Relay Chat
 
   IRC is a great way to hang out with other Emacs geeks.

@@ -4,3 +4,4 @@
 #except config files
 !*.org
 !init.el
+.org-id-locations
