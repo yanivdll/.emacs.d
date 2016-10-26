@@ -1,0 +1,31 @@
+;;;; Emacs Bookmark Format Version 1 ;;;;
+;;; This format is meant to be slightly human-readable;
+;;; nevertheless, you probably don't want to edit it.
+;;; -*- End Of Bookmark File Format Version Stamp -*-
+(("org-refile-last-stored"
+ (filename . "~/Dropbox/Notes/Gabi's recommendations for restaurants.org")
+ (front-context-string . "** Fish\n - The P")
+ (rear-context-string . " Bondst\n- Haru\n\n")
+ (position . 155))
+("posts_drafts.org"
+ (filename . "~/Dropbox/Notes/archive/posts/posts_drafts.org")
+ (front-context-string . "#+BLOG: prodissu")
+ (rear-context-string)
+ (position . 1)
+ (annotation . ""))
+("config.org file"
+ (filename . "~/.emacs.d/config.org")
+ (front-context-string . "* Global configu")
+ (rear-context-string)
+ (position . 1))
+("init.el"
+ (filename . "~/.emacs.d/init.el")
+ (front-context-string . ";; set this so I")
+ (rear-context-string)
+ (position . 1))
+("org-capture-last-stored"
+ (filename . "~/Dropbox/Notes/inbox.org")
+ (front-context-string . "** TODO Answer D")
+ (rear-context-string . "*Tasks][Tasks]]\n")
+ (position . 784))
+)

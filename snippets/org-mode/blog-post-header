@@ -1,0 +1,18 @@
+# -*- mode: snippet -*-
+# name: Blog post header
+# key: head_
+# --
+#+TITLE:    $1
+#+AUTHOR:	Yaniv
+#+EMAIL:	yanivdll@gmail.com
+#+DATE:     2016-10-03$2
+#+URI:        
+#+STATUS:   draft
+#+KEYWORDS:   
+#+CATEGORY:   $3
+#+TAGS:		$4
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION:
+
+$0

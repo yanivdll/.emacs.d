@@ -1,8 +1,17 @@
-#ignore everything
-*
+# ignore everything
+/*
 
-#except config files
+# except config files
 !*.org
 !init.el
 !.gitignore
+
+# except bookmarks, yasnippets and abbrev
+!bookmarks
 !/snippets
+/snippets/*.*~
+!.abbrev_defs
+
+# except nots
+!notes
+
