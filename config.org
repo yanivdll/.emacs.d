@@ -5,6 +5,7 @@
   (scroll-bar-mode -1)
 #+end_src
 ** Keep backup files in ~\~/.emacs.d/backup~
+#+begin_src emacs-lisp :tangle yes
 (setq backup-directory-alist '(("." . "~/.emacs.d/backup"))
   backup-by-copying t    ; Don't delink hardlinks
   version-control t      ; Use version numbers on backups
@@ -12,6 +13,7 @@
   kept-new-versions 20   ; how many of the newest versions to keep
   kept-old-versions 5    ; and how many of the old
   )
+#+end_src
 ** Key bindings
 #+BEGIN_SRC emacs-lisp
 ;(setq mac-command-modifier 'control)
@@ -21,10 +23,6 @@
 (setq org-support-shift-select (quote always)) ;Non-nil means make shift-cursor commands select text when possible
 (define-key global-map [remap list-buffers] 'buffer-menu-other-window) ;this will move focus to the buffer list when doing ~C-x C-b~
 #+END_SRC
-
-#+RESULTS:
-: esc
-
 ** Fontify code blocks
 Not sure what it is doing, but had it in the original init file, and don't think it was implemented anywhere.
 
@@ -162,11 +160,6 @@ http://stackoverflow.com/questions/384284/how-do-i-rename-an-open-file-in-emacs
 	    (setq beg (line-beginning-position) end (line-end-position)))
 	(comment-or-uncomment-region beg end)))
 #+END_SRC
-*** Keybinding
-#+BEGIN_SRC emacs-lisp
-
-#+END_SRC
-
 ** Transpose buffer
 #+BEGIN_SRC emacs-lisp
 (defun transpose-buffers (arg)
@@ -748,7 +741,8 @@ Currently, when I'm in a python file, and type ~C-c C-c~, I get the prompt "/usr
 ** Themes
 *** Disable all other themes before enabling a new one.
 This should help avoide unwanted inheritance between different themes, and the unexpected results of that.
-#+BEGIN_SRC emacs-lisp
+
+#+BEGIN_SRC emacs-lisp :tangle no
  ;;; Disable all themes before loading a new one
  (defadvice load-theme (before theme-dont-propagate activate)
   (mapc 'disable-theme custom-enabled-themes))
@@ -928,3 +922,5 @@ I've inactivated it because it caused to a wacky experience when scrolling down 
   :ensure t
   :config (global-auto-complete-mode t))
 #+END_SRC
+
+
