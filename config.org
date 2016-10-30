@@ -522,7 +522,8 @@ Need to tell babel which languages it should recognize
    (ruby . t)
    (sqlite . t)
    (perl . t)
-   ))
+   (dot . t)
+))
 #+END_SRC
 
 *** Refiling subtree to other file
@@ -598,14 +599,13 @@ https://github.com/yjwen/org-reveal
 (setq mu4e-mu-binary (executable-find "/usr/local/Cellar/mu/mu/mu"))
 
 (require  'mu4e)
-(setq mu4e-maildir "~/Maildir")
 
 ;; default
-(setq mu4e-maildir "~/Maildir")
-(setq mu4e-drafts-folder "/[Gmail].Drafts")
-(setq mu4e-sent-folder   "/[Gmail].Sent Mail")
-(setq mu4e-trash-folder  "/[Gmail].Trash")
-(setq mu4e-refile-folder  "/[Gmail].All Mail")
+(setq mu4e-maildir (expand-file-name "/Users/ygilad/Maildir/gmail"))
+(setq mu4e-drafts-folder "/drafts")
+(setq mu4e-sent-folder   "/sent")
+(setq mu4e-trash-folder  "/trash")
+(setq mu4e-refile-folder  "/all")
 
 ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
 (setq mu4e-sent-messages-behavior 'delete)
@@ -620,14 +620,13 @@ https://github.com/yjwen/org-reveal
 ;; the 'All Mail' folder by pressing ``ma''.
 
 (setq mu4e-maildir-shortcuts
-    '( ("/INBOX"               . ?i)
-       ("/[Gmail].Sent Mail"   . ?s)
-       ("/[Gmail].Trash"       . ?t)
-       ("/[Gmail].All Mail"    . ?a)))
+    '( ("/gmail/inbox"               . ?i)
+       ("/gmail/sent"   . ?s)
+       ("/gmail/trash"       . ?t)
+       ("/gmail/all"    . ?a)))
 
 ;; allow for updating mail using 'U' in the main view:
-(setq mu4e-get-mail-command "offlineimap"
-      mu4e-update-interval 300)             ;; update every 5 minutes)
+(setq mu4e-get-mail-command "mbsync -a")             ;; update every 5 minutes)
 
 ;; something about ourselves
 (setq
@@ -726,6 +725,30 @@ I try to use it so I can have the pyenv working with elpy
   :ensure t
   )
 #+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(defun ssbb-pyenv-hook ()
+"Automatically activates pyenv version if .python-version file exists."
+(f-traverse-upwards
+(lambda (path)
+  (let ((pyenv-version-path (f-expand ".python-version" path)))
+    (if (f-exists? pyenv-version-path)
+	(pyenv-mode-set (s-trim (f-read-text pyenv-version-path 'utf-8))))))))
+
+(add-hook 'find-file-hook 'ssbb-pyenv-hook)
+
+; I'm using pyenv python so add shims path to exec-path
+(add-to-list 'exec-path "~/.pyenv/shims")
+
+(package-initialize)
+(elpy-enable)
+
+#+END_SRC
+
+#+RESULTS:
+| elpy-rpc--disconnect |
+| elpy-rpc--disconnect |
+
 *** Set parser to work with python3 (INACTIVE)
 The following re-defines the ~python-shell-parse-command~.
 Currently, when I'm in a python file, and type ~C-c C-c~, I get the prompt "/usr/bin/python -i", which evaluate the file using python2.7.
@@ -752,7 +775,7 @@ This should help avoide unwanted inheritance between different themes, and the u
 https://github.com/bbatsov/solarized-emacs
 **** Load theme
 #+BEGIN_SRC emacs-lisp :tangle no
-(use-package solarized-theme 
+(use-package solarized-theme
 :ensure t
 :init
 (load-theme 'solarized-light t)
@@ -922,5 +945,3 @@ I've inactivated it because it caused to a wacky experience when scrolling down 
   :ensure t
   :config (global-auto-complete-mode t))
 #+END_SRC
-
-
