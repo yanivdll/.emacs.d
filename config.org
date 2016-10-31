@@ -601,11 +601,11 @@ https://github.com/yjwen/org-reveal
 (require  'mu4e)
 
 ;; default
-(setq mu4e-maildir (expand-file-name "/Users/ygilad/Maildir/gmail"))
+(setq mu4e-maildir (expand-file-name "~/Maildir/gmail"))
 (setq mu4e-drafts-folder "/drafts")
-(setq mu4e-sent-folder   "/sent")
-(setq mu4e-trash-folder  "/trash")
-(setq mu4e-refile-folder  "/all")
+(setq mu4e-sent-folder "/sent")
+(setq mu4e-trash-folder "/trash")
+(setq mu4e-refile-folder "/all")
 
 ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
 (setq mu4e-sent-messages-behavior 'delete)
@@ -620,10 +620,11 @@ https://github.com/yjwen/org-reveal
 ;; the 'All Mail' folder by pressing ``ma''.
 
 (setq mu4e-maildir-shortcuts
-    '( ("/gmail/inbox"               . ?i)
-       ("/gmail/sent"   . ?s)
-       ("/gmail/trash"       . ?t)
-       ("/gmail/all"    . ?a)))
+      '( ("/gmail/inbox"               . ?i)
+         ("/gmail/sent"   . ?s)
+         ("/gmail/trash"       . ?t)
+	 ("/gmail/all"       . ?a)
+         ("/gmail/drafts"    . ?d)))
 
 ;; allow for updating mail using 'U' in the main view:
 (setq mu4e-get-mail-command "mbsync -a")             ;; update every 5 minutes)
