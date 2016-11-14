@@ -1,6 +1,6 @@
 * Global configutation
 ** Variables
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp :tangle no
   (setq-default fill-column 100)
   (scroll-bar-mode -1)
 #+end_src
@@ -200,6 +200,17 @@ http://stackoverflow.com/questions/384284/how-do-i-rename-an-open-file-in-emacs
 (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
 (el-get 'sync)
 #+END_SRC
+** Persistent sctratch
+Learned about this package here. In essence, it keeps the content of the scratch buffer accross sessions. This way I can put things in scratch without losing them.
+[[https://github.com/Fanael/persistent-scratch][Github repository]]
+
+#+begin_src emacs-lisp :tangle yes
+(use-package persistent-scratch
+:ensure t
+:config
+  (persistent-scratch-setup-default)
+)
+#+end_src
 ** Deft
 *** Reference
 http://jblevins.org/projects/deft/
@@ -805,19 +816,22 @@ I like the background color Xah uses in his screenshots, and he provided me with
 (set-background-color "honeydew")
 #+END_SRC
 ** Fonts
-*** Input fonts
-**** Reference
+*** Reference
+**** Input font
 - Learned about it first in [[https://blog.fugue.co/2015-11-11-guide-to-emacs.html][A CEO's Guide to Emacs]]
 - [[http://input.fontbureau.com/][Link to the input site]]
-**** Settings
- #+BEGIN_SRC emacs-lisp
- ;; set up fonts for different OS's
- (setq myfont "Input")
- (set-face-attribute 'default nil :font myfont :height 144)
- #+END_SRC
+*** Settings
+#+BEGIN_SRC emacs-lisp :tangle yes
+;; Define fonts
+;;(setq myfont "Input")
+(setq myfont "monospace")
+
+;; Implement the active font
+(set-face-attribute 'default nil :font myfont :height 144)
+#+END_SRC
 ** Smart-line-mode
 
-#+BEGIN_SRC emacs-lisp :tangle yes
+#+BEGIN_SRC emacs-lisp :tangle no
 (use-package smart-mode-line
 :ensure t
 :init
@@ -874,8 +888,10 @@ IRC is a great way to hang out with other Emacs geeks.
 
 #+begin_src emacs-lisp :tangle yes
 (use-package org-pomodoro
-:ensure t
-)
+  :ensure t
+  :commands (org-pomodoro)
+  :config
+    (setq alert-user-configuration (quote ((((:category . "org-pomodoro")) libnotify nil)))))
 #+end_src
 * Inactive packages
 ** Plugins

@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: pomodoro table
+# key: pomodoro_
+# --
+
+  | Area | Task | Expected pomodoro | Distructions |
+  |------+------+-------------------+--------------|
+  | $0   |      |                   |              |
+  |      |      |                   |              |

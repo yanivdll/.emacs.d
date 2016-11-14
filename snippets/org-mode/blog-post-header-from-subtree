@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: Blog post header from subtree
+# key: subhead_
+# --
+  :PROPERTIES:
+  :CATEGORY: emacs
+  :TAGS: $1
+  :ID:      
+  :POST_DATE:
+  :POSTID:   
+  :BLOG:     
+  :END:
+  $0

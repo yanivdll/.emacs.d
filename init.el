@@ -9,16 +9,20 @@
   (normal-top-level-add-subdirs-to-load-path))
 
 ;; Override the packages with the git version of Org
-(add-to-list 'load-path "~/.emacs.d/lisp/org-mode/lisp")
+;; (add-to-list 'load-path "~/.emacs.d/lisp/org-mode/lisp")
 (add-to-list 'load-path "~/.emacs.d/lisp/org-reveal/")
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
 (add-to-list 'load-path "~/.emacs.d/lisp/markdown-mode")
 (setq load-path (cons "~/.emacs.d/lisp/org2blog/" load-path))
 
+
+
 ;; Don't litter my init file
 (setq custom-file "~/.emacs.d/local/custom-set.el")
 (load custom-file 'noerror)
 
+;; load org related files
+;; (require 'org-loaddefs)
 (require 'org2blog-autoloads)
 ;; Load the rest of the packages
  (package-initialize nil)
@@ -29,6 +33,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+  ;; (setq-default fill-column 150)
+  (scroll-bar-mode -1)
  '(custom-safe-themes t)
  '(custom-theme-directory "~/.emacs.d/themes/")
  '(default-frame-alist (quote ((height . 80) (width . 70) (tool-bar-lines . 0))))
