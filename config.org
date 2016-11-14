@@ -801,7 +801,7 @@ https://github.com/bbatsov/solarized-emacs
 *** Spacemacs (CURRENT)
 [[https://github.com/bbatsov/solarized-emacs][GitHub]]
 
-#+BEGIN_SRC emacs-lisp :tangle yes
+#+BEGIN_SRC emacs-lisp :tangle no
 (use-package spacemacs-theme
 :ensure t
 :init

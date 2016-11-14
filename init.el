@@ -33,8 +33,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-  ;; (setq-default fill-column 150)
-  (scroll-bar-mode -1)
+ ;; (setq-default fill-column 120)
+ (scroll-bar-mode -1)
  '(custom-safe-themes t)
  '(custom-theme-directory "~/.emacs.d/themes/")
  '(default-frame-alist (quote ((height . 80) (width . 70) (tool-bar-lines . 0))))
