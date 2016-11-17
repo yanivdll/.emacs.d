@@ -25,7 +25,7 @@
 ;; (require 'org-loaddefs)
 (require 'org2blog-autoloads)
 ;; Load the rest of the packages
- (package-initialize nil)
+(package-initialize nil)
 
 (require 'package)
 (custom-set-variables
