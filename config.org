@@ -1,8 +1,8 @@
 * Global configutation
 ** Variables
 #+begin_src emacs-lisp :tangle no
-(setq-default fill-column 100)          
-(scroll-bar-mode -1)                   
+  (setq-default fill-column 100)
+  (scroll-bar-mode -1)
 #+end_src
 ** Keep backup files in ~\~/.emacs.d/backup~
 #+begin_src emacs-lisp :tangle yes
@@ -200,13 +200,6 @@ http://stackoverflow.com/questions/384284/how-do-i-rename-an-open-file-in-emacs
 (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
 (el-get 'sync)
 #+END_SRC
-** Exec-Path-From-Shell
-Get environment variables such as $PATH from the shell
-#+begin_src emacs-lisp :tangle yes
-(use-package exec-path-from-shell
-:ensure t
-)
-#+end_src
 ** Persistent sctratch
 Learned about this package here. In essence, it keeps the content of the scratch buffer accross sessions. This way I can put things in scratch without losing them.
 [[https://github.com/Fanael/persistent-scratch][Github repository]]
@@ -434,16 +427,10 @@ require-final-newline
 ** Latex
 
  This is a change based on [[https://tug.org/mactex/UpdatingForElCapitan.pdf][this article]] by Herbert Schulz - a change that was made in the new osx version (El Capitan).
- 
-#+BEGIN_SRC emacs-lisp
+ #+BEGIN_SRC emacs-lisp
  (setenv "PATH" "/usr/local/bin:/Library/TeX/texbin/:$PATH" t)
-#+END_SRC
-*** Latex preview pane
-#+begin_src emacs-lisp :tangle yes
-(use-package latex-preview-pane
-:ensure t
-)
-#+end_src
+ #+END_SRC
+
 ** wordsmith-mode
 This is an iA Writer alternative for Emacs. It's a gramaric syntax highlighter. I use it when writing anything that isn't code, to get an overview of the verbs, nouns and adjectives that I've used.
 
@@ -754,7 +741,7 @@ I try to use it so I can have the pyenv working with elpy
 
 #+BEGIN_SRC emacs-lisp
 (defun ssbb-pyenv-hook ()
-"AutomAtically activates pyenv version if .python-version file exists."
+"Automatically activates pyenv version if .python-version file exists."
 (f-traverse-upwards
 (lambda (path)
   (let ((pyenv-version-path (f-expand ".python-version" path)))
@@ -786,47 +773,21 @@ Currently, when I'm in a python file, and type ~C-c C-c~, I get the prompt "/usr
   "python3 -i"
   )
 #+END_SRC
-** Node.js
-#+begin_src emacs-lisp :tangle yes
-(use-package js2-mode
-:ensure t
-:config
-(add-hook 'js-mode-hook 'js2-minor-mode)
-)
-
-;; add it as the major mode for JS
-(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-
-;; auto-complete
-(add-to-list 'load-path "~/.emacs.d/elpa/auto-complete-20160827.649")
-; Load the default configuration
-(require 'auto-complete-config)
-; Make sure we can find the dictionaries
-(add-to-list 'ac-dictionary-directories "~/.emacs.d/elpa/auto-complete-20160827.64/dict")
-; Use dictionaries by default
-(setq-default ac-sources (add-to-list 'ac-sources 'ac-source-dictionary))
-(global-auto-complete-mode t)
-; Start auto-completion after 2 characters of a word
-(setq ac-auto-start 2)
-; case sensitivity is important when finding matches
-(setq ac-ignore-case nil)
-
-#+end_src
 * Look and feel
 ** Themes
 *** Disable all other themes before enabling a new one.
 This should help avoide unwanted inheritance between different themes, and the unexpected results of that.
 
-#+BEGIN_SRC emacs-lisp :tangle yes
+#+BEGIN_SRC emacs-lisp :tangle no
  ;;; Disable all themes before loading a new one
  (defadvice load-theme (before theme-dont-propagate activate)
   (mapc 'disable-theme custom-enabled-themes))
 #+END_SRC
-*** solarized-emacs (ACTIVE)
+*** solarized-emacs (INACTIVE)
 **** Repo
 https://github.com/bbatsov/solarized-emacs
 **** Load theme
-#+BEGIN_SRC emacs-lisp :tangle yes
+#+BEGIN_SRC emacs-lisp :tangle no
 (use-package solarized-theme
 :ensure t
 :init
@@ -837,10 +798,10 @@ https://github.com/bbatsov/solarized-emacs
 #+BEGIN_SRC emacs-lisp :tangle no
 (load-theme 'dichromacy t)
 #+END_SRC
-*** Spacemacs (INACTIVE)
+*** Spacemacs (CURRENT)
 [[https://github.com/bbatsov/solarized-emacs][GitHub]]
 
-#+BEGIN_SRC emacs-lisp :tangle no
+#+BEGIN_SRC emacs-lisp :tangle yes
 (use-package spacemacs-theme
 :ensure t
 :init
@@ -870,7 +831,7 @@ I like the background color Xah uses in his screenshots, and he provided me with
 #+END_SRC
 ** Smart-line-mode
 
-#+BEGIN_SRC emacs-lisp :tangle yes
+#+BEGIN_SRC emacs-lisp :tangle no
 (use-package smart-mode-line
 :ensure t
 :init
@@ -931,12 +892,6 @@ IRC is a great way to hang out with other Emacs geeks.
   :commands (org-pomodoro)
   :config
     (setq alert-user-configuration (quote ((((:category . "org-pomodoro")) libnotify nil)))))
-#+end_src
-** Sequence diagram
-#+begin_src emacs-lisp :tangle yes
-(use-package wsd-mode
-:ensure t
-)
 #+end_src
 * Inactive packages
 ** Plugins
