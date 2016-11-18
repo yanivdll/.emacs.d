@@ -485,7 +485,7 @@ Enables moving text around using ~M-up~ and ~M-down~, as possible in org-mode.
 (move-text-default-bindings))
 #+end_src
 ** Visual Fill Column
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp :tangle no
 (use-package visual-fill-column
   :ensure t
   :defer t
@@ -878,6 +878,14 @@ I like the background color Xah uses in his screenshots, and he provided me with
 )
 #+END_SRC
 
+** Display emojies
+#+begin_src emacs-lisp :tangle yes
+(use-package emojify
+:ensure t
+:init
+(add-hook 'after-init-hook #'global-emojify-mode)
+)
+#+end_src
 * Internet Relay Chat
 
 IRC is a great way to hang out with other Emacs geeks.
