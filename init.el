@@ -23,7 +23,7 @@
 
 ;; load org related files
 ;; (require 'org-loaddefs)
-(require 'org2blog-autoloads)
+;; (require 'org2blog-autoloads)
 ;; Load the rest of the packages
 (package-initialize nil)
 
@@ -75,4 +75,3 @@
 
 ;;; Load the org file and convert it into el that will add to this init file
 (org-babel-load-file (concat user-emacs-directory "config.org"))
-

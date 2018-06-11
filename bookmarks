@@ -2,11 +2,16 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("org-refile-last-stored"
- (filename . "~/Dropbox/Notes/Gabi's recommendations for restaurants.org")
- (front-context-string . "** Fish\n - The P")
- (rear-context-string . " Bondst\n- Haru\n\n")
- (position . 155))
+(("morning pages"
+ (filename . "~/Documents/Repositories/morning-pages/morning pages.txt")
+ (front-context-string . "06/07/2017\n\nwhat")
+ (rear-context-string)
+ (position . 1))
+("org-refile-last-stored"
+ (filename . "~/Dropbox/Notes/pomodoro.org")
+ (front-context-string . "*** Make a list ")
+ (rear-context-string . "rough the offer\n")
+ (position . 80))
 ("posts_drafts.org"
  (filename . "~/Dropbox/Notes/archive/posts/posts_drafts.org")
  (front-context-string . "#+BLOG: prodissu")

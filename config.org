@@ -231,11 +231,11 @@ http://jblevins.org/projects/deft/
 :ensure t
 :init
 :config
-(setq deft-default-extension "org")
-(setq deft-extensions '("org" "txt" "text" "md" "markdown"))
+(setq deft-default-extension "md")
+(setq deft-extensions '("org" "tlxt" "text" "md" "markdown"))
 (setq deft-directory "~/Dropbox/Notes/")
 (setq deft-archive-directory "~/Dropbox/Notes/archive/")
-(setq deft-text-mode 'org-mode)
+(setq deft-text-mode 'markdown-mode)
 (setq deft-use-filename-as-title t)
 (setq deft-use-filter-string-for-filename t)
 ;(setq deft-recursive t)  ;this will search also within sub-directories
@@ -431,19 +431,6 @@ require-final-newline
 (global-set-key (kbd "C-c D") 'define-word)
 
 #+END_SRC
-** Latex
-
- This is a change based on [[https://tug.org/mactex/UpdatingForElCapitan.pdf][this article]] by Herbert Schulz - a change that was made in the new osx version (El Capitan).
- 
-#+BEGIN_SRC emacs-lisp
- (setenv "PATH" "/usr/local/bin:/Library/TeX/texbin/:$PATH" t)
-#+END_SRC
-*** Latex preview pane
-#+begin_src emacs-lisp :tangle yes
-(use-package latex-preview-pane
-:ensure t
-)
-#+end_src
 ** wordsmith-mode
 This is an iA Writer alternative for Emacs. It's a gramaric syntax highlighter. I use it when writing anything that isn't code, to get an overview of the verbs, nouns and adjectives that I've used.
 
@@ -617,7 +604,7 @@ https://github.com/yjwen/org-reveal
 #+end_src
 ** Email
 *** Mu4e
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
 ;; the exact path may differ -- check it
 (add-to-list 'load-path "/usr/local/Cellar/mu/mu4e")
 (setq mu4e-mu-binary (executable-find "/usr/local/Cellar/mu/mu/mu"))
@@ -683,7 +670,7 @@ mu4e-update-interval 300)             ;; update every 5 minutes)
 
 **** Adding support for html emails
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
 ;; use Emac's 24.4 shr html renderer
 (require 'mu4e-contrib)
 (setq mu4e-html2text-command 'mu4e-shr2text)
@@ -698,7 +685,7 @@ mu4e-update-interval 300)             ;; update every 5 minutes)
 #+END_SRC
 
 **** Additional customizations
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
 ;; Set the number of messages to show on the header view, when in split view
 (setq mu4e-headers-visible-lines 12)
 
@@ -716,7 +703,7 @@ mu4e-update-interval 300)             ;; update every 5 minutes)
 #+END_SRC
 
 ;; enable attachments from dired
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
 (require 'gnus-dired)
 ;; make the `gnus-dired-mail-buffers' function also work on
 ;; message-mode derived modes, such as mu4e-compose-mode
@@ -840,12 +827,10 @@ https://github.com/bbatsov/solarized-emacs
 *** Spacemacs (INACTIVE)
 [[https://github.com/bbatsov/solarized-emacs][GitHub]]
 
-#+BEGIN_SRC emacs-lisp :tangle yes
-(use-package spacemacs-theme
-:ensure t
-:init
-(load-theme 'spacemacs-light t)
-)
+#+BEGIN_SRC emacs-lisp :tangle no
+(use-package spacemacs-common
+    :ensure spacemacs-theme
+    :config (load-theme 'spacemacs-light t))
 #+END_SRC
 ** Colors
 *** Change the background color
