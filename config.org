@@ -233,8 +233,8 @@ http://jblevins.org/projects/deft/
 :config
 (setq deft-default-extension "md")
 (setq deft-extensions '("org" "tlxt" "text" "md" "markdown"))
-(setq deft-directory "~/Dropbox/Notes/")
-(setq deft-archive-directory "~/Dropbox/Notes/archive/")
+(setq deft-directory "~/Documents/notes/")
+(setq deft-archive-directory "~/Documents/notes/archive/")
 (setq deft-text-mode 'markdown-mode)
 (setq deft-use-filename-as-title t)
 (setq deft-use-filter-string-for-filename t)
@@ -527,7 +527,7 @@ Need to tell babel which languages it should recognize
 (org-babel-do-load-languages
  'org-babel-load-languages
  '(
-   (sh . t)
+   (shell . t)
    (js . t)
    (python . t)
    (ruby . t)
@@ -726,7 +726,7 @@ mu4e-update-interval 300)             ;; update every 5 minutes)
 #+BEGIN_SRC emacs-lisp :tangle yes
 (add-to-list 'package-archives
 	     '("elpy" . "http://jorgenschaefer.github.io/packages/"))
-(package-initialize)
+;;(package-initialize)
 (elpy-enable)
 (setq pyvenv-activate "/Users/ygilad/.pyenv/versions/")
 #+END_SRC
@@ -753,8 +753,8 @@ I try to use it so I can have the pyenv working with elpy
 ; I'm using pyenv python so add shims path to exec-path
 (add-to-list 'exec-path "~/.pyenv/shims")
 
-(package-initialize)
-(elpy-enable)
+;;(package-initialize)
+;;(elpy-enable)
 
 #+END_SRC
 

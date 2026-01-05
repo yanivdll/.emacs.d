@@ -1,7 +1,32 @@
-;; set this so I can overide the preistalled packages
+; set this so I can overide the preistalled packages
 ;; and override them with different versions
 ;; for now, org is different than the preinstalled version
-(package-initialize nil)
+;;(package-initialize nil)
+
+;; Standard package setup
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+
+;; Initialize packages (Emacs 27+ does this automatically, but this ensures it's ready)
+(unless (bound-and-true-p package--initialized)
+  (package-initialize))
+
+;; Use built-in use-package (Emacs 29+) or install it if missing
+(if (< emacs-major-version 29)
+    (unless (package-installed-p 'use-package)
+      (package-refresh-contents)
+      (package-install 'use-package))
+  (require 'use-package))
+
+;; load elpy
+(use-package elpy
+  :ensure t
+  :init
+  (elpy-enable))
+
+;; Load support for :bind and :diminish
+(require 'bind-key)
+(setq use-package-always-ensure t)
 
 ;;; Path to the lisp directory, where user custom packages reside.
 ;;; Must have it here in order for the use-package to load
@@ -20,12 +45,6 @@
 ;; Don't litter my init file
 (setq custom-file "~/.emacs.d/local/custom-set.el")
 (load custom-file 'noerror)
-
-;; load org related files
-;; (require 'org-loaddefs)
-;; (require 'org2blog-autoloads)
-;; Load the rest of the packages
-(package-initialize nil)
 
 (require 'package)
 (custom-set-variables
@@ -46,10 +65,7 @@
  '(package-archives
    (quote
     (("gnu" . "http://elpa.gnu.org/packages/")
-     ("marmalade" . "http://marmalade-repo.org/packages/")
      ("melpa" . "https://melpa.org/packages/")))))
-
-(package-initialize)
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -58,20 +74,56 @@
  ;; If there is more than one, they won't work right.
  )
 
-;;; Bootstrap use-package
-;; Install use-package if it's not already installed.
-;; use-package is used to configure the rest of the packages.
-;(unless (package-installed-p 'use-package)
-;       (package-refresh-contents)
-;       (package-install 'use-package))
-
-
-;;; Load use-package
-(eval-when-compile
-  (require 'use-package))
-;(require 'diminish)                ;; if you use :diminish
-(require 'bind-key)                 ;; if you use any :bind variant
-
 
 ;;; Load the org file and convert it into el that will add to this init file
 (org-babel-load-file (concat user-emacs-directory "config.org"))
+;;; init.el --- Cleaned Startup File (2026)
+
+;; 1. Setup Custom File to keep init.el clean
+(setq custom-file (expand-file-name "local/custom-set.el" user-emacs-directory))
+(unless (file-exists-p custom-file)
+  (unless (file-exists-p (file-name-directory custom-file))
+    (make-directory (file-name-directory custom-file) t))
+  (with-temp-buffer (write-file custom-file)))
+(load custom-file 'noerror)
+
+;; 2. Package System Initialization
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "melpa.org") t)
+
+;; In Emacs 29.1+, use-package is built-in. 
+;; We set this to prevent the "setting-constant nil" bug
+(setq use-package-enable-imenu-support t)
+
+(if (< emacs-major-version 29)
+    (unless (package-installed-p 'use-package)
+      (package-refresh-contents)
+      (package-install 'use-package))
+  (require 'use-package))
+
+(require 'bind-key)
+(setq use-package-always-ensure t)
+
+;; 3. Load Paths (User Lisp)
+(let ((default-directory (expand-file-name "lisp/" user-emacs-directory)))
+  (when (file-directory-p default-directory)
+    (normal-top-level-add-subdirs-to-load-path)))
+
+;; Manual paths for specific git versions
+(add-to-list 'load-path (expand-file-name "lisp/org-reveal/" user-emacs-directory))
+(add-to-list 'load-path (expand-file-name "lisp/org2blog/" user-emacs-directory))
+(add-to-list 'load-path (expand-file-name "lisp/markdown-mode/" user-emacs-directory))
+
+;; 4. Essential Package Load (Load Elpy here so config.el sees it)
+(use-package elpy
+  :ensure t
+  :init
+  (elpy-enable))
+
+;; 5. Tangle and Load config.org
+;; This converts your config.org into config.el and loads it
+(if (file-exists-p (expand-file-name "config.org" user-emacs-directory))
+    (org-babel-load-file (expand-file-name "config.org" user-emacs-directory))
+  (message "Warning: config.org not found in .emacs.d"))
+
+;;; init.el ends here
