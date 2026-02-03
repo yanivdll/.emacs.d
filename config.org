@@ -225,21 +225,22 @@ http://jblevins.org/projects/deft/
 *** Package loading
 
 #+BEGIN_SRC emacs-lisp
-;; Deft (this is an nvAlt like plugin)
+  ;; Deft (this is an nvAlt like plugin)
 
-(use-package deft
-:ensure t
-:init
-:config
-(setq deft-default-extension "md")
-(setq deft-extensions '("org" "tlxt" "text" "md" "markdown"))
-(setq deft-directory "~/Documents/notes/")
-(setq deft-archive-directory "~/Documents/notes/archive/")
-(setq deft-text-mode 'markdown-mode)
-(setq deft-use-filename-as-title t)
-(setq deft-use-filter-string-for-filename t)
-;(setq deft-recursive t)  ;this will search also within sub-directories
-)
+  (use-package deft
+  :ensure t
+  :init
+  :config
+  (setq deft-default-extension "md")
+  (setq deft-extensions '("org" "tlxt" "text" "md" "markdown"))
+  (setq deft-directory "~/Documents/notes/")
+  (setq deft-recursive t)
+  (setq deft-archive-directory "~/Documents/notes/archive/")
+  (setq deft-text-mode 'markdown-mode)
+  (setq deft-use-filename-as-title t)
+  (setq deft-use-filter-string-for-filename t)
+  ;(setq deft-recursive t)  ;this will search also within sub-directories
+  )
 #+END_SRC
 *** Keybindings
 
